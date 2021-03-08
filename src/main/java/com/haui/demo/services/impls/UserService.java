@@ -5,6 +5,7 @@ import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.entities.Role;
 import com.haui.demo.models.entities.User;
 import com.haui.demo.models.entities.Ward;
+import com.haui.demo.models.requests.AccountUpdateRq;
 import com.haui.demo.models.requests.AdminRq;
 import com.haui.demo.models.requests.Login;
 import com.haui.demo.models.requests.SignupRq;
@@ -123,6 +124,22 @@ public class UserService implements IUserService {
 
         SignupRp signupRp = mapper.map(user);
 
+        return Response.ok(signupRp);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> update(HttpServletRequest request, AccountUpdateRq accountUpdateRq) {
+
+        User user = jwtUser.getUser(request);
+
+        Ward ward = wardRepository.findById(accountUpdateRq.getWard()).orElse(null);
+        if (Objects.isNull(ward)) {
+            return Response.badRequest(StringResponse.WARD_IS_FAKE);
+        }
+
+        mapper.map(user, accountUpdateRq);
+        userRepository.save(user);
+        SignupRp signupRp = mapper.map(user);
         return Response.ok(signupRp);
     }
 }

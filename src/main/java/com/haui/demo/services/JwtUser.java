@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.haui.demo.models.bos.UserJwt;
 import com.haui.demo.models.entities.User;
+import com.haui.demo.repositories.UserRepository;
 import com.haui.demo.utils.Global;
 import com.haui.demo.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ import java.util.Date;
 public class JwtUser extends JwtService {
     private final Algorithm algorithm;
     private final JWTVerifier jwtVerifier;
-
+    @Autowired
+    private UserRepository userRepository;
 
     // Hour
     @Value("${app.jwt.ttl}")
@@ -137,7 +139,14 @@ public class JwtUser extends JwtService {
 
         return credentialJwt.getId();
     }
+    public User getUser(HttpServletRequest request) {
+        UserJwt credentialJwt = (UserJwt) getClaims(request);
 
+        if (credentialJwt == null)
+            return null;
+
+        return userRepository.findById(credentialJwt.getId()).orElse(null);
+    }
     public String generateJWT(UserJwt accountJwt) {
         String token = JWT.create()
                 .withIssuedAt(Date.from(Instant.now()))

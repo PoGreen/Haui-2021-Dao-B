@@ -1,16 +1,14 @@
 package com.haui.demo.controllers;
 
 import com.haui.demo.models.bos.SystemResponse;
+import com.haui.demo.models.requests.AccountUpdateRq;
 import com.haui.demo.models.requests.AdminRq;
 import com.haui.demo.models.requests.Login;
 import com.haui.demo.models.requests.SignupRq;
 import com.haui.demo.services.IUserService;
 import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,5 +33,10 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<SystemResponse<Object>> create(HttpServletRequest request, @RequestBody AdminRq adminRq) {
         return service.create(request, adminRq);
+    }
+
+    @PutMapping("/users")
+    public ResponseEntity<SystemResponse<Object>> update(HttpServletRequest request, @RequestBody AccountUpdateRq accountUpdateRq) {
+        return service.update(request,accountUpdateRq);
     }
 }
