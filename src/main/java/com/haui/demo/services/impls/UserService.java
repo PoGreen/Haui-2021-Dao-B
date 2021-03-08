@@ -5,6 +5,7 @@ import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.entities.Role;
 import com.haui.demo.models.entities.User;
 import com.haui.demo.models.entities.Ward;
+import com.haui.demo.models.requests.AdminRq;
 import com.haui.demo.models.requests.Login;
 import com.haui.demo.models.requests.SignupRq;
 import com.haui.demo.models.responses.SignupRp;
@@ -88,6 +89,34 @@ public class UserService implements IUserService {
         User user = mapper.map(signupRq, signupRq.getWard());
 
         Role role = roleRepository.findByRoleName(Global.ROLE_USER);
+        user.setRole(role.getId());
+        user.setStatus(Global.ACTIVE);
+        userRepository.save(user);
+
+        SignupRp signupRp = mapper.map(user);
+
+        return Response.ok(signupRp);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> create(HttpServletRequest request, AdminRq adminRq) {
+
+        ResponseEntity<SystemResponse<Object>> validateUserName = existByUserName(adminRq.getUserName());
+        if (!validateUserName.getStatusCode().is2xxSuccessful()) {
+            return validateUserName;
+        }
+
+        Ward ward = wardRepository.findById(adminRq.getWard()).orElse(null);
+        if (Objects.isNull(ward)) {
+            return Response.badRequest(StringResponse.WARD_IS_FAKE);
+        }
+
+
+        User user = mapper.map(adminRq, adminRq.getWard());
+        Role role = roleRepository.findById(adminRq.getRole()).orElse(null);
+        if (Objects.isNull(role)) {
+            return Response.badRequest(StringResponse.ROLE_IS_FAKE);
+        }
         user.setRole(role.getId());
         user.setStatus(Global.ACTIVE);
         userRepository.save(user);

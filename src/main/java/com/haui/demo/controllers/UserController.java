@@ -1,6 +1,7 @@
 package com.haui.demo.controllers;
 
 import com.haui.demo.models.bos.SystemResponse;
+import com.haui.demo.models.requests.AdminRq;
 import com.haui.demo.models.requests.Login;
 import com.haui.demo.models.requests.SignupRq;
 import com.haui.demo.services.IUserService;
@@ -30,5 +31,9 @@ public class UserController {
     @PostMapping("/users/signup")
     public ResponseEntity<SystemResponse<Object>> signup(@RequestBody SignupRq signupRq) {
         return service.signup(signupRq);
+    }
+    @PostMapping("/users")
+    public ResponseEntity<SystemResponse<Object>> create(HttpServletRequest request, @RequestBody AdminRq adminRq) {
+        return service.create(request, adminRq);
     }
 }
