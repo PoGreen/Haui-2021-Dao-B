@@ -27,8 +27,10 @@ public class Global {
     public static final Integer NOACTIVE = 0;
     public static final Integer WAIT = 2;
 
+    public static final String ROLE_USER = "USER";
     public static Logger logger;
     public static UCharacterProperty errorTypeRef;
+
 
     static {
         gson = new Gson();

@@ -19,7 +19,10 @@ public interface StringResponse {
     String IMAGES_ENOUGH = "images upload are not enough to update profile";
     String QUESTION_ENOUGH = "questions is not enough to update profile";
     String USER_ID_FAKE = "user id is fake";
-
+    String USER_NAME_IS_EXIST = "username is exists";
     String INVALID_MULTIPART_FILES = "invalid multipart file !";
+
+    //location
+    String WARD_IS_FAKE = "ward is fake";
 
 }

@@ -5,7 +5,9 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.entities.User;
+import com.haui.demo.models.requests.SignupRq;
 import com.haui.demo.models.requests.UserRequest;
+import com.haui.demo.models.responses.SignupRp;
 import com.haui.demo.models.responses.UserLoginResponse;
 import com.haui.demo.repositories.UserRepository;
 import com.haui.demo.services.impls.FirebaseService;
@@ -53,5 +55,26 @@ public class UserMapper {
         User userExist = null;
         return new UserLoginResponse(userExist, accessToken);
     }
+    public User map(SignupRq signupRq, Integer ward){
+        User user = new User();
+        user.setUserName(signupRq.getUserName());
+        user.setPassword(signupRq.getPassword());
+        user.setPhone(signupRq.getPhone());
+        user.setAddress(signupRq.getAddress());
+        user.setFullName(signupRq.getFullName());
+        user.setEmail(signupRq.getEmail());
+        user.setWard(ward);
 
+        return user;
+    }
+
+    public SignupRp map(User user){
+
+        SignupRp signupRp = new SignupRp();
+        signupRp.setUserName(user.getUserName());
+        signupRp.setPassword(user.getPassword());
+        signupRp.setId(user.getId());
+
+        return signupRp;
+    }
 }
