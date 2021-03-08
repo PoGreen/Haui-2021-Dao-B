@@ -18,7 +18,10 @@ public interface IUserService {
     ResponseEntity<SystemResponse<Object>> existByUserName(String userName);
 
     ResponseEntity<SystemResponse<Object>> signup(SignupRq signupRq);
+
     ResponseEntity<SystemResponse<Object>> create(HttpServletRequest request, AdminRq adminRq);
 
     ResponseEntity<SystemResponse<Object>> update(HttpServletRequest request, AccountUpdateRq accountUpdateRq);
+
+    ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request);
 }

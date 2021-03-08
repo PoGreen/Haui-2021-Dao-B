@@ -9,6 +9,7 @@ import com.haui.demo.models.requests.AccountUpdateRq;
 import com.haui.demo.models.requests.AdminRq;
 import com.haui.demo.models.requests.SignupRq;
 import com.haui.demo.models.requests.UserRequest;
+import com.haui.demo.models.responses.UserRp;
 import com.haui.demo.models.responses.SignupRp;
 import com.haui.demo.models.responses.UserLoginResponse;
 import com.haui.demo.repositories.UserRepository;
@@ -103,5 +104,16 @@ public class UserMapper {
         signupRp.setId(user.getId());
 
         return signupRp;
+    }
+
+    public UserRp mapRp(User user){
+        UserRp userRp = new UserRp();
+        userRp.setUserName(user.getUserName());
+        userRp.setFullName(user.getFullName());
+        userRp.setAddress(user.getPassword());
+        userRp.setPhone(user.getPhone());
+        userRp.setEmail(user.getEmail());
+        userRp.setWard(user.getWard());
+        return userRp;
     }
 }

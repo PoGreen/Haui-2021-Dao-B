@@ -39,4 +39,9 @@ public class UserController {
     public ResponseEntity<SystemResponse<Object>> update(HttpServletRequest request, @RequestBody AccountUpdateRq accountUpdateRq) {
         return service.update(request,accountUpdateRq);
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request) {
+        return service.getOne(request);
+    }
 }

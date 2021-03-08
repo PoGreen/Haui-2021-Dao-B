@@ -11,6 +11,7 @@ import com.haui.demo.models.requests.Login;
 import com.haui.demo.models.requests.SignupRq;
 import com.haui.demo.models.responses.SignupRp;
 import com.haui.demo.models.responses.UserLoginResponse;
+import com.haui.demo.models.responses.UserRp;
 import com.haui.demo.repositories.RoleRepository;
 import com.haui.demo.repositories.UserRepository;
 import com.haui.demo.repositories.WardRepository;
@@ -132,6 +133,10 @@ public class UserService implements IUserService {
 
         User user = jwtUser.getUser(request);
 
+        if(Objects.isNull(user)){
+            return Response.badRequest(StringResponse.USER_ID_FAKE);
+        }
+
         Ward ward = wardRepository.findById(accountUpdateRq.getWard()).orElse(null);
         if (Objects.isNull(ward)) {
             return Response.badRequest(StringResponse.WARD_IS_FAKE);
@@ -141,5 +146,15 @@ public class UserService implements IUserService {
         userRepository.save(user);
         SignupRp signupRp = mapper.map(user);
         return Response.ok(signupRp);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request) {
+        User user = jwtUser.getUser(request);
+        if(Objects.isNull(user)){
+            return Response.badRequest(StringResponse.USER_ID_FAKE);
+        }
+        UserRp userRp = mapper.mapRp(user);
+        return Response.ok(userRp);
     }
 }
