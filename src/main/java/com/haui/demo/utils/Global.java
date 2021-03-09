@@ -31,6 +31,10 @@ public class Global {
     public static Logger logger;
     public static UCharacterProperty errorTypeRef;
 
+    public static  final String  PATH_FILE_IMAGE = "/home/green/Data/Haui/B-Image/";
+    public static final String DOMAIN_PATH_FILE_IMAGE="http://localhost:8888/";
+    public static final String BUILDINGS = "building";
+    public static final String NEWS = "news";
 
     static {
         gson = new Gson();

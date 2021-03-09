@@ -30,4 +30,7 @@ public interface StringResponse {
 
     String ID_IS_FAKE= "ID is FAKE";
     String STATUS_IS_FAKE= "ID is FAKE";
+
+    String FILE_IS_NOT_IMAGE = "file is not image";
+    String FILE_IS_NOT_EXISTS = "file is not exists";
 }

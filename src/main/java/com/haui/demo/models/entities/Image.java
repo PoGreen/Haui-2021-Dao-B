@@ -12,9 +12,6 @@ public class Image extends AbsEntity {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "url")
-    private String url;
-
     @Column(name = "buildings")
     private String building;
 
@@ -35,14 +32,6 @@ public class Image extends AbsEntity {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getBuilding() {
