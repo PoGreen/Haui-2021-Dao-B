@@ -25,6 +25,9 @@ public interface StringResponse {
     //location
     String WARD_IS_FAKE = "ward is fake";
     String ROLE_IS_FAKE = "role is fake";
+    // locations
+    String PROVINCE_IS_FAKE = "province is fake";
+    String DISTRICT_IS_FAKE = "district is fake";
 
     String NAME_IS_EXIST= "name is exists";
 
