@@ -26,6 +26,12 @@ public abstract class AbsEntity {
     @Column
     private Integer status;
 
+    @Column
+    private String created_by;
+
+    @Column
+    private String updated_by;
+
     @PrePersist()
     public void onCreate() {
         id = Utils.generateUUID();
@@ -68,5 +74,21 @@ public abstract class AbsEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
+    }
+
+    public String getUpdated_by() {
+        return updated_by;
+    }
+
+    public void setUpdated_by(String updated_by) {
+        this.updated_by = updated_by;
     }
 }
