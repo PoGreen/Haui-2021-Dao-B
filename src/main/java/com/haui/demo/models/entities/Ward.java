@@ -43,4 +43,11 @@ public class Ward {
         this.prefix = prefix;
     }
 
+    public Integer getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(Integer district) {
+        this.district = district;
+    }
 }
