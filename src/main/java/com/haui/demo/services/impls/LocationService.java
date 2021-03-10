@@ -40,15 +40,18 @@ public class LocationService implements ILocationService {
     public ResponseEntity<SystemResponse<Object>> getAllProvinces() {
         List<Province> provinces = provinceRepository.findAll();
         List<ProvinceRp> provinceRps = locationMapper.mapToProvinceRps(provinces);
+
         Map<String, Object> result = new HashMap<>();
         result.put(Global.PROVINCES, provinceRps);
+
         return Response.ok(result);
     }
 
     @Override
     public ResponseEntity<SystemResponse<Object>> getDistrictsByProvince(int provinceId) {
         Province province = provinceRepository.findById(provinceId).orElse(null);
-        if (Objects.isNull(province)) {
+
+        if(Objects.isNull(province)){
             return Response.badRequest(StringResponse.PROVINCE_IS_FAKE);
         }
         List<District> districts = districtRepository.findByProvince(provinceId);
@@ -61,13 +64,15 @@ public class LocationService implements ILocationService {
     @Override
     public ResponseEntity<SystemResponse<Object>> getWardsByDistrict(int districtId) {
         District district = districtRepository.findById(districtId).orElse(null);
-        if (Objects.isNull(district)) {
+
+        if(Objects.isNull(district)){
             return Response.badRequest(StringResponse.DISTRICT_IS_FAKE);
         }
         List<Ward> wards = wardRepository.findByDistrict(districtId);
         List<WardRp> wardRps = locationMapper.mapToWardRps(wards);
-        Map<String, Object> result = new HashMap<>();
-        result.put(Global.WARDS, wardRps);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put(Global.WARDS,wardRps);
         return Response.ok(result);
     }
 
