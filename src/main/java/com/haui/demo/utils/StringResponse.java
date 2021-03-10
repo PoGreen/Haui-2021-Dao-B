@@ -25,6 +25,9 @@ public interface StringResponse {
     //location
     String WARD_IS_FAKE = "ward is fake";
     String ROLE_IS_FAKE = "role is fake";
+    // locations
+    String PROVINCE_IS_FAKE = "province is fake";
+    String DISTRICT_IS_FAKE = "district is fake";
 
     String NAME_IS_EXIST= "name is exists";
 
@@ -33,4 +36,8 @@ public interface StringResponse {
 
     String FILE_IS_NOT_IMAGE = "file is not image";
     String FILE_IS_NOT_EXISTS = "file is not exists";
+
+    String BUILDING_CATEGORY_IS_FAKE = "building category is fake";
+    String BUILDING_IS_FAKE = "building is fake";
+    String USER_HAS_NOT_IT = "user does not has it";
 }

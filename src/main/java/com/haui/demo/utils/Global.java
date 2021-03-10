@@ -36,6 +36,10 @@ public class Global {
     public static final String BUILDINGS = "building";
     public static final String NEWS = "news";
 
+    public static final String PROVINCES = "provinces";
+    public static final String DISTRICTS = "districts";
+    public static final String WARDS = "wards";
+
     static {
         gson = new Gson();
         objectMapper = new ObjectMapper();

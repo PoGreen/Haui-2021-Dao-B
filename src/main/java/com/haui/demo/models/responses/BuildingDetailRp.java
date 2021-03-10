@@ -1,82 +1,64 @@
-package com.haui.demo.models.entities;
+package com.haui.demo.models.responses;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 
+public class BuildingDetailRp {
 
-@Entity(name = "buildings")
-public class Building extends AbsEntity {
-    @Column(name = "name")
+    private String id;
+
     private String name;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "car_pard")
     private Integer carPark;
 
-    @Column(name = "moto_park")
     private Integer motoPark;
-
-    @Column(name = "floor_area")
+    
     private Integer floorArea;
 
-    @Column(name = "home_frontage")
     private Integer homeFrontage;
-
-    @Column(name = "number_floor")
+    
     private Integer numberFloor;
 
-    @Column(name = "bedroom")
     private Integer bedroom;
-
-    @Column(name = "function_room")
+    
     private Integer functionRoom;
 
-    @Column(name = "altar_room")
     private Integer altarRoom;
-
-    @Column(name = "price")
+    
     private Integer price;
-
-    @Column(name = "campus_area")
+    
     private Integer campusArea;
 
-    @Column(name = "direction")
     private String direction;
 
-    @Column(name = "map")
     private String map;
 
-    @Column(name = "electricity_price")
     private Integer electricityPrice;
 
-    @Column(name = "frequence")
     private Integer frequence;
-
-    @Column(name = "water_price")
+    
     private Integer waterPrice;
 
-    @Column(name = "service_price")
     private Integer servicePrice;
 
-    @Column(name = "home_depsist")
     private Integer homeDeposit;
 
-    @Column(name = "address")
     private String address;
 
-    @Column(name = "ward")
     private Integer ward;
 
-    @Column(name = "building_category")
     private String buildingCategory;
 
-    @Column(name = "user")
-    private String user;
-
-    @Column(name = "sale_rent")
     private Integer saleRent;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -158,6 +140,14 @@ public class Building extends AbsEntity {
         this.altarRoom = altarRoom;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public Integer getCampusArea() {
         return campusArea;
     }
@@ -230,6 +220,10 @@ public class Building extends AbsEntity {
         this.address = address;
     }
 
+    public Integer getWard() {
+        return ward;
+    }
+
     public void setWard(Integer ward) {
         this.ward = ward;
     }
@@ -242,31 +236,11 @@ public class Building extends AbsEntity {
         this.buildingCategory = buildingCategory;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
     public Integer getSaleRent() {
         return saleRent;
     }
 
     public void setSaleRent(Integer saleRent) {
         this.saleRent = saleRent;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Integer getWard() {
-        return ward;
     }
 }

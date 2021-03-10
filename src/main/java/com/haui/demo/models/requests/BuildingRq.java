@@ -1,82 +1,88 @@
-package com.haui.demo.models.entities;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
+package com.haui.demo.models.requests;
 
 
-@Entity(name = "buildings")
-public class Building extends AbsEntity {
-    @Column(name = "name")
+import javax.validation.constraints.NotBlank;
+
+public class BuildingRq {
+
+    @NotBlank
+    private String id;
+
+    @NotBlank
     private String name;
-
-    @Column(name = "description")
+    @NotBlank
     private String description;
 
-    @Column(name = "car_pard")
+    @NotBlank
     private Integer carPark;
 
-    @Column(name = "moto_park")
+    @NotBlank
     private Integer motoPark;
 
-    @Column(name = "floor_area")
+    @NotBlank
     private Integer floorArea;
 
-    @Column(name = "home_frontage")
+    @NotBlank
     private Integer homeFrontage;
 
-    @Column(name = "number_floor")
+    @NotBlank
     private Integer numberFloor;
 
-    @Column(name = "bedroom")
+    @NotBlank
     private Integer bedroom;
 
-    @Column(name = "function_room")
+    @NotBlank
     private Integer functionRoom;
 
-    @Column(name = "altar_room")
+    @NotBlank
     private Integer altarRoom;
 
-    @Column(name = "price")
+    @NotBlank
     private Integer price;
 
-    @Column(name = "campus_area")
+    @NotBlank
     private Integer campusArea;
 
-    @Column(name = "direction")
+    @NotBlank
     private String direction;
 
-    @Column(name = "map")
+    @NotBlank
     private String map;
 
-    @Column(name = "electricity_price")
+    @NotBlank
     private Integer electricityPrice;
 
-    @Column(name = "frequence")
+    @NotBlank
     private Integer frequence;
 
-    @Column(name = "water_price")
+    @NotBlank
     private Integer waterPrice;
 
-    @Column(name = "service_price")
+    @NotBlank
     private Integer servicePrice;
 
-    @Column(name = "home_depsist")
+    @NotBlank
     private Integer homeDeposit;
 
-    @Column(name = "address")
+    @NotBlank
     private String address;
 
-    @Column(name = "ward")
+    @NotBlank
     private Integer ward;
 
-    @Column(name = "building_category")
+    @NotBlank
     private String buildingCategory;
 
-    @Column(name = "user")
-    private String user;
-
-    @Column(name = "sale_rent")
+    @NotBlank
     private Integer saleRent;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -158,6 +164,14 @@ public class Building extends AbsEntity {
         this.altarRoom = altarRoom;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public Integer getCampusArea() {
         return campusArea;
     }
@@ -230,6 +244,10 @@ public class Building extends AbsEntity {
         this.address = address;
     }
 
+    public Integer getWard() {
+        return ward;
+    }
+
     public void setWard(Integer ward) {
         this.ward = ward;
     }
@@ -242,31 +260,11 @@ public class Building extends AbsEntity {
         this.buildingCategory = buildingCategory;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
     public Integer getSaleRent() {
         return saleRent;
     }
 
     public void setSaleRent(Integer saleRent) {
         this.saleRent = saleRent;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Integer getWard() {
-        return ward;
     }
 }
