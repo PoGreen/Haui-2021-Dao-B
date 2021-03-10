@@ -36,4 +36,8 @@ public interface StringResponse {
 
     String FILE_IS_NOT_IMAGE = "file is not image";
     String FILE_IS_NOT_EXISTS = "file is not exists";
+
+    String BUILDING_CATEGORY_IS_FAKE = "building category is fake";
+    String BUILDING_IS_FAKE = "building is fake";
+    String USER_HAS_NOT_IT = "user does not has it";
 }
