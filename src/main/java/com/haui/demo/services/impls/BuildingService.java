@@ -10,10 +10,14 @@ import com.haui.demo.models.requests.BuildingRq;
 import com.haui.demo.models.requests.StatusRq;
 import com.haui.demo.models.responses.BuildingDetailRp;
 import com.haui.demo.models.responses.BuildingRp;
+import com.haui.demo.models.responses.ImageRp;
+import com.haui.demo.models.responses.ImageUploadRp;
 import com.haui.demo.repositories.BuildingCategoryRepository;
 import com.haui.demo.repositories.BuildingRepository;
+import com.haui.demo.repositories.ImageRepository;
 import com.haui.demo.repositories.WardRepository;
 import com.haui.demo.services.IBuildingService;
+import com.haui.demo.services.IImageService;
 import com.haui.demo.services.JwtUser;
 import com.haui.demo.services.mappers.BuildingMapper;
 import com.haui.demo.utils.Global;
@@ -26,6 +30,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -45,6 +51,12 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private JwtUser jwtUser;
+
+    @Autowired
+    private IImageService imageService;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Override
     public ResponseEntity<SystemResponse<Object>> getAllByUser(HttpServletRequest request, Panigation panigation) {
@@ -67,6 +79,7 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<SystemResponse<Object>> addOne(HttpServletRequest request, BuildingRq buildingRq) {
 
         User user = jwtUser.getUser(request);
@@ -89,11 +102,15 @@ public class BuildingService implements IBuildingService {
         building.setCreated_by(user.getId());
 
         buildingRepository.save(building);
+        List<ImageRp> image = imageService.saveImage(building.getId(), Global.BUILDINGS, buildingRq.getImages());
         BuildingDetailRp buildingDetailRp = mapper.maps(building);
+        buildingDetailRp.setImageRps(image);
+
         return Response.ok(buildingDetailRp);
     }
 
     @Override
+    @Transactional
     public ResponseEntity<SystemResponse<Object>> update(HttpServletRequest request, BuildingRq buildingRq) {
 
         Building building = buildingRepository.findById(buildingRq.getId()).orElse(null);
@@ -125,7 +142,11 @@ public class BuildingService implements IBuildingService {
         building.setUpdated_by(user.getId());
 
         buildingRepository.save(building);
+        imageRepository.deleteByBuilding(building.getId());
+        List<ImageRp> image = imageService.saveImage(building.getId(), Global.BUILDINGS, buildingRq.getImages());
         BuildingDetailRp buildingDetailRp = mapper.maps(building);
+        buildingDetailRp.setImageRps(image);
+
         return Response.ok(buildingDetailRp);
     }
 
@@ -135,15 +156,15 @@ public class BuildingService implements IBuildingService {
         if (Objects.isNull(building)) {
             return Response.badRequest(StringResponse.BUILDING_IS_FAKE);
         }
-        if (statusRq.getStatus() == Global.ACTIVE) {
+        if (statusRq.getStatus().equals(Global.ACTIVE)) {
             building.setStatus(Global.ACTIVE);
         }
 
-        if (statusRq.getStatus() == Global.NOACTIVE) {
+        if (statusRq.getStatus().equals(Global.NOACTIVE)) {
             building.setStatus(Global.NOACTIVE);
         }
 
-        if (statusRq.getStatus() == Global.WAIT) {
+        if (statusRq.getStatus().equals(Global.WAIT)) {
             building.setStatus(Global.WAIT);
         }
         buildingRepository.save(building);
@@ -159,4 +180,5 @@ public class BuildingService implements IBuildingService {
         BuildingDetailRp buildingDetailRp = mapper.maps(building);
         return Response.ok(buildingDetailRp);
     }
+
 }

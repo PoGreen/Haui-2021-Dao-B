@@ -1,6 +1,8 @@
 package com.haui.demo.models.responses;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BuildingDetailRp {
 
@@ -51,6 +53,8 @@ public class BuildingDetailRp {
     private String buildingCategory;
 
     private Integer saleRent;
+
+    private List<ImageRp> imageRps = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -242,5 +246,13 @@ public class BuildingDetailRp {
 
     public void setSaleRent(Integer saleRent) {
         this.saleRent = saleRent;
+    }
+
+    public List<ImageRp> getImageRps() {
+        return imageRps;
+    }
+
+    public void setImageRps(List<ImageRp> imageRps) {
+        this.imageRps = imageRps;
     }
 }

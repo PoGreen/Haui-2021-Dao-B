@@ -55,4 +55,6 @@ public class ImageMapper {
         imageUploadRp.setType(image.getType());
         return imageUploadRp;
     }
+
+
 }

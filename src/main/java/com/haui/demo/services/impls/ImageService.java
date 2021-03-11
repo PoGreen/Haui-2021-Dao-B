@@ -60,14 +60,10 @@ public class ImageService implements IImageService {
 
 
     @Override
-    public ResponseEntity<SystemResponse<Object>> saveImage(String idBelongs,String category,List<ImageRq> imageRqs) {
-        ResponseEntity<SystemResponse<Object>> validate = imageValidator.validates(imageRqs);
-        if (!validate.getStatusCode().is2xxSuccessful()) {
-            return validate;
-        }
+    public List<ImageRp> saveImage(String idBelongs,String category,List<ImageRq> imageRqs) {
         List<Image> images = imageMapper.mapToImage(imageRqs,idBelongs,category);
         images = imageRepository.saveAll(images);
         List<ImageRp> imageRps = imageMapper.mapToImageRp(images);
-        return Response.ok(imageRps);
+        return imageRps;
     }
 }
