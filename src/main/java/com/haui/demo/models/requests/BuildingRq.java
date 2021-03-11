@@ -1,7 +1,11 @@
 package com.haui.demo.models.requests;
 
 
+import com.haui.demo.models.responses.ImageRp;
+
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BuildingRq {
 
@@ -75,6 +79,9 @@ public class BuildingRq {
 
     @NotBlank
     private Integer saleRent;
+
+    @NotBlank
+    private List<ImageRq> images = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -266,5 +273,13 @@ public class BuildingRq {
 
     public void setSaleRent(Integer saleRent) {
         this.saleRent = saleRent;
+    }
+
+    public List<ImageRq> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageRq> images) {
+        this.images = images;
     }
 }
