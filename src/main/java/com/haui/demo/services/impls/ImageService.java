@@ -68,24 +68,6 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public List<ImageRp> loadNewsImages(String id) {
-        List<Image> images = imageRepository.findByNews(id);
-        if(Objects.isNull(images)){
-            return null;
-        }
-        return mapper.mapToImageRp(images);
-    }
-
-    @Override
-    public ImageRp loadNewsAvatarImages(String id) {
-        Image image = imageRepository.findFirstByNews(id);
-        if(Objects.isNull(image)){
-            return null;
-        }
-        return mapper.mapToImageRp(image);
-    }
-
-    @Override
     public List<ImageRp> loadBuildingImages(String id) {
         List<Image> images = imageRepository.findByBuilding(id);
         if(Objects.isNull(images)){
@@ -101,5 +83,24 @@ public class ImageService implements IImageService {
             return null;
         }
         return mapper.mapToImageRp(image);
+        List<ImageRp> imageRps = mapper.mapToImageRp(images);
+        return imageRps;
+    }
+
+    @Override
+    public List<ImageRp> loadNewsImages(String id) {
+        List<Image> images = imageRepository.findByNews(id);
+        List<ImageRp> imageRps = mapper.mapToImageRp(images);
+        return imageRps;
+    }
+
+    @Override
+    public ImageRp loadNewsAvatarImages(String id) {
+        Image image = imageRepository.findFirstByNews(id);
+        if(Objects.isNull(image)){
+            return null;
+        }
+        ImageRp imageRp = mapper.mapToImageRp(image);
+        return imageRp;
     }
 }
