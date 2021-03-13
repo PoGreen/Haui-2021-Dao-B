@@ -8,10 +8,7 @@ import com.haui.demo.models.entities.User;
 import com.haui.demo.models.entities.Ward;
 import com.haui.demo.models.requests.BuildingRq;
 import com.haui.demo.models.requests.StatusRq;
-import com.haui.demo.models.responses.BuildingDetailRp;
-import com.haui.demo.models.responses.BuildingRp;
-import com.haui.demo.models.responses.ImageRp;
-import com.haui.demo.models.responses.ImageUploadRp;
+import com.haui.demo.models.responses.*;
 import com.haui.demo.repositories.BuildingCategoryRepository;
 import com.haui.demo.repositories.BuildingRepository;
 import com.haui.demo.repositories.ImageRepository;
@@ -67,6 +64,10 @@ public class BuildingService implements IBuildingService {
         Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
         Page<Building> buildings = buildingRepository.findByCreated_by(user.getId(), pageable);
         Page<BuildingRp> buildingRps = mapper.map(buildings);
+        for (BuildingRp buildingRp : buildingRps) {
+            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
+            buildingRp.setImageRp(image);
+        }
         return Response.ok(buildingRps);
     }
 
@@ -75,6 +76,10 @@ public class BuildingService implements IBuildingService {
         Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
         Page<Building> buildings = buildingRepository.findByStatusAndBuildingCategoryStatus(Global.ACTIVE, Global.ACTIVE, pageable);
         Page<BuildingRp> buildingRps = mapper.map(buildings);
+        for (BuildingRp buildingRp : buildingRps) {
+            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
+            buildingRp.setImageRp(image);
+        }
         return Response.ok(buildingRps);
     }
 
@@ -177,7 +182,10 @@ public class BuildingService implements IBuildingService {
         if (Objects.isNull(building)) {
             return Response.badRequest(StringResponse.BUILDING_IS_FAKE);
         }
+
         BuildingDetailRp buildingDetailRp = mapper.maps(building);
+        List<ImageRp> imageRps = imageService.loadBuildingImages(id);
+        buildingDetailRp.setImageRps(imageRps);
         return Response.ok(buildingDetailRp);
     }
 

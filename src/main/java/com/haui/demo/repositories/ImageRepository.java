@@ -20,4 +20,8 @@ public interface ImageRepository extends JpaRepository<Image, String> {
     List<Image> findByNews(String id);
 
     Image findFirstByNews(String id);
+
+    List<Image> findByBuilding(String id);
+
+    Image findFirstByBuilding(String id);
 }

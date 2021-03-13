@@ -64,6 +64,25 @@ public class ImageService implements IImageService {
     public List<ImageRp> saveImage(String idBelongs,String category,List<ImageRq> imageRqs) {
         List<Image> images = mapper.mapToImage(imageRqs,idBelongs,category);
         images = imageRepository.saveAll(images);
+        return mapper.mapToImageRp(images);
+    }
+
+    @Override
+    public List<ImageRp> loadBuildingImages(String id) {
+        List<Image> images = imageRepository.findByBuilding(id);
+        if(Objects.isNull(images)){
+            return null;
+        }
+        return mapper.mapToImageRp(images);
+    }
+
+    @Override
+    public ImageRp loadBuildingsAvatarImages(String id) {
+        Image image = imageRepository.findFirstByBuilding(id);
+        if(Objects.isNull(image)){
+            return null;
+        }
+        return mapper.mapToImageRp(image);
         List<ImageRp> imageRps = mapper.mapToImageRp(images);
         return imageRps;
     }

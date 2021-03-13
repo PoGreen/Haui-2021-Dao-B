@@ -17,4 +17,8 @@ public interface IImageService {
     List<ImageRp> loadNewsImages(String id);
 
     ImageRp loadNewsAvatarImages(String id);
+
+    List<ImageRp> loadBuildingImages(String id);
+
+    ImageRp loadBuildingsAvatarImages(String id);
 }

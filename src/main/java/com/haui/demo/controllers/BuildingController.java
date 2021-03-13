@@ -43,7 +43,7 @@ public class BuildingController {
         return iBuildingService.changeStatus(request, statusRq);
     }
 
-    @GetMapping(value = "/buildings/{id}")
+    @GetMapping(value = "/buildings/id/{id}")
     public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request,@PathVariable(value = "id") String id) {
         return iBuildingService.getOne(request,id);
     }
