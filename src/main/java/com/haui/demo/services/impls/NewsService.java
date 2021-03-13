@@ -3,6 +3,7 @@ package com.haui.demo.services.impls;
 import com.haui.demo.models.bos.Panigation;
 import com.haui.demo.models.bos.Response;
 import com.haui.demo.models.bos.SystemResponse;
+import com.haui.demo.models.entities.Image;
 import com.haui.demo.models.entities.News;
 import com.haui.demo.models.entities.NewsCategory;
 import com.haui.demo.models.entities.User;
@@ -50,6 +51,10 @@ public class NewsService implements INewsService {
         Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
         Page<News> news = newsRepository.findAll(pageable);
         Page<NewsRp> rpPage = mapper.map(news);
+        for (NewsRp newsRp : rpPage) {
+            ImageRp image = imageService.loadNewsAvatarImages(newsRp.getId());
+            newsRp.setImageRp(image);
+        }
         return Response.ok(rpPage);
     }
 
@@ -67,7 +72,12 @@ public class NewsService implements INewsService {
             news = newsRepository.findByStatus(Global.NOACTIVE, pageable);
         }
 
+        assert news != null;
         Page<NewsRp> rpPage = mapper.map(news);
+        for (NewsRp newsRp : rpPage) {
+            ImageRp image = imageService.loadNewsAvatarImages(newsRp.getId());
+            newsRp.setImageRp(image);
+        }
         return Response.ok(rpPage);
     }
 
@@ -145,7 +155,9 @@ public class NewsService implements INewsService {
         if (Objects.isNull(news)) {
             return Response.badRequest(StringResponse.NEWS_IS_FAKE);
         }
+        List<ImageRp> imageRps = imageService.loadNewsImages(id);
         NewsDetailRp newsDetailRp = mapper.maps(news);
+        newsDetailRp.setImageRqs(imageRps);
         return Response.ok(newsDetailRp);
     }
 }
