@@ -42,4 +42,5 @@ public interface StringResponse {
     String USER_HAS_NOT_IT = "user does not has it";
 
     String NEWS_CATEGORY_IS_FAKE= "news category is FAKE";
+    String NEWS_IS_FAKE= "news is FAKE";
 }
