@@ -13,4 +13,12 @@ public interface IImageService {
     ResponseEntity<SystemResponse<Object>> loadImage(List<MultipartFile> images) throws IOException;
 
     List<ImageRp> saveImage(String idBelongs, String category, List<ImageRq> imageRqs);
+
+    List<ImageRp> loadNewsImages(String id);
+
+    ImageRp loadNewsAvatarImages(String id);
+
+    List<ImageRp> loadBuildingImages(String id);
+
+    ImageRp loadBuildingsAvatarImages(String id);
 }

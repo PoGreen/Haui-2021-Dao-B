@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ImageService implements IImageService {
@@ -29,7 +30,7 @@ public class ImageService implements IImageService {
     @Autowired
     private ImageValidator imageValidator;
     @Autowired
-    private ImageMapper imageMapper;
+    private ImageMapper mapper;
     @Autowired
     private ImageRepository imageRepository;
 
@@ -61,9 +62,44 @@ public class ImageService implements IImageService {
 
     @Override
     public List<ImageRp> saveImage(String idBelongs,String category,List<ImageRq> imageRqs) {
-        List<Image> images = imageMapper.mapToImage(imageRqs,idBelongs,category);
+        List<Image> images = mapper.mapToImage(imageRqs,idBelongs,category);
         images = imageRepository.saveAll(images);
-        List<ImageRp> imageRps = imageMapper.mapToImageRp(images);
-        return imageRps;
+        return mapper.mapToImageRp(images);
+    }
+
+    @Override
+    public List<ImageRp> loadNewsImages(String id) {
+        List<Image> images = imageRepository.findByNews(id);
+        if(Objects.isNull(images)){
+            return null;
+        }
+        return mapper.mapToImageRp(images);
+    }
+
+    @Override
+    public ImageRp loadNewsAvatarImages(String id) {
+        Image image = imageRepository.findFirstByNews(id);
+        if(Objects.isNull(image)){
+            return null;
+        }
+        return mapper.mapToImageRp(image);
+    }
+
+    @Override
+    public List<ImageRp> loadBuildingImages(String id) {
+        List<Image> images = imageRepository.findByBuilding(id);
+        if(Objects.isNull(images)){
+            return null;
+        }
+        return mapper.mapToImageRp(images);
+    }
+
+    @Override
+    public ImageRp loadBuildingsAvatarImages(String id) {
+        Image image = imageRepository.findFirstByBuilding(id);
+        if(Objects.isNull(image)){
+            return null;
+        }
+        return mapper.mapToImageRp(image);
     }
 }

@@ -9,6 +9,7 @@ public class BuildingRp {
     private Integer functionRoom;
     private Integer price;
     private Integer floorArea;
+    private ImageRp imageRp;
 
     public String getId() {
         return id;
@@ -72,5 +73,13 @@ public class BuildingRp {
 
     public void setFloorArea(Integer floorArea) {
         this.floorArea = floorArea;
+    }
+
+    public ImageRp getImageRp() {
+        return imageRp;
+    }
+
+    public void setImageRp(ImageRp imageRp) {
+        this.imageRp = imageRp;
     }
 }
