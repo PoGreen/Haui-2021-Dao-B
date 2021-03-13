@@ -1,27 +1,30 @@
-package com.haui.demo.models.entities;
+package com.haui.demo.models.responses;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import com.haui.demo.models.requests.ImageRq;
 
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity(name="news")
-public class News extends AbsEntity{
+public class NewsDetailRp {
+    private String id;
 
-    @Column(name="name")
     private String name;
 
-    @Column(name="title")
     private String title;
 
-    @Column(name="content")
     private String content;
 
-    @Column(name = "news_category")
     private String newsCategory;
 
-    @Column(name = "user")
-    private String user;
+    private List<ImageRp> imageRqs = new ArrayList<>();
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -55,11 +58,11 @@ public class News extends AbsEntity{
         this.newsCategory = newsCategory;
     }
 
-    public String getUser() {
-        return user;
+    public List<ImageRp> getImageRqs() {
+        return imageRqs;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setImageRqs(List<ImageRp> imageRqs) {
+        this.imageRqs = imageRqs;
     }
 }
