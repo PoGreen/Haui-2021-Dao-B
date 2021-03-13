@@ -14,6 +14,8 @@ public class NewsRp {
 
     private String newsCategory;
 
+    private ImageRp imageRp;
+
     private List<ImageRp> imageRqs = new ArrayList<>();
 
     public String getId() {
@@ -55,5 +57,13 @@ public class NewsRp {
 
     public void setImageRqs(List<ImageRp> imageRqs) {
         this.imageRqs = imageRqs;
+    }
+
+    public ImageRp getImageRp() {
+        return imageRp;
+    }
+
+    public void setImageRp(ImageRp imageRp) {
+        this.imageRp = imageRp;
     }
 }
