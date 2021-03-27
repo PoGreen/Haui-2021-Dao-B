@@ -7,9 +7,20 @@ public class BuildingRp {
     private String address;
     private Integer bedroom;
     private Integer functionRoom;
-    private Integer price;
+    private Long price;
+    private String title;
     private Integer floorArea;
+    private Integer saleRent;
+
     private ImageRp imageRp;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getId() {
         return id;
@@ -59,11 +70,11 @@ public class BuildingRp {
         this.functionRoom = functionRoom;
     }
 
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -81,5 +92,13 @@ public class BuildingRp {
 
     public void setImageRp(ImageRp imageRp) {
         this.imageRp = imageRp;
+    }
+
+    public Integer getSaleRent() {
+        return saleRent;
+    }
+
+    public void setSaleRent(Integer saleRent) {
+        this.saleRent = saleRent;
     }
 }

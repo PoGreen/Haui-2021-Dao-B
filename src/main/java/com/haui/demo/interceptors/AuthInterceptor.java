@@ -31,11 +31,15 @@ public class AuthInterceptor implements HandlerInterceptor {
     private final JwtDistribute jwt;
     private final FirebaseService firebaseService;
     private final API[] skipAuthAPIs = new API[]{
+            API.with("^/login$"),
+            API.with("^/news"),
             API.with("^/users/login$"),
             API.with("^/users/otps$"),
             API.with("^/users/otps/verifier$"),
             API.with("^/images/(.*)$"),
             API.with("^/images$"),
+            API.with("^/home"),
+            API.with("^/buildings-detail"),
             API.with("^/options$"),
             API.with("^/v2/api-docs(.*)$"),
             API.with("^(.*)swagger(.*)$"),
@@ -43,7 +47,30 @@ public class AuthInterceptor implements HandlerInterceptor {
             API.with("^/csrf$"),
             API.with("^/actuator(.*)$"),
             API.with("^/favicon\\.ico$"),
-            API.with("^/swagger-ui/index.html$")
+            API.with("^/swagger-ui/index.html$"),
+            API.with("^/admin/home"),
+            API.with("^(.*)css$"),
+            API.with("^(.*)/js$"),
+            API.with("(.*)png$"),
+            API.with("(.*)jpg$"),
+            API.with("(.*)jpeg$"),
+            API.with("^(/*)provinces$"),
+            API.with("^(/*)districts"),
+            API.with("(/*)wards"),
+            API.with("^/buildings/(.*)$"),
+            API.with("^/locations(.*)$"),
+            API.with("^/fonts"),
+            API.with("^/building-categories"),
+            API.with("^/admin/(.*)$"),
+            API.with("^/buildings-page$"),
+            API.with("^/css/(.*)$"),
+            API.with("^/js/(.*)$"),
+            API.with("^/fonts/(.*)$"),
+            API.with("^/img/(.*)$"),
+            API.with("^/locations/provinces$"),
+            API.with("^/locations/(.*)$"),
+            API.with("^/ckeditor/(.*)$"),
+
     };
 
     @Autowired
@@ -66,32 +93,30 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-
         if (isSkipAuthAPI(request)) return true;
 
         DecodedJWT decodedJWT = jwt.authenticate(request, response);
 
-        if (decodedJWT == null) {
-            ResponseEntity<SystemResponse<Object>> userResponse = firebaseService.verifyToken(request);
-            if (userResponse.getStatusCode().is2xxSuccessful()) {
-                User user = (User) Objects.requireNonNull(userResponse.getBody()).getData();
-                if (user != null) {
-                    request.setAttribute(Global.USER_ATTR, user);
-                    jwt.findNGenerateToken(user);
-                    return true;
-                }
-            }
-            SystemResponse<?> errorResponse = new SystemResponse<>(HttpStatus.UNAUTHORIZED.value(), "UNAUTHORIZED!");
-            response.setStatus(StatusResponse.UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().println(errorResponse.toString());
-            logger.error(StringResponse.UNAUTHORIZED);
-            return false;
-        }
-
-        request.setAttribute(Global.USER_ATTR, decodedJWT);
-        UserJwt user = UserJwt.from(decodedJWT);
-        jwt.findNGenerateToken(user);
+//        if (decodedJWT == null) {
+//            ResponseEntity<SystemResponse<Object>> userResponse = firebaseService.verifyToken(request);
+//            if (userResponse.getStatusCode().is2xxSuccessful()) {
+//                User user = (User) Objects.requireNonNull(userResponse.getBody()).getData();
+//                if (user != null) {
+//                    request.setAttribute(Global.USER_ATTR, user);
+//                    jwt.findNGenerateToken(user);
+//                    return true;
+//                }
+//            }
+//            SystemResponse<?> errorResponse = new SystemResponse<>(HttpStatus.UNAUTHORIZED.value(), "UNAUTHORIZED!");
+//            response.setStatus(StatusResponse.UNAUTHORIZED);
+//            response.setContentType("application/json");
+//            response.getWriter().println(errorResponse.toString());
+//            logger.error(StringResponse.UNAUTHORIZED);
+//            return false;
+//        }
+           request.setAttribute(Global.USER_ATTR, decodedJWT);
+//           UserJwt user = UserJwt.from(decodedJWT);
+//            jwt.findNGenerateToken(user);
 //            boolean author = authorization.verifyRole(decodedJWT, request);
 //        if (!author) {
 //            SystemResponse<?> errorResponse = new SystemResponse<>(HttpStatus.UNAUTHORIZED.value(), "UNAUTHORIZED!");

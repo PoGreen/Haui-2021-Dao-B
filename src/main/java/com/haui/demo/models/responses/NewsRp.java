@@ -1,20 +1,22 @@
 package com.haui.demo.models.responses;
 
-import com.haui.demo.models.requests.ImageRq;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewsRp {
     private String id;
 
-    private String name;
+    private String nameNews;
 
     private String title;
 
     private String newsCategory;
 
     private ImageRp imageRp;
+
+    private ZonedDateTime createdAt;
 
     private List<ImageRp> imageRqs = new ArrayList<>();
 
@@ -26,12 +28,12 @@ public class NewsRp {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameNews() {
+        return nameNews;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameNews(String nameNews) {
+        this.nameNews = nameNews;
     }
 
     public String getTitle() {
@@ -65,5 +67,13 @@ public class NewsRp {
 
     public void setImageRp(ImageRp imageRp) {
         this.imageRp = imageRp;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

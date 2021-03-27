@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
+@Controller(value = "news-category-controller")
 public class NewsCategoryController {
 
     @Autowired

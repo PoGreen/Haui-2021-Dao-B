@@ -43,7 +43,7 @@ public class BuildingCategoryService implements IBuildingCategoryService {
         List<BuildingCategory>  buildingCategories = buildingCategoryRepository.findAll();
         List<BuildingCategoryRp> buildingCategoryRps = mapper.map(buildingCategories);
         Map<String,Object> result = new HashMap<>();
-        result.put("building-category",buildingCategoryRps);
+        result.put("building_category",buildingCategoryRps);
         return Response.ok(result);
     }
 

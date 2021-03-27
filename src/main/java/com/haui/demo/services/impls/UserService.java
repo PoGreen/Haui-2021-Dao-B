@@ -63,6 +63,10 @@ public class UserService implements IUserService {
         UserLoginResponse response = new UserLoginResponse();
         response.setUser(user);
         response.setToken(token);
+
+        Role role = roleRepository.findById(user.getRole()).orElse(null);
+
+        response.setRole(role.getRoleName());
         return Response.ok(response);
     }
 

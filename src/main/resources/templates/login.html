@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Đăng nhập</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/js/mi/login.js}"></script>
+</head>
+
+<body>
+
+<!-- ##### Header Area Start ##### -->
+<div th:replace="common/web.header :: header"></div>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Hero Area Start ##### -->
+<div th:replace="common/web.nav :: nav"></div>
+<!-- ##### Breadcumb Area End ##### -->
+
+
+<section class="listings-content-wrapper section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-heading">
+                    <h6>Login</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="content-sidebar">
+                    <!-- Office Hours -->
+                    <div class="weekly-office-hours">
+                        <ul>
+                            <li class="d-flex align-items-center justify-content-between"><span>Monday - Friday</span>
+                                <span>09 AM - 19 PM</span></li>
+                            <li class="d-flex align-items-center justify-content-between"><span>Saturday</span> <span>09 AM - 14 PM</span>
+                            </li>
+                            <li class="d-flex align-items-center justify-content-between"><span>Sunday</span> <span>Closed</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Address -->
+                    <div class="address mt-30">
+                        <h6><img src="img/icons/phone-call.png" alt=""> +45 677 8993000 223</h6>
+                        <h6><img src="img/icons/envelope.png" alt=""> office@template.com</h6>
+                        <h6><img src="img/icons/location.png" alt=""> Main Str. no 45-46, b3, 56832,<br>Los Angeles, CA
+                        </h6>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form Area -->
+            <div class="col-12 col-lg-8">
+                <div class="contact-form">
+                    <form id="login">
+                        <div class="alert alert-primary" role="alert" style="display: none" id="alert">
+                            Tên tài khoản hoặc mật khẩu  không chính xác !!
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="user_name" id="contact-name"
+                                   placeholder="Account name">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" id="contact-number"
+                                   placeholder="password">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn south-btn" onclick="subitLogin()">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Listing Content Wrapper Area End ##### -->
+<div th:replace="common/web.footer :: footer"></div>
+<!-- ##### Footer Area End ##### -->
+
+<!-- jQuery (Necessary for All JavaScript Plugins) -->
+
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Plugins js -->
+<script th:src="@{/js/plugins.js}"></script>
+<script th:src="@{/js/classy-nav.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwuyLRa1uKNtbgx6xAJVmWy-zADgegA2s"></script>-->
+</body>
+</html>

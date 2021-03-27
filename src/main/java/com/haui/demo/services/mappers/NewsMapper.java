@@ -1,16 +1,11 @@
 package com.haui.demo.services.mappers;
 
-import com.haui.demo.models.entities.Building;
 import com.haui.demo.models.entities.News;
 import com.haui.demo.models.requests.NewsRq;
-import com.haui.demo.models.responses.BuildingRp;
 import com.haui.demo.models.responses.NewsDetailRp;
 import com.haui.demo.models.responses.NewsRp;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class NewsMapper {
@@ -27,9 +22,10 @@ public class NewsMapper {
     public NewsRp map(News news) {
         NewsRp rp = new NewsRp();
         rp.setId(news.getId());
-        rp.setName(news.getName());
+        rp.setNameNews(news.getName());
         rp.setTitle(news.getTitle());
         rp.setNewsCategory(news.getNewsCategory());
+        rp.setCreatedAt(news.getCreatedAt());
         return rp;
     }
 

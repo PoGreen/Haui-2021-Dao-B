@@ -83,15 +83,12 @@ public class ImageService implements IImageService {
             return null;
         }
         return mapper.mapToImageRp(image);
-        List<ImageRp> imageRps = mapper.mapToImageRp(images);
-        return imageRps;
     }
 
     @Override
     public List<ImageRp> loadNewsImages(String id) {
         List<Image> images = imageRepository.findByNews(id);
-        List<ImageRp> imageRps = mapper.mapToImageRp(images);
-        return imageRps;
+        return mapper.mapToImageRp(images);
     }
 
     @Override
@@ -100,7 +97,6 @@ public class ImageService implements IImageService {
         if(Objects.isNull(image)){
             return null;
         }
-        ImageRp imageRp = mapper.mapToImageRp(image);
-        return imageRp;
+        return mapper.mapToImageRp(image);
     }
 }

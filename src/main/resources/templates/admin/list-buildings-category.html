@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Quản trị thể loại bất động sản</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.dataTables.min.css}">
+    <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
+    <script th:src="@{/js/mi/buildings-category.js}"></script>
+</head>
+<body onload="genBuildingCategoryTable()">
+<!-- Preloader -->
+<div id="preloader">
+    <div class="south-load"></div>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<div th:replace="common/header :: header"></div>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Editor Area Start ##### -->
+<section
+         style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
+    <a href="/admin/new-buildings-categories" class="btn south-btn btn-3 m-1">Thêm mới</a>
+     <div id="building-category-table" style="margin: auto"></div>
+
+</section>
+
+<!-- ##### Editor Area End ##### -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+
+<!-- Popper js -->
+<script th:src="@{/js/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Plugins js -->
+<script th:src="@{/js/plugins.js}"></script>
+<script th:src="@{/js/classy-nav.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
+
+</body>
+
+</html>

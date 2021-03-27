@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Chi tiết căn hộ</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/js/mi/buildings.js}"></script>
+</head>
+
+<body onload="genBuildinDetail()">
+<!-- Preloader -->
+<div id="preloader">
+    <div class="south-load"></div>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<div th:replace="common/web.header :: header"></div>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Hero Area Start ##### -->
+<div th:replace="common/web.nav :: nav"></div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Advance Search Area Start ##### -->
+<!-- ##### Advance Search Area End ##### -->
+
+<!-- ##### Listings Content Area Start ##### -->
+<section class="listings-content-wrapper section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Single Listings Slides -->
+                <div class="single-listings-sliders owl-carousel" id="images">
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="listings-content">
+                    <!-- Price -->
+                    <div class="list-price">
+                        <p id="price">$ </p>
+                    </div>
+                    <h5 id="name"></h5>
+                    <p class="location" id="address"><img src="img/icons/location.png" alt=""></p>
+                    <p id="description"></p>
+                    <!-- Meta -->
+                    <div class="property-meta-data d-flex align-items-end">
+                        <div class="new-tag">
+                            <img src="img/icons/new.png" alt="">
+                        </div>
+                        <div class="bathroom">
+                            <img src="img/icons/bathtub.png" alt="">
+                            <span id="bedroom"></span>
+                        </div>
+                        <div class="garage">
+                            <img src="img/icons/garage.png" alt="">
+                            <span id="function_room"></span>
+                        </div>
+                        <div class="space">
+                            <img src="img/icons/space.png" alt="">
+                            <span id="floor_area"></span>
+                        </div>
+                    </div>
+                    <!-- Core Features -->
+                    <div id="element"></div>
+
+
+
+                    <!-- Listings Btn Groups -->
+                    <div class="listings-btn-groups">
+                        <a href="#" class="btn south-btn">Thêm vào yêu thích</a>
+                        <a href="#" class="btn south-btn active">Liên hệ tư vấn</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Listing Maps -->
+        <div class="row">
+            <div class="col-12">
+                <div class="listings-maps mt-100">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.4736630802086!2d105.73291275099523!3d21.05373599223112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345457e292d5bf%3A0x20ac91c94d74439a!2sHanoi%20University%20of%20Industry!5e0!3m2!1sen!2s!4v1615654865679!5m2!1sen!2s"
+                            width="100%" height="500px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Listings Content Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<div th:replace="common/web.footer :: footer"></div>
+<!-- ##### Footer Area End ##### -->
+
+<!-- jQuery (Necessary for All JavaScript Plugins) -->
+
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Plugins js -->
+<script th:src="@{/js/plugins.js}"></script>
+<script th:src="@{/js/classy-nav.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+<!-- Google Maps -->
+</body>
+
+</html>

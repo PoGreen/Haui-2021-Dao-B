@@ -10,26 +10,28 @@ public class BuildingDetailRp {
 
     private String name;
 
+    private String title;
+
     private String description;
 
     private Integer carPark;
 
     private Integer motoPark;
-    
+
     private Integer floorArea;
 
     private Integer homeFrontage;
-    
+
     private Integer numberFloor;
 
     private Integer bedroom;
-    
+
     private Integer functionRoom;
 
     private Integer altarRoom;
-    
-    private Integer price;
-    
+
+    private Long price;
+
     private Integer campusArea;
 
     private String direction;
@@ -39,7 +41,7 @@ public class BuildingDetailRp {
     private Integer electricityPrice;
 
     private Integer frequence;
-    
+
     private Integer waterPrice;
 
     private Integer servicePrice;
@@ -53,6 +55,14 @@ public class BuildingDetailRp {
     private String buildingCategory;
 
     private Integer saleRent;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     private List<ImageRp> imageRps = new ArrayList<>();
 
@@ -144,11 +154,11 @@ public class BuildingDetailRp {
         this.altarRoom = altarRoom;
     }
 
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 

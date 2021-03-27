@@ -35,8 +35,8 @@ public class NewsController {
     }
 
     @GetMapping("/news")
-    public ResponseEntity<SystemResponse<Object>> getAll(@RequestParam(value = "page") int page,
-                                                         @RequestParam(value = "limit") int limit) {
+    public ResponseEntity<SystemResponse<Object>> getAll(@RequestParam(value = "page",defaultValue = "1", required = false) int page,
+                                                         @RequestParam(value = "limit", defaultValue = "10",required = false) int limit) {
         Panigation panigation = new Panigation();
         panigation.setPage(page);
         panigation.setLimit(limit);
@@ -45,8 +45,8 @@ public class NewsController {
 
     @GetMapping("/news/status")
     public ResponseEntity<SystemResponse<Object>> getAllByStaus(@RequestParam(name = "status") int status,
-                                                                @RequestParam(value = "page") int page,
-                                                                @RequestParam(value = "limit") int limit) {
+                                                                @RequestParam(value = "page", defaultValue = "1") int page,
+                                                                @RequestParam(value = "limit", defaultValue = "10") int limit) {
         Panigation panigation = new Panigation();
         panigation.setPage(page);
         panigation.setLimit(limit);

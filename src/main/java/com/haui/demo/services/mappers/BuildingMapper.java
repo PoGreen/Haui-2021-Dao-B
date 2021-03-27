@@ -9,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotBlank;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class BuildingMapper {
 
@@ -22,12 +18,14 @@ public class BuildingMapper {
     public BuildingRp map(Building building) {
         BuildingRp rp = new BuildingRp();
         rp.setName(building.getName());
+        rp.setTitle(building.getTitle());
         rp.setId(building.getId());
         rp.setAddress(locationService.getLocationByWard(building.getWard()) + building.getAddress());
         rp.setBedroom(building.getBedroom());
         rp.setFunctionRoom(building.getFunctionRoom());
         rp.setPrice(building.getPrice());
         rp.setFloorArea(building.getFloorArea());
+        rp.setSaleRent(building.getSaleRent());
         return rp;
     }
 
@@ -42,6 +40,7 @@ public class BuildingMapper {
         building.setMotoPark(buildingRq.getMotoPark());
         building.setFloorArea(buildingRq.getFloorArea());
         building.setHomeFrontage(buildingRq.getHomeFrontage());
+        building.setTitle(buildingRq.getTitle());
         building.setNumberFloor(buildingRq.getNumberFloor());
         building.setBedroom(buildingRq.getBedroom());
         building.setFunctionRoom(buildingRq.getFunctionRoom());
@@ -74,6 +73,7 @@ public class BuildingMapper {
         buildingDetailRp.setFloorArea(building.getFloorArea());
         buildingDetailRp.setHomeFrontage(building.getHomeFrontage());
         buildingDetailRp.setNumberFloor(building.getNumberFloor());
+        buildingDetailRp.setTitle(building.getTitle());
         buildingDetailRp.setBedroom(building.getBedroom());
         buildingDetailRp.setFunctionRoom(building.getFunctionRoom());
         buildingDetailRp.setAltarRoom(building.getAltarRoom());

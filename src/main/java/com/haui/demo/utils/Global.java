@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.haui.demo.models.bos.SystemResponse;
-import jdk.internal.icu.impl.UCharacterProperty;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.ParameterizedTypeReference;
 
@@ -29,7 +28,7 @@ public class Global {
 
     public static final String ROLE_USER = "USER";
     public static Logger logger;
-    public static UCharacterProperty errorTypeRef;
+
 
     public static  final String  PATH_FILE_IMAGE = "/home/green/Data/Haui/B-Image/";
     public static final String DOMAIN_PATH_FILE_IMAGE="http://localhost:8888/";

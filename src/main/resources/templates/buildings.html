@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Danh sách căn hộ</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/js/mi/buildings.js}"></script>
+</head>
+
+<body onload="genBuildings()">
+
+<!-- ##### Header Area Start ##### -->
+<div th:replace="common/web.header :: header"></div>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Hero Area Start ##### -->
+<div th:replace="common/web.nav :: nav"></div>
+<!-- ##### Breadcumb Area End ##### -->
+
+
+<section class="listings-content-wrapper section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="listings-top-meta d-flex justify-content-between mb-100">
+                    <div class="view-area d-flex align-items-center">
+                        <span>View as:</span>
+                        <div class="grid_view ml-15"><a href="#" class="active"><i class="fa fa-th" aria-hidden="true"></i></a></div>
+                        <div class="list_view ml-15"><a href="#"><i class="fa fa-th-list" aria-hidden="true"></i></a></div>
+                    </div>
+                    <div class="order-by-area d-flex align-items-center">
+                        <span class="mr-15">Order by:</span>
+                        <select>
+                            <option selected>Đang bán</option>
+                            <option value="1">Cho thuê</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row" id="buildings">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="south-pagination d-flex justify-content-end">
+                    <nav aria-label="Page navigation">
+                        <ul id="pagination" class="pagination"></ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Listing Content Wrapper Area End ##### -->
+<div th:replace="common/web.footer :: footer"></div>
+<!-- ##### Footer Area End ##### -->
+
+<!-- jQuery (Necessary for All JavaScript Plugins) -->
+
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Plugins js -->
+<script th:src="@{/js/plugins.js}"></script>
+<script th:src="@{/js/classy-nav.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+<!-- Google Maps -->
+<script th:src="@{/js/map-active.js}"></script>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwuyLRa1uKNtbgx6xAJVmWy-zADgegA2s"></script>-->
+</body>
+</html>

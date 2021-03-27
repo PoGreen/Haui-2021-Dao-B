@@ -9,8 +9,11 @@ public class Building extends AbsEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "car_pard")
     private Integer carPark;
@@ -37,7 +40,7 @@ public class Building extends AbsEntity {
     private Integer altarRoom;
 
     @Column(name = "price")
-    private Integer price;
+    private Long price;
 
     @Column(name = "campus_area")
     private Integer campusArea;
@@ -77,6 +80,14 @@ public class Building extends AbsEntity {
 
     @Column(name = "sale_rent")
     private Integer saleRent;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getName() {
         return name;
@@ -258,11 +269,11 @@ public class Building extends AbsEntity {
         this.saleRent = saleRent;
     }
 
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 

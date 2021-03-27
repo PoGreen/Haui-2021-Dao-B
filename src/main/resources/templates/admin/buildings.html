@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>TẠo mới bất động sản</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/js/mi/location.js}"></script>
+    <script th:src="@{/js/mi/home.js}"></script>
+    <script th:src="@{/js/mi/buildings.js}"></script>
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+</head>
+<body onload="generatedProvince();genBuildingCategory()">
+<!-- Preloader -->
+<div id="preloader">
+    <div class="south-load"></div>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<div th:replace="common/header :: header"></div>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Editor Area Start ##### -->
+<section class="south-contact-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-heading">
+                    <h6>Buildings info</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- Contact Form Area -->
+            <div class="col-12 col-lg-12">
+                <div class="contact-form">
+                    <form id="buildings" enctype="multipart/form-data">
+                        <div class="alert alert-primary" role="alert" style="display: none" id="alert">
+                            Đã xảy ra lỗi trong quá trình xử lí! vui lòng thử lại
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" id="name"
+                                   placeholder="Tên bất động sản">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="title" id="title"
+                                   placeholder="Tiêu đề">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="carPark" id="carPark"
+                                               placeholder="Gara ôtô (m2)">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="motoPark" id="motoPark"
+                                               placeholder="Gara môtô (m2)">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="floorArea" id="floorArea"
+                                               placeholder="Diện tích sàn">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="homeFrontage" id="homeFrontage"
+                                               placeholder="Diện tích mặt tiền">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="bedroom" id="bedroom"
+                                               placeholder="Số phòng ngủ">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="functionRoom" id="functionRoom"
+                                               placeholder="Số phòng chức năng">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="altarRoom" id="altarRoom"
+                                               placeholder="Phòng thờ">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="numberFloor" id="numberFloor"
+                                               placeholder="Số tầng">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="electricityPrice"
+                                               id="electricityPrice" placeholder="Giá điện">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="waterPrice" id="waterPrice"
+                                               placeholder="Giá nước">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="servicePrice" id="servicePrice"
+                                               placeholder="Giá dịch vụ">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="images" id="images">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="map" id="map" placeholder="google map">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <select class="form-control" id="homeDeposit">
+                                            <option value="Chính Đông">Chính Đông</option>
+                                            <option value="Đông Nam">Đông Nam</option>
+                                            <option value="Chính Nam">Chính Nam</option>
+                                            <option value="Tây Nam">Tây Nam</option>
+                                            <option value="Chính Tây">Chính Tây</option>
+                                            <option value="Tây Bắc">Tây Bắc</option>
+                                            <option value="Chính Bắc">Chính Bắc</option>
+                                            <option value="Đông Bắc">Đông Bắc</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <select class="form-control" id="saleRent">
+                                            <option value="1">Bất động sản đăng bán</option>
+                                            <option value="0">Bất động sản cho thuê</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group" id="building">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12 col-md-4 col-lg-3">
+                                        <div class="form-group" id="provinces">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-4 col-lg-3">
+                                        <div class="form-group" id="districts">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-4 col-lg-3">
+                                        <div class="form-group" id="wards">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 10px">
+                                <input type="text" class="form-control" name="number" id="address"
+                                       placeholder="Địa chỉ chi tiết">
+                            </div>
+
+                            <div class="form-group">
+                                <textarea class="form-control" name="description" id="description" cols="30" rows="10" id="description"
+                                          placeholder="Mô tẩ bất động sản"></textarea>
+                            </div>
+                            <button type="button" onclick="submitBuilding()" class="btn south-btn">Thêm mới</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- ##### Editor Area End ##### -->
+
+<!-- Bootstrap js -->
+<!--<script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!-- Plugins js -->
+<!--<script th:src="@{/js/plugins.js}"></script>-->
+<!--<script th:src="@{/js/classy-nav.min.js}"></script>-->
+<!--<script th:src="@{/js/jquery-ui.min.js}"></script>-->
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+<!-- Google Maps -->
+
+</body>
+
+</html>

@@ -20,8 +20,8 @@ public class BuildingController {
     private IBuildingService iBuildingService;
 
     @GetMapping(value = "/buildings")
-    public ResponseEntity<SystemResponse<Object>> getAllShow(@RequestParam(value = "page") int page,
-                                                             @RequestParam(value = "limit") int limit) {
+    public ResponseEntity<SystemResponse<Object>> getAllShow(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                             @RequestParam(value = "limit", defaultValue = "6") int limit) {
         Panigation panigation = new Panigation();
         panigation.setPage(page);
         panigation.setLimit(limit);
@@ -43,8 +43,8 @@ public class BuildingController {
         return iBuildingService.changeStatus(request, statusRq);
     }
 
-    @GetMapping(value = "/buildings/id/{id}")
-    public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request,@PathVariable(value = "id") String id) {
+    @GetMapping(value = "/buildings/{id}")
+    public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request,@PathVariable   (value = "id") String id) {
         return iBuildingService.getOne(request,id);
     }
     @GetMapping(value = "/users/buildings")

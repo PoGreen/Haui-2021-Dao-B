@@ -14,8 +14,12 @@ public class BuildingRq {
 
     @NotBlank
     private String name;
+
     @NotBlank
     private String description;
+
+    @NotBlank
+    private String title;
 
     @NotBlank
     private Integer carPark;
@@ -42,7 +46,7 @@ public class BuildingRq {
     private Integer altarRoom;
 
     @NotBlank
-    private Integer price;
+    private Long price;
 
     @NotBlank
     private Integer campusArea;
@@ -82,6 +86,14 @@ public class BuildingRq {
 
     @NotBlank
     private List<ImageRq> images = new ArrayList<>();
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getId() {
         return id;
@@ -171,11 +183,11 @@ public class BuildingRq {
         this.altarRoom = altarRoom;
     }
 
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
