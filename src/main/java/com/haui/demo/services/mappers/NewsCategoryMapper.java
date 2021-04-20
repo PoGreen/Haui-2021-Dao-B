@@ -29,6 +29,8 @@ public class NewsCategoryMapper {
         rp.setId(newsCategory.getId());
         rp.setName(newsCategory.getName());
         rp.setDescription(newsCategory.getDescription());
+        rp.setStatus(newsCategory.getStatus());
+        rp.setCreatedAt(newsCategory.getCreatedAt());
         return  rp;
     }
 }

@@ -1,5 +1,6 @@
 package com.haui.demo.controllers;
 
+import com.haui.demo.models.requests.BuildingFilter;
 import com.haui.demo.models.bos.Panigation;
 import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.requests.BuildingRq;
@@ -28,6 +29,33 @@ public class BuildingController {
         return iBuildingService.getAllShow(panigation);
     }
 
+    @GetMapping(value = "/buildings/filters")
+    public ResponseEntity<SystemResponse<Object>> getByFilter(HttpServletRequest request,
+                                                              @RequestParam(value = "category", required = false) String buildingCAtegory,
+                                                              @RequestParam(value = "ward", required = false) Integer ward,
+                                                              @RequestParam(value = "bedRoom", required = false) Integer bedRoom,
+                                                              @RequestParam(value = "function_room", required = false) Integer functionRoom,
+                                                              @RequestParam(value = "price", required = false) Long price,
+                                                              @RequestParam(value = "floor_area", required = false) Integer floorArea,
+                                                              @RequestParam(value = "direction", required = false) String direction,
+                                                              @RequestParam(value = "sale_rent", required = false) Integer saleRent,
+                                                              @RequestParam(value = "status",required = false) Integer status,
+                                                              @RequestParam(value = "page", defaultValue = "1") Integer page) {
+
+        BuildingFilter filter = new BuildingFilter();
+        filter.setPrice(price);
+        filter.setBuildingCategory(buildingCAtegory);
+        filter.setBedRoom(bedRoom);
+        filter.setFunctionRoom(functionRoom);
+        filter.setDirection(direction);
+        filter.setFloorArea(floorArea);
+        filter.setSaleRent(saleRent);
+        filter.setWard(ward);
+        filter.setPage(page);
+        filter.setStatus(status);
+        return iBuildingService.filters(request, filter);
+    }
+
     @PostMapping(value = "/buildings")
     public ResponseEntity<SystemResponse<Object>> addOne(HttpServletRequest request, @RequestBody BuildingRq buildingRq) {
         return iBuildingService.addOne(request, buildingRq);
@@ -44,9 +72,10 @@ public class BuildingController {
     }
 
     @GetMapping(value = "/buildings/{id}")
-    public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request,@PathVariable   (value = "id") String id) {
-        return iBuildingService.getOne(request,id);
+    public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request, @PathVariable(value = "id") String id) {
+        return iBuildingService.getOne(request, id);
     }
+
     @GetMapping(value = "/users/buildings")
     public ResponseEntity<SystemResponse<Object>> getByUser(HttpServletRequest request,
                                                             @RequestParam(value = "page") int page,
@@ -54,6 +83,6 @@ public class BuildingController {
         Panigation panigation = new Panigation();
         panigation.setPage(page);
         panigation.setLimit(limit);
-        return iBuildingService.getAllByUser(request,panigation);
+        return iBuildingService.getAllByUser(request, panigation);
     }
 }

@@ -20,7 +20,7 @@
     <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
     <script th:src="@{/js/mi/buildings.js}"></script>
 </head>
-<body onload="genBuildingsTable()">
+<body onload="genBuildingsTable(1,1)">
 <!-- Preloader -->
 <div id="preloader">
     <div class="south-load"></div>
@@ -32,13 +32,22 @@
 
 <!-- ##### Editor Area Start ##### -->
 <section
-         style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
+        style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
     <h4>Danh sách bất động sản</h4>
-    <a href="#" class="btn south-btn btn-3 m-1">Thêm mới</a>
-     <div id="buildings-table" style="margin: auto"></div>
+    <a href="/admin/new-buildings" class="btn south-btn btn-3 m-1">Thêm mới</a>
+    <a href="#" onclick="genBuildingsTable(1,1)" class="btn south-btn btn-3 m-1">Đang hoạt động - đang bán</a>
+    <a href="#" onclick="genBuildingsTable(1,2)" class="btn south-btn btn-3 m-1">Đang hoạt động - cho thuê</a>
+    <a href="#" onclick="genBuildingsTable(3,1)" class="btn south-btn btn-3 m-1">Không hoạt động - đang bán</a>
+    <a href="#" onclick="genBuildingsTable(3,2)" class="btn south-btn btn-3 m-1">Không hoạt động - cho thuê</a>
+    <a href="#" onclick="genBuildingsTable(2,1)" class="btn south-btn btn-3 m-1">Chờ duyệt - cho bán</a>
+    <a href="#" onclick="genBuildingsTable(2,2)" class="btn south-btn btn-3 m-1">Chờ duyệt - cho thuê</a>
+    <a href="#" onclick="genBuildingsTable(0,0)" class="btn south-btn btn-3 m-1">Tất cả</a>
+
+
+    <div id="buildings-table" style="margin: auto"></div>
+
 
 </section>
-
 <!-- ##### Editor Area End ##### -->
 <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 

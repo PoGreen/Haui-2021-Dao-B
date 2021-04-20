@@ -25,17 +25,12 @@
 <div th:replace="common/web.header :: header"></div>
 <!-- ##### Header Area End ##### -->
 
-<!-- ##### Hero Area Start ##### -->
-<div th:replace="common/web.nav :: nav"></div>
-<!-- ##### Breadcumb Area End ##### -->
-
-
 <section class="listings-content-wrapper section-padding-100">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="contact-heading">
-                    <h6>Login</h6>
+                    <h6>Đăng </h6>
                 </div>
             </div>
         </div>
@@ -48,10 +43,7 @@
                         <ul>
                             <li class="d-flex align-items-center justify-content-between"><span>Monday - Friday</span>
                                 <span>09 AM - 19 PM</span></li>
-                            <li class="d-flex align-items-center justify-content-between"><span>Saturday</span> <span>09 AM - 14 PM</span>
-                            </li>
-                            <li class="d-flex align-items-center justify-content-between"><span>Sunday</span> <span>Closed</span>
-                            </li>
+                            <li class="d-flex align-items-center justify-content-between"><span>Saturday</span> <span>09 AM - 14 PM</span></li>
                         </ul>
                     </div>
                     <!-- Address -->
@@ -80,7 +72,9 @@
                                    placeholder="password">
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn south-btn" onclick="subitLogin()">Login</button>
+                            <button type="button" class="btn south-btn" onclick="subitLogin()">Đăng nhập</button>
+                            <button type="button" class="btn south-btn" onclick="window.location='/signup'" >Đăng ký</button>
+                        </div>
                     </form>
                 </div>
             </div>

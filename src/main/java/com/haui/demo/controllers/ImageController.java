@@ -4,6 +4,7 @@ import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.requests.ImageRq;
 import com.haui.demo.services.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class ImageController {
     private IImageService iImageService;
 
     @PostMapping(value = "/images/load")
-    public ResponseEntity<SystemResponse<Object>> loadImage(@RequestParam(value = "images") List<MultipartFile> image) throws IOException {
+    public ResponseEntity<SystemResponse<Object>> loadImage(@RequestParam(value = "images") MultipartFile[] image) throws IOException {
         return iImageService.loadImage(image);
     }
 

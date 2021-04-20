@@ -10,6 +10,7 @@ public class NewsCategoryController {
     public String getNewsCategoryPage() {
         return "admin/news-category.html";
     }
+
     @GetMapping(value = "/admin/news-categories")
     public String getNewsCategoryTable() {
         return "admin/list-news-category.html";

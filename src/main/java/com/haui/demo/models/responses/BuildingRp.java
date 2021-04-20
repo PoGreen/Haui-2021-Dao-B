@@ -11,6 +11,7 @@ public class BuildingRp {
     private String title;
     private Integer floorArea;
     private Integer saleRent;
+    private Integer status;
 
     private ImageRp imageRp;
 
@@ -100,5 +101,13 @@ public class BuildingRp {
 
     public void setSaleRent(Integer saleRent) {
         this.saleRent = saleRent;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

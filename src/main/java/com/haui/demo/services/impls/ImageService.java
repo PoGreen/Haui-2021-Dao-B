@@ -36,7 +36,7 @@ public class ImageService implements IImageService {
 
 
     @Override
-    public ResponseEntity<SystemResponse<Object>> loadImage(List<MultipartFile> images) throws IOException {
+    public ResponseEntity<SystemResponse<Object>> loadImage(MultipartFile[] images) throws IOException {
         ResponseEntity<SystemResponse<Object>> validate = imageValidator.validate(images);
         if (!validate.getStatusCode().is2xxSuccessful()) {
             return validate;

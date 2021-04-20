@@ -11,17 +11,19 @@ import java.util.stream.Collectors;
 @Component
 public class BuildingCategoryMapper {
 
-    public List<BuildingCategoryRp> map(List<BuildingCategory> buildingCategories){
+    public List<BuildingCategoryRp> map(List<BuildingCategory> buildingCategories) {
         return buildingCategories.stream().map(t -> {
             BuildingCategoryRp buildingCategoryRp = new BuildingCategoryRp();
             buildingCategoryRp.setId(t.getId());
             buildingCategoryRp.setName(t.getName());
             buildingCategoryRp.setDescription(t.getDescription());
+            buildingCategoryRp.setStatus(t.getStatus());
+            buildingCategoryRp.setCreatedAt(t.getCreatedAt());
             return buildingCategoryRp;
         }).collect(Collectors.toList());
     }
 
-    public BuildingCategory map(BuildingCategory buildingCategory, BuildingCategoryRq buildingCategoryRq){
+    public BuildingCategory map(BuildingCategory buildingCategory, BuildingCategoryRq buildingCategoryRq) {
         buildingCategory.setName(buildingCategoryRq.getName());
         buildingCategory.setDescription(buildingCategoryRq.getDescription());
         buildingCategory.setBuildingCategory(buildingCategoryRq.getBuildingCategory());
@@ -29,11 +31,12 @@ public class BuildingCategoryMapper {
         return buildingCategory;
     }
 
-    public BuildingCategoryRp map(BuildingCategory buildingCategory){
+    public BuildingCategoryRp map(BuildingCategory buildingCategory) {
         BuildingCategoryRp buildingCategoryRp = new BuildingCategoryRp();
         buildingCategoryRp.setId(buildingCategory.getId());
         buildingCategoryRp.setName(buildingCategory.getName());
         buildingCategoryRp.setDescription(buildingCategory.getDescription());
+        buildingCategoryRp.setStatus(buildingCategory.getStatus());
         return buildingCategoryRp;
     }
 }

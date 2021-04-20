@@ -17,14 +17,9 @@ public class NewsCategoryController {
     @Autowired
     private INewsCategoryService newsCategorService;
 
-    @GetMapping("/web/news-categories")
-    public ResponseEntity<SystemResponse<Object>> getALlShow() {
-        return newsCategorService.getAllShow();
-    }
-
     @GetMapping("/news-categories")
-    public ResponseEntity<SystemResponse<Object>> getALl() {
-        return newsCategorService.getAll();
+    public ResponseEntity<SystemResponse<Object>> getALl(@RequestParam(value = "status") Integer status) {
+        return newsCategorService.getAll(status);
     }
 
     @PostMapping("/news-categories")

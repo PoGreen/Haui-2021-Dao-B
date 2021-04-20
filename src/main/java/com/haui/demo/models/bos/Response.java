@@ -18,6 +18,10 @@ public class Response {
         return ResponseEntity.ok(new SystemResponse<>(code, msg, body));
     }
 
+    public static <T> ResponseEntity<SystemResponse<T>> ok() {
+        return ResponseEntity.ok(new SystemResponse<>());
+    }
+
     public static <T> ResponseEntity<SystemResponse<T>> ok(int code, String msg) {
         return ResponseEntity.ok(new SystemResponse<>(code, msg, null));
     }

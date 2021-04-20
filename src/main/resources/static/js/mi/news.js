@@ -3,7 +3,7 @@ function submitNewsCategory() {
 
     var data = $('#news-category').serializeArray();
     $.ajax({
-        url: '/news-categories',
+        url: '/news-categories?status=1',
         type: 'POST',
         contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
         dataType: 'JSON', //dinh nghi kieu du lieu server gui len

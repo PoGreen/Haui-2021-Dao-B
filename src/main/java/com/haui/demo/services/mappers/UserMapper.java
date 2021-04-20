@@ -4,27 +4,41 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.haui.demo.models.bos.SystemResponse;
+import com.haui.demo.models.entities.Building;
 import com.haui.demo.models.entities.User;
 import com.haui.demo.models.requests.AccountUpdateRq;
 import com.haui.demo.models.requests.AdminRq;
 import com.haui.demo.models.requests.SignupRq;
 import com.haui.demo.models.requests.UserRequest;
+import com.haui.demo.models.responses.BuildingRp;
 import com.haui.demo.models.responses.UserRp;
 import com.haui.demo.models.responses.SignupRp;
 import com.haui.demo.models.responses.UserLoginResponse;
+import com.haui.demo.repositories.RoleRepository;
 import com.haui.demo.repositories.UserRepository;
+import com.haui.demo.services.ILocationService;
 import com.haui.demo.services.impls.FirebaseService;
 import com.haui.demo.utils.Global;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
+
+    @Autowired
+    private ILocationService locationService;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     private static final Logger logger = LogManager.getLogger(UserMapper.class);
     private final FirebaseService firebaseService;
@@ -72,7 +86,7 @@ public class UserMapper {
         return user;
     }
 
-    public User map(User user, AccountUpdateRq accountUpdateRq ) {
+    public User map(User user, AccountUpdateRq accountUpdateRq) {
         user.setPassword(accountUpdateRq.getPassword());
         user.setPhone(accountUpdateRq.getPhone());
         user.setAddress(accountUpdateRq.getAddress());
@@ -106,14 +120,26 @@ public class UserMapper {
         return signupRp;
     }
 
-    public UserRp mapRp(User user){
+    public UserRp mapRp(User user) {
         UserRp userRp = new UserRp();
+        userRp.setId(user.getId());
         userRp.setUserName(user.getUserName());
         userRp.setFullName(user.getFullName());
         userRp.setAddress(user.getPassword());
         userRp.setPhone(user.getPhone());
         userRp.setEmail(user.getEmail());
-        userRp.setWard(user.getWard());
+        userRp.setStatus(user.getStatus());
+        userRp.setCreatedAt(user.getCreatedAt());
+        userRp.setAddress(locationService.getLocationByWard(user.getWard()) + user.getAddress());
+        userRp.setRoleName(roleRepository.findById(user.getRole()).get().getRoleName());
         return userRp;
+    }
+
+    public List<UserRp> mapRps(List<User> users){
+        return users.stream().map(this::mapRp).collect(Collectors.toList());
+    }
+
+    public Page<UserRp> map(Page<User> users) {
+        return users.map(this::mapRp);
     }
 }

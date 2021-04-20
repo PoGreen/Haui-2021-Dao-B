@@ -21,19 +21,31 @@ public class Utils {
     }
 
     /**
-     * @param collection
-     * @return
-     */
-    public static boolean notNullAndEmpty(Collection<? extends Object> collection) {
-        return collection != null && collection.size() > 0;
-    }
-
-    /**
      * @param objects
      * @return
      */
-    public static boolean notNullAndEmpty(int[] objects) {
+    public static boolean notNullAndEmpty(Object[] objects) {
         return objects != null && objects.length > 0;
     }
 
+
+    public static boolean isNullOrEmpty(String str) {
+        return str == null || str.trim().isEmpty();
+    }
+
+    public static boolean isNullOrEmpty(Object[] objects) {
+        return objects == null || objects.length == 0;
+    }
+
+    public static boolean isNullOrEmpty(Collection<? extends Object> collection) {
+        return collection == null || collection.isEmpty();
+    }
+
+    /**
+     * @param collection
+     * @return
+     */
+    public static boolean notNullAndEmpty(Collection<?> collection) {
+        return collection != null && !collection.isEmpty();
+    }
 }

@@ -19,7 +19,7 @@
     <script th:src="@{/js/mi/news-category.js}"></script>
 
 </head>
-<body >
+<body>
 <!-- Preloader -->
 <div id="preloader">
     <div class="south-load"></div>
@@ -54,17 +54,20 @@
                                    placeholder="Tên loại tin tức">
                         </div>
 
-                        <div class="form-group" >
-                            <textarea class="form-control" name="message" cols="30" rows="10" id="description"
+                        <div class="form-group">
+                            <textarea class="form-control" name="description" cols="30" rows="10" id="description"
                                       placeholder="Mô tẩ loại tin tức"></textarea>
                         </div>
-                        
-                            <button type="button" onclick="submitNewsCategory()" class="btn south-btn">Thêm mới</button>
-                        </div>
-                    </form>
+
+                        <button type="button" onclick="submitNewsCategory()" class="btn south-btn">Thêm mới</button>
+                        <button type="button" class="btn south-btn"
+                                onclick="window.location = '/admin/news-categories'">Quay lại
+                        </button>
                 </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
     </div>
 </section>

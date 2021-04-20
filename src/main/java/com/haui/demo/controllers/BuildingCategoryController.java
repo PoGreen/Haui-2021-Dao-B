@@ -4,13 +4,11 @@ import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.requests.BuildingCategoryRq;
 import com.haui.demo.models.requests.StatusRq;
 import com.haui.demo.services.IBuildingCategoryService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +19,8 @@ public class BuildingCategoryController {
     private IBuildingCategoryService iBuildingCategoryService;
 
     @GetMapping("/building-categories")
-    public ResponseEntity<SystemResponse<Object>> getALl(HttpServletRequest request) {
-        return iBuildingCategoryService.getAll();
+    public ResponseEntity<SystemResponse<Object>> getALl(@RequestParam(value = "status") Integer status) {
+        return iBuildingCategoryService.getAll(status);
     }
 
     @PostMapping("/building-categories")

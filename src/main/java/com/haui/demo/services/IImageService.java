@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IImageService {
-    ResponseEntity<SystemResponse<Object>> loadImage(List<MultipartFile> images) throws IOException;
+    ResponseEntity<SystemResponse<Object>> loadImage(MultipartFile[] images) throws IOException;
 
     List<ImageRp> saveImage(String idBelongs, String category, List<ImageRq> imageRqs);
 

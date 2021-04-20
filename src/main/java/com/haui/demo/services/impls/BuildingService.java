@@ -6,6 +6,7 @@ import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.entities.Building;
 import com.haui.demo.models.entities.User;
 import com.haui.demo.models.entities.Ward;
+import com.haui.demo.models.requests.BuildingFilter;
 import com.haui.demo.models.requests.BuildingRq;
 import com.haui.demo.models.requests.StatusRq;
 import com.haui.demo.models.responses.*;
@@ -16,9 +17,11 @@ import com.haui.demo.repositories.WardRepository;
 import com.haui.demo.services.IBuildingService;
 import com.haui.demo.services.IImageService;
 import com.haui.demo.services.JwtUser;
+import com.haui.demo.services.PagingService;
 import com.haui.demo.services.mappers.BuildingMapper;
 import com.haui.demo.utils.Global;
 import com.haui.demo.utils.StringResponse;
+import com.haui.demo.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,8 +29,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +65,12 @@ public class BuildingService implements IBuildingService {
     @Autowired
     private ImageRepository imageRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Autowired
+    private PagingService pagingService;
+
     @Override
     public ResponseEntity<SystemResponse<Object>> getAllByUser(HttpServletRequest request, Panigation panigation) {
         User user = jwtUser.getUser(request);
@@ -69,6 +85,17 @@ public class BuildingService implements IBuildingService {
             buildingRp.setImageRp(image);
         }
         return Response.ok(buildingRps);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> filters(HttpServletRequest request, BuildingFilter filter) {
+        Paging<List<Building>> paging = this.filter(filter);
+
+        List<BuildingRp> buildingRps = mapper.map(paging.getData());
+
+        Paging<List<BuildingRp>> pagingDTO = pagingService.mapPagingDTO(buildingRps, paging);
+
+        return Response.ok(pagingDTO);
     }
 
     @Override
@@ -189,4 +216,43 @@ public class BuildingService implements IBuildingService {
         return Response.ok(buildingDetailRp);
     }
 
+    public Paging<List<Building>> filter(BuildingFilter filter) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Building> cq = cb.createQuery(Building.class);
+        CriteriaQuery<Long> cq1 = cb.createQuery(Long.class);
+        Root<Building> root = cq.from(Building.class);
+
+        cq.select(root);
+        cq1.select(cb.count(cq1.from(Building.class)));
+
+        List<Predicate> predicates = buildPredicates(filter, cb, root);
+
+        return pagingService.getListPaging(filter, cb, cq, cq1, root, predicates);
+    }
+
+    private List<Predicate> buildPredicates(BuildingFilter filter, CriteriaBuilder cb, Root<Building> root) {
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (filter.getWard() != null)
+            predicates.add(cb.equal(root.get("ward"), filter.getWard()));
+        if (filter.getFloorArea() != null)
+            predicates.add(cb.equal(root.get("floorArea"), filter.getFloorArea()));
+        if (filter.getBedRoom() != null)
+            predicates.add(cb.equal(root.get("bedRoom"), filter.getBedRoom()));
+        if (filter.getFunctionRoom() != null)
+            predicates.add(cb.equal(root.get("functionRoom"), filter.getFunctionRoom()));
+        if (filter.getPrice() != null)
+            predicates.add(cb.gt(root.get("price"), filter.getPrice()));
+        if (filter.getStatus() != null)
+            predicates.add(cb.equal(root.get("status"), filter.getStatus()));
+        if (filter.getSaleRent() != null)
+            predicates.add(cb.equal(root.get("saleRent"), filter.getSaleRent()));
+        if (Utils.notNullAndEmpty(filter.getDirection()))
+            predicates.add(cb.equal(root.get("direction"), filter.getDirection().trim()));
+        if (Utils.notNullAndEmpty(filter.getBuildingCategory()))
+            predicates.add(cb.equal(root.get("buildingCategory"), filter.getBuildingCategory().trim()));
+        if (Utils.notNullAndEmpty(filter.getUser()))
+            predicates.add(cb.equal(root.get("user"), filter.getUser().trim()));
+        return predicates;
+    }
 }

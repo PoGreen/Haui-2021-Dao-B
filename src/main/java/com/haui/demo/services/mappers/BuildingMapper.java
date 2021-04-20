@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class BuildingMapper {
 
@@ -26,11 +29,16 @@ public class BuildingMapper {
         rp.setPrice(building.getPrice());
         rp.setFloorArea(building.getFloorArea());
         rp.setSaleRent(building.getSaleRent());
+        rp.setStatus(building.getStatus());
         return rp;
     }
 
     public Page<BuildingRp> map(Page<Building> buildings) {
         return buildings.map(this::map);
+    }
+
+    public List<BuildingRp> map(List<Building> buildings) {
+        return buildings.stream().map(this::map).collect(Collectors.toList());
     }
 
     public Building map(Building building, BuildingRq buildingRq) {

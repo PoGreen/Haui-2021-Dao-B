@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class ImageValidator {
-    public ResponseEntity<SystemResponse<Object>> validate (List<MultipartFile> files){
+    public ResponseEntity<SystemResponse<Object>> validate (MultipartFile[] files){
         for (MultipartFile file: files) {
             String abc = file.getContentType();
             if(!file.getContentType().startsWith("image/"))

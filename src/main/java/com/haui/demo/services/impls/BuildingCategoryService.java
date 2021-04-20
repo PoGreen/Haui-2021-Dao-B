@@ -18,10 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class BuildingCategoryService implements IBuildingCategoryService {
@@ -39,11 +36,21 @@ public class BuildingCategoryService implements IBuildingCategoryService {
     }
 
     @Override
-    public ResponseEntity<SystemResponse<Object>> getAll() {
-        List<BuildingCategory>  buildingCategories = buildingCategoryRepository.findAll();
+    public ResponseEntity<SystemResponse<Object>> getAll(Integer status) {
+        List<BuildingCategory> buildingCategories = new ArrayList<>();
+        switch (status) {
+            case 1:
+                buildingCategories = buildingCategoryRepository.findByStatus(Global.ACTIVE);
+                break;
+            case 0:
+                buildingCategories = buildingCategoryRepository.findByStatus(Global.NOACTIVE);
+                break;
+            default:
+                buildingCategories = buildingCategoryRepository.findAll();
+        }
         List<BuildingCategoryRp> buildingCategoryRps = mapper.map(buildingCategories);
-        Map<String,Object> result = new HashMap<>();
-        result.put("building_category",buildingCategoryRps);
+        Map<String, Object> result = new HashMap<>();
+        result.put("building_category", buildingCategoryRps);
         return Response.ok(result);
     }
 
@@ -51,21 +58,21 @@ public class BuildingCategoryService implements IBuildingCategoryService {
     public ResponseEntity<SystemResponse<Object>> addOne(HttpServletRequest request, BuildingCategoryRq buildingCategoryRq) {
 
         boolean exist = buildingCategoryRepository.existsByName(buildingCategoryRq.getName());
-        if(exist){
+        if (exist) {
             return Response.badRequest(StringResponse.NAME_IS_EXIST);
         }
-        if(buildingCategoryRq.getBuildingCategory() != null){
+        if (buildingCategoryRq.getBuildingCategory() != null) {
             boolean existsId = buildingCategoryRepository.existsById(buildingCategoryRq.getBuildingCategory());
-            if(!existsId){
+            if (!existsId) {
                 return Response.badRequest(StringResponse.ID_IS_FAKE);
             }
         }
 
         BuildingCategory buildingCategory = new BuildingCategory();
-        mapper.map(buildingCategory,buildingCategoryRq);
+        mapper.map(buildingCategory, buildingCategoryRq);
 
         User user = jwtUser.getUser(request);
-        if(!Objects.isNull(user)){
+        if (!Objects.isNull(user)) {
             buildingCategory.setCreated_by(user.getId());
         }
         buildingCategory.setStatus(Global.ACTIVE);
@@ -78,20 +85,20 @@ public class BuildingCategoryService implements IBuildingCategoryService {
     @Override
     public ResponseEntity<SystemResponse<Object>> changeStatus(HttpServletRequest request, StatusRq statusRq) {
         BuildingCategory buildingCategory = buildingCategoryRepository.findById(statusRq.getId()).orElse(null);
-        if(Objects.isNull(buildingCategory)){
+        if (Objects.isNull(buildingCategory)) {
             return Response.badRequest(StringResponse.ID_IS_FAKE);
         }
         User user = jwtUser.getUser(request);
-        if(!Objects.isNull(user)){
+        if (!Objects.isNull(user)) {
             buildingCategory.setUpdated_by(user.getId());
         }
-        if(statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE){
+        if (statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE) {
             return Response.badRequest(StringResponse.STATUS_IS_FAKE);
         }
-        if(statusRq.getStatus() == Global.ACTIVE){
+        if (statusRq.getStatus() == Global.ACTIVE) {
             buildingCategory.setStatus(Global.ACTIVE);
         }
-        if (statusRq.getStatus() == Global.NOACTIVE){
+        if (statusRq.getStatus() == Global.NOACTIVE) {
             buildingCategory.setStatus(Global.NOACTIVE);
         }
         BuildingCategoryRp buildingCategoryRp = mapper.map(buildingCategory);

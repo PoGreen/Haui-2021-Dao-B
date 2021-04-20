@@ -1,14 +1,14 @@
 package com.haui.demo.services.impls;
 
+import com.haui.demo.models.bos.Panigation;
 import com.haui.demo.models.bos.Response;
 import com.haui.demo.models.bos.SystemResponse;
+import com.haui.demo.models.entities.NewsCategory;
 import com.haui.demo.models.entities.Role;
 import com.haui.demo.models.entities.User;
 import com.haui.demo.models.entities.Ward;
-import com.haui.demo.models.requests.AccountUpdateRq;
-import com.haui.demo.models.requests.AdminRq;
-import com.haui.demo.models.requests.Login;
-import com.haui.demo.models.requests.SignupRq;
+import com.haui.demo.models.requests.*;
+import com.haui.demo.models.responses.NewsCategoryRp;
 import com.haui.demo.models.responses.SignupRp;
 import com.haui.demo.models.responses.UserLoginResponse;
 import com.haui.demo.models.responses.UserRp;
@@ -26,10 +26,15 @@ import com.haui.demo.utils.StringResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -105,7 +110,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseEntity<SystemResponse<Object>> create(HttpServletRequest request, AdminRq adminRq) {
+    public ResponseEntity<SystemResponse<Object>>create(HttpServletRequest request, AdminRq adminRq) {
 
         ResponseEntity<SystemResponse<Object>> validateUserName = existByUserName(adminRq.getUserName());
         if (!validateUserName.getStatusCode().is2xxSuccessful()) {
@@ -137,7 +142,7 @@ public class UserService implements IUserService {
 
         User user = jwtUser.getUser(request);
 
-        if(Objects.isNull(user)){
+        if (Objects.isNull(user)) {
             return Response.badRequest(StringResponse.USER_ID_FAKE);
         }
 
@@ -155,10 +160,54 @@ public class UserService implements IUserService {
     @Override
     public ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request) {
         User user = jwtUser.getUser(request);
-        if(Objects.isNull(user)){
+        if (Objects.isNull(user)) {
             return Response.badRequest(StringResponse.USER_ID_FAKE);
         }
         UserRp userRp = mapper.mapRp(user);
         return Response.ok(userRp);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> getAll(Integer status, Panigation panigation) {
+
+        Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
+        Page<User> users = Page.empty();
+        switch (status) {
+            case 1:
+                users = userRepository.findByStatus(Global.ACTIVE, pageable);
+                break;
+            case 0:
+                users = userRepository.findByStatus(Global.NOACTIVE, pageable);
+                break;
+            default:
+                users = userRepository.findAll(pageable);
+                break;
+        }
+        Page<UserRp> userRps = mapper.map(users);
+        return Response.ok(userRps);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> changeStatus(HttpServletRequest request, StatusRq statusRq) {
+        User user = userRepository.findById(statusRq.getId()).orElse(null);
+        if(Objects.isNull(user)){
+            return Response.badRequest(StringResponse.USER_ID_FAKE);
+        }
+        User userAdmin = jwtUser.getUser(request);
+        if(!Objects.isNull(userAdmin)){
+            user.setUpdated_by(userAdmin.getId());
+        }
+        if(statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE){
+            return Response.badRequest(StringResponse.STATUS_IS_FAKE);
+        }
+        if(statusRq.getStatus() == Global.ACTIVE){
+            user.setStatus(Global.ACTIVE);
+        }
+        if (statusRq.getStatus() == Global.NOACTIVE){
+            user.setStatus(Global.NOACTIVE);
+        }
+        userRepository.save(user);
+        return Response.ok();
+
     }
 }

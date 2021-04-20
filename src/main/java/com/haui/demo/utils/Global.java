@@ -23,7 +23,7 @@ public class Global {
     public static final ParameterizedTypeReference<Map<String, Object>> mapOTPResponse;
 
     public static final Integer ACTIVE = 1;
-    public static final Integer NOACTIVE = 0;
+    public static final Integer NOACTIVE = 3;
     public static final Integer WAIT = 2;
 
     public static final String ROLE_USER = "USER";

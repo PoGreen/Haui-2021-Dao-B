@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface INewsCategoryService {
 
-    ResponseEntity<SystemResponse<Object>> getAllShow();
 
-    ResponseEntity<SystemResponse<Object>> getAll();
+    ResponseEntity<SystemResponse<Object>> getAll(Integer status);
 
     ResponseEntity<SystemResponse<Object>> addOne(HttpServletRequest request, NewsCategoryRq newsCategoryRq);
 

@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,18 +35,19 @@ public class NewsCategoryService implements INewsCategoryService {
     private JwtUser jwt;
 
     @Override
-    public ResponseEntity<SystemResponse<Object>> getAllShow() {
+    public ResponseEntity<SystemResponse<Object>> getAll(Integer status) {
+        List<NewsCategory> categories = new ArrayList<>();
+        switch (status){
+            case 1:
+                categories = newsCategoryRepository.findByStatus(Global.ACTIVE);
+                break;
+            case 0:
+                categories = newsCategoryRepository.findByStatus(Global.NOACTIVE);
+                break;
+            default:
+                categories = newsCategoryRepository.findAll();
+        }
 
-        List<NewsCategory> categories = newsCategoryRepository.findByStatus(Global.ACTIVE);
-        List<NewsCategoryRp> categoryRps = mapper.map(categories);
-        return Response.ok(categoryRps);
-
-    }
-
-    @Override
-    public ResponseEntity<SystemResponse<Object>> getAll() {
-
-        List<NewsCategory> categories = newsCategoryRepository.findAll();
         List<NewsCategoryRp> categoryRps = mapper.map(categories);
         return Response.ok(categoryRps);
     }

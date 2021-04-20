@@ -20,11 +20,8 @@
     <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
     <script th:src="@{/js/mi/buildings-category.js}"></script>
 </head>
-<body onload="genBuildingCategoryTable()">
-<!-- Preloader -->
-<div id="preloader">
-    <div class="south-load"></div>
-</div>
+<body onload="gen(2)">
+
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/header :: header"></div>
@@ -34,6 +31,9 @@
 <section
          style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
     <a href="/admin/new-buildings-categories" class="btn south-btn btn-3 m-1">Thêm mới</a>
+    <button type="submit"><a href="#" onclick="gen(1)" class="btn south-btn btn-3 m-1">Đang hoạt động</a></button>
+    <button type="submit"><a href="#" onclick="gen(0)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
+    <button type="submit"><a href="#" onclick="gen(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
      <div id="building-category-table" style="margin: auto"></div>
 
 </section>

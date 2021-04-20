@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Tạo mới admins</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/js/mi/location.js}"></script>
+    <script th:src="@{/js/mi/roles.js}"></script>
+    <script th:src="@{/js/mi/create-admins.js}"></script>
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+</head>
+<body onload="generatedProvince();genRole()">
+
+<!-- ##### Header Area Start ##### -->
+<div th:replace="common/header :: header"></div>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Editor Area Start ##### -->
+<section class="south-contact-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-heading">
+                    <h6>Thông tin </h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- Contact Form Area -->
+            <div class="col-12 col-lg-12">
+                <div class="contact-form">
+                    <form id="create-admins" >
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="user_name" id="user_name"
+                                   placeholder="Tên đăng nhập">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" id="password"
+                                   placeholder="Mật khẩu">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password-2" id="password-2"
+                                   placeholder="Mật khẩu xác nhận">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="full_name" id="full_name"
+                                   placeholder="Tên đầy đủ">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="phone" id="phone"
+                                   placeholder="Số điện thoại">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="email" id="email"
+                                   placeholder="Email">
+                        </div>
+
+                        <div class="form-group" id="provinces"></div>
+
+                        <div class="form-group" id="districts"></div>
+
+                        <div class="form-group" id="wards"></div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="address" id="address"
+                                   placeholder="Địa chỉ chi tiết">
+                        </div>
+
+                        <div class="form-group" id="roles"></div>
+
+                        <button type="button" class="btn south-btn" onclick="submitCreateAdmin()">Thêm mới</button>
+                        <button type="button" class="btn south-btn" onclick="window.location = '/admin/list-users-page'">Quay lại</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+<!-- ##### Editor Area End ##### -->
+
+</body>
+
+</html>
