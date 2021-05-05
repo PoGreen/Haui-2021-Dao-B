@@ -4,16 +4,22 @@ import com.haui.demo.models.bos.Panigation;
 import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.requests.BuildingFilter;
 import com.haui.demo.models.requests.BuildingRq;
+import com.haui.demo.models.requests.ExportExcel;
 import com.haui.demo.models.requests.StatusRq;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 public interface IBuildingService {
 
     ResponseEntity<SystemResponse<Object>> getAllByUser(HttpServletRequest request, Panigation panigation);
 
     ResponseEntity<SystemResponse<Object>> filters(HttpServletRequest request, BuildingFilter filter);
+
+    ResponseEntity<SystemResponse<Object>> userFilters(HttpServletRequest request, BuildingFilter filter);
+
+    ResponseEntity<SystemResponse<String>> exportExcel(ExportExcel exportExcel) throws IOException, IllegalAccessException;
 
     ResponseEntity<SystemResponse<Object>> getAllShow(Panigation panigation);
 

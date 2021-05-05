@@ -58,6 +58,11 @@ public class UserController {
     @PutMapping("/users/status")
     public ResponseEntity<SystemResponse<Object>> changeStatus(HttpServletRequest request,
                                                                @RequestBody StatusRq statusRq) {
-        return service.changeStatus(request,statusRq);
+        return service.changeStatus(request, statusRq);
+    }
+
+    @DeleteMapping("/users/logout")
+    public ResponseEntity<SystemResponse<Object>> logout(HttpServletRequest request) {
+        return service.logout(request);
     }
 }

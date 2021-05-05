@@ -13,6 +13,8 @@ public interface IUserService {
 
     ResponseEntity<SystemResponse<Object>> login(HttpServletRequest request, Login login);
 
+    ResponseEntity<SystemResponse<Object>> logout(HttpServletRequest request);
+
     ResponseEntity<SystemResponse<Object>> existByUserName(String userName);
 
     ResponseEntity<SystemResponse<Object>> signup(SignupRq signupRq);

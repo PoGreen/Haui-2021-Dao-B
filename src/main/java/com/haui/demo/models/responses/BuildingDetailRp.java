@@ -265,4 +265,6 @@ public class BuildingDetailRp {
     public void setImageRps(List<ImageRp> imageRps) {
         this.imageRps = imageRps;
     }
+
+
 }

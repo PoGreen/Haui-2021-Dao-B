@@ -1,9 +1,11 @@
 package com.haui.demo.services.mappers;
 
 import com.haui.demo.models.entities.Building;
+import com.haui.demo.models.entities.BuildingCategory;
 import com.haui.demo.models.requests.BuildingRq;
 import com.haui.demo.models.responses.BuildingDetailRp;
 import com.haui.demo.models.responses.BuildingRp;
+import com.haui.demo.repositories.BuildingCategoryRepository;
 import com.haui.demo.services.ILocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,9 @@ public class BuildingMapper {
 
     @Autowired
     private ILocationService locationService;
+
+    @Autowired
+    private BuildingCategoryRepository buildingCategoryRepository;
 
     public BuildingRp map(Building building) {
         BuildingRp rp = new BuildingRp();
@@ -98,8 +103,14 @@ public class BuildingMapper {
         buildingDetailRp.setWard(building.getWard());
         buildingDetailRp.setSaleRent(building.getSaleRent());
         buildingDetailRp.setServicePrice(building.getServicePrice());
-        buildingDetailRp.setBuildingCategory(building.getBuildingCategory());
+
+        BuildingCategory buildingCategory = buildingCategoryRepository.findById(building.getBuildingCategory()).orElse(new BuildingCategory());
+        buildingDetailRp.setBuildingCategory(buildingCategory.getName());
         buildingDetailRp.setWard(building.getWard());
         return buildingDetailRp;
+    }
+
+    public List<BuildingDetailRp> mapToBuildingDetailRps(List<Building> buildings){
+        return buildings.stream().map(this::maps).collect(Collectors.toList());
     }
 }

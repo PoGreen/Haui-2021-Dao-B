@@ -19,6 +19,7 @@
     <link rel="stylesheet" th:href="@{/css/jquery.dataTables.min.css}">
     <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
     <script th:src="@{/js/mi/admins.js}"></script>
+    <script th:src="@{/js/mi/base.js}"></script>
 </head>
 <body onload="gen(2)">
 
@@ -32,7 +33,7 @@
          style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
     <a href="/admin/users-page" class="btn south-btn btn-3 m-1">Thêm mới</a>
     <button type="button"><a href="#" onclick="gen(1)" class="btn south-btn btn-3 m-1">Đang hoạt động</a></button>
-    <button type="button"><a href="#" onclick="gen(0)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
+    <button type="button"><a href="#" onclick="gen(3)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
     <button type="button"><a href="#" onclick="gen(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
      <div id="users-table" style="margin: auto"></div>
 

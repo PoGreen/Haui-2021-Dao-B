@@ -17,9 +17,10 @@
     <!-- Style CSS -->
     <link rel="stylesheet" th:href="@{/style.css}">
     <script th:src="@{/js/mi/buildings.js}"></script>
+    <script th:src="@{/js/mi/base.js}"></script>
 </head>
 
-<body onload="genBuildingsByStatus(1)">
+<body onload="genBuildingsByStatus(1),base()">
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/web.header :: header"></div>

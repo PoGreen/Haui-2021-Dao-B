@@ -19,8 +19,9 @@
     <script th:src="@{/js/mi/location.js}"></script>
     <script th:src="@{/js/mi/home.js}"></script>
     <script th:src="@{/js/mi/buildings.js}"></script>
+    <script th:src="@{/js/mi/base.js}"></script>
 </head>
-<body onload="genBuildings();generatedProvince();genBuildingCategory()">
+<body onload="searchBuilding();generatedProvince();genBuildingCategoryHome();base()">
 <!-- Preloader -->
 <div id="preloader">
     <div class="south-load"></div>
@@ -42,10 +43,10 @@
                 <div class="advanced-search-form">
                     <!-- Search Title -->
                     <div class="search-title">
-                        <p>Search for your home</p>
+                        <p>Tìm kiếm căn hộ của bạn</p>
                     </div>
                     <!-- Search Form -->
-                    <form action="#" method="post" id="advanceSearch">
+                    <form id="advanceSearch">
                         <div class="row">
 
                             <div class="col-12 col-md-4 col-lg-3">
@@ -55,7 +56,7 @@
                             </div>
 
                             <div class="col-12 col-md-4 col-lg-3">
-                                <div class="form-group"  id="provinces">
+                                <div class="form-group" id="provinces">
                                 </div>
                             </div>
 
@@ -72,55 +73,89 @@
                             </div>
 
                             <div class="col-12 col-md-4 col-xl-3">
-                                <div class="form-group" id="building">
+                                <div class="form-group" id="building-category">
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-4 col-xl-2">
                                 <div class="form-group">
-                                    <select class="form-control" id="bedrooms">
-                                        <option>Phòng ngủ</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5+</option>
+                                    <select class="form-control" id="bedRoom" name="bedRoom">
+                                        <option value="null">Phòng ngủ</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5+</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-4 col-xl-2">
                                 <div class="form-group">
-                                    <select class="form-control" id="bathrooms">
-                                        <option>Phòng chức năng</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5+</option>
+                                    <select class="form-control" id="function_room" name="function_room">
+                                        <option value="null">Phòng chức năng</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5+</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-md-4 col-xl-2">
+                                <div class="form-group">
+                                    <select class="form-control" id="floor_area" name="floor_area">
+                                        <option value="null">Diện tích sàn</option>
+                                        <option value="20"> 20 m2</option>
+                                        <option value="40"> 40 m2</option>
+                                        <option value="80"> 80 m2</option>
+                                        <option value="100"> 100 m2</option>
+                                        <option value="200"> 200 m2</option>
+                                        <option value="300"> 300 m2</option>
+                                        <option value="400"> 400 m2</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-xl-2">
+                                <div class="form-group">
+                                    <select class="form-control" id="direction" name="direction">
+                                        <option value="Chính Đông">Chính Đông</option>
+                                        <option value="Đông Nam">Đông Nam</option>
+                                        <option value="Chính Nam">Chính Nam</option>
+                                        <option value="Tây Nam">Tây Nam</option>
+                                        <option value="Chính Tây">Chính Tây</option>
+                                        <option value="Tây Bắc">Tây Bắc</option>
+                                        <option value="Chính Bắc">Chính Bắc</option>
+                                        <option value="Đông Bắc">Đông Bắc</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-xl-2">
+                                <div class="form-group">
+                                    <select class="form-control" id="sale_rent" name="sale_rent">
+                                        <option value="1">Đang bán</option>
+                                        <option value="0">Đang cho thuê</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-8 col-lg-12 col-xl-5 d-flex">
                                 <!-- Distance Range -->
-                                <div class="slider-range">
-                                    <div data-min="10" data-max="1000000" data-unit=" mil" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000000">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                    </div>
-                                    <div class="range">10$ - 1000000$</div>
+                                <div class="form-group">
+                                    <input type="input" class="form-control" name="price"
+                                           placeholder="Giá tối thiểu (VND)">
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-between align-items-end">
-                                <!-- More Filter -->
-                                <div class="more-filter">
-                                    <a href="#" id="moreFilter">+ More filters</a>
-                                </div>
                                 <!-- Submit -->
                                 <div class="form-group mb-0">
-                                    <button type="submit" class="btn south-btn">TÌm kiếm</button>
+                                    <a href="#" class="btn south-btn" onclick="searchBuilding()">Tìm kiếm
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -138,8 +173,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-heading wow fadeInUp">
-                    <h2>Featured Properties</h2>
-                    <p>Suspendisse dictum enim sit amet libero malesuada feugiat.</p>
+                    <h2>Thành phố xanh tươi. Cuộc đời trọn vẹn</h2>
+                    <p>Nhà đẹp của bạn - Thành công của chúng tôi</p>
                 </div>
             </div>
         </div>
@@ -157,9 +192,8 @@
         <div class="row align-items-center h-100">
             <div class="col-12">
                 <div class="cta-content text-center">
-                    <h2 class="wow fadeInUp" data-wow-delay="300ms">Are you looking for a place to rent?</h2>
-                    <h6 class="wow fadeInUp" data-wow-delay="400ms">Suspendisse dictum enim sit amet libero malesuada feugiat.</h6>
-                    <a href="#" class="btn south-btn mt-50 wow fadeInUp" data-wow-delay="500ms">Search</a>
+                    <h2 class="wow fadeInUp" data-wow-delay="300ms">Xây niềm tin vững - Dựng uy tín vàng</h2>
+                    <h6 class="wow fadeInUp" data-wow-delay="400ms">Tiên phong phát triển - Vững bước thành công</h6>
                 </div>
             </div>
         </div>
@@ -173,8 +207,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-heading wow fadeInUp" data-wow-delay="250ms">
-                    <h2>Client testimonials</h2>
-                    <p>Suspendisse dictum enim sit amet libero malesuada feugiat.</p>
+                    <h2>Xây đắp niềm tin cộng đồng</h2>
                 </div>
             </div>
         </div>
@@ -185,35 +218,37 @@
 
                     <!-- Single Testimonial Slide -->
                     <div class="single-testimonial-slide text-center">
-                        <h5>Perfect Home for me</h5>
-                        <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna.</p>
+                        <h5>Khó khăn về nguồn vốn khiến loạt dự án trên đất vàng đổi chủ</h5>
+                        <p>Khó khăn về nguồn vốn và đầu ra của thị trường BĐS thời gian qua đã “vắt kiệt” sức chịu đựng
+                            của nhiều doanh nghiệp địa ốc. Điều này khiến không ít quỹ đất vàng phải đổi chủ. Nổi bật
+                            trong 6 tháng đầu năm là các thương vụ đến từ hai ông lớn LDG Group và Danh Khôi. Cụ thể,
+                            tại TP.HCM, thông qua việc nhận chuyển nhượng 99,9% vốn của Công ty CP Hiệp Phúc từ Quốc
+                            Cường Gia Lai, LDG Group chính thức sở hữu khu căn hộ Sông Đà Riverside. Ở thị trường miền
+                            Trung, Danh Khôi Group nổi lên với loạt thương vụ “thâu tóm” có giá trị hàng nghìn tỷ đồng
+                            các dự án có vị trí vàng ngay trung tâm TP Đà Nẵng và Nha Trang.</p>
 
-                        <div class="testimonial-author-info">
-                            <img src="img/bg-img/feature6.jpg" alt="">
-                            <p>Daiane Smith, <span>Customer</span></p>
-                        </div>
                     </div>
 
                     <!-- Single Testimonial Slide -->
                     <div class="single-testimonial-slide text-center">
-                        <h5>Perfect Home for me</h5>
-                        <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna.</p>
-
-                        <div class="testimonial-author-info">
-                            <img src="img/bg-img/feature6.jpg" alt="">
-                            <p>Daiane Smith, <span>Customer</span></p>
-                        </div>
+                        <h5>Sắp có thêm khu nhà ở xã hội trị giá hơn 3.000 tỷ đồng tại Bắc Ninh</h5>
+                        <p>Khu nhà ở xã hội với số vốn đầu tư gần 3.287 tỷ đồng, quy mô hơn 17ha dành để bố trí chỗ ở
+                            cho người lao động đang làm việc trong khu công nghiệp tại phường Vân Dương, TP. Bắc Ninh.
+                            Dự kiến, quy mô dân số vào khoảng 7.268 người. Đất xây dựng nhà ở xã hội sẽ gồm các khối nhà
+                            chung cư cao tối đa 15 tầng (không tính tầng kỹ thuật, tầng tum). Đây sẽ là những công trình
+                            điểm nhấn về chiều cao, kiến trúc, tạo cảnh quan đô thị cho dự án.</p>
                     </div>
 
                     <!-- Single Testimonial Slide -->
                     <div class="single-testimonial-slide text-center">
-                        <h5>Perfect Home for me</h5>
-                        <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna.</p>
+                        <h5>Chi 4.800 tỷ đồng xây dựng cây cầu đầu tiên bắc qua sông Thị Vải</h5>
+                        <p>Theo thông tin từ ông Trần Thượng Chí, Giám đốc Sở Giao thông Vận tải Bà Rịa - Vũng Tàu, dự
+                            án cầu Phước An được đầu tư 4.879 tỷ đồng, lấy từ vốn Trung ương và địa phương. Cầu có tổng
+                            chiều dài hơn 3,7km, bắc qua sông Thị Vải. Trong đó, chiều dài cầu Phước An là 3,4km. Dự án
+                            có quy mô 6 làn xe, nối thị xã Phú Mỹ (tỉnh Bà Rịa - Vũng Tàu) và huyện Nhơn Trạch (tỉnh
+                            Đồng Nai). Cây cầu sẽ giúp giảm tải cho quốc lộ 51, nối khu vực cảng Cái Mép - Thị Vải với
+                            cao tốc Bến Lức - Long Thành đi các tỉnh miền Tây.</p>
 
-                        <div class="testimonial-author-info">
-                            <img src="img/bg-img/feature6.jpg" alt="">
-                            <p>Daiane Smith, <span>Customer</span></p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -229,13 +264,14 @@
         <!-- Section Heading -->
         <div class="section-heading wow fadeInUp" data-wow-delay="250ms">
             <img src="img/icons/prize.png" alt="">
-            <h2>jeremy Scott</h2>
+            <h2>Trần Đức Đạo</h2>
             <p>Realtor</p>
         </div>
-        <p class="wow fadeInUp" data-wow-delay="500ms">Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odiomattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna. Curabitur rhoncus auctor eleifend. Fusce venenatis diam urna, eu pharetra arcu varius ac. Etiam cursus turpis lectus, id iaculis risus tempor id. Phasellus fringilla nisl sed sem scelerisque, eget aliquam magna vehicula.</p>
+        <p class="wow fadeInUp" data-wow-delay="500ms">Trường: Đại học công nghiệp Hà Nội - Khoa: Công nghệ thông tin -
+            Ngành: Kỹ thuật phần mềm - Lớp : KTPM03 - </p>
         <div class="address wow fadeInUp" data-wow-delay="750ms">
-            <h6><img src="img/icons/phone-call.png" alt=""> +45 677 8993000 223</h6>
-            <h6><img src="img/icons/envelope.png" alt=""> office@template.com</h6>
+            <h6><img src="img/icons/phone-call.png" alt=""> +45 123 456 789</h6>
+            <h6><img src="img/icons/envelope.png" alt=""> daogreyt@gmail.com</h6>
         </div>
         <div class="signature mt-50 wow fadeInUp" data-wow-delay="1000ms">
             <img src="img/core-img/signature.png" alt="">

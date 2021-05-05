@@ -14,6 +14,10 @@ public class BuildingsController {
     @GetMapping(value = "/buildings-rent-page")
     public String getBuildingsBuyPages() {
         return "/buildings-buy";
+    }
 
+    @GetMapping(value = "/buildings-list-page")
+    public String getBuildingsTable() {
+        return "/user-buildings";
     }
 }

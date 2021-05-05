@@ -76,7 +76,6 @@ public class UserMapper {
     public User map(SignupRq signupRq, Integer ward) {
         User user = new User();
         user.setUserName(signupRq.getUserName());
-        user.setPassword(signupRq.getPassword());
         user.setPhone(signupRq.getPhone());
         user.setAddress(signupRq.getAddress());
         user.setFullName(signupRq.getFullName());
@@ -87,7 +86,7 @@ public class UserMapper {
     }
 
     public User map(User user, AccountUpdateRq accountUpdateRq) {
-        user.setPassword(accountUpdateRq.getPassword());
+
         user.setPhone(accountUpdateRq.getPhone());
         user.setAddress(accountUpdateRq.getAddress());
         user.setFullName(accountUpdateRq.getFullName());
@@ -100,7 +99,7 @@ public class UserMapper {
     public User map(AdminRq adminRq, Integer ward) {
         User user = new User();
         user.setUserName(adminRq.getUserName());
-        user.setPassword(adminRq.getPassword());
+
         user.setPhone(adminRq.getPhone());
         user.setAddress(adminRq.getAddress());
         user.setFullName(adminRq.getFullName());

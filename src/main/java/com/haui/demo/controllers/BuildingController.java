@@ -4,6 +4,7 @@ import com.haui.demo.models.requests.BuildingFilter;
 import com.haui.demo.models.bos.Panigation;
 import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.requests.BuildingRq;
+import com.haui.demo.models.requests.ExportExcel;
 import com.haui.demo.models.requests.StatusRq;
 import com.haui.demo.services.IBuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 
 @Controller(value = "buildings")
 public class BuildingController {
@@ -31,7 +34,7 @@ public class BuildingController {
 
     @GetMapping(value = "/buildings/filters")
     public ResponseEntity<SystemResponse<Object>> getByFilter(HttpServletRequest request,
-                                                              @RequestParam(value = "category", required = false) String buildingCAtegory,
+                                                              @RequestParam(value = "category", required = false) String buildingCategory,
                                                               @RequestParam(value = "ward", required = false) Integer ward,
                                                               @RequestParam(value = "bedRoom", required = false) Integer bedRoom,
                                                               @RequestParam(value = "function_room", required = false) Integer functionRoom,
@@ -39,8 +42,41 @@ public class BuildingController {
                                                               @RequestParam(value = "floor_area", required = false) Integer floorArea,
                                                               @RequestParam(value = "direction", required = false) String direction,
                                                               @RequestParam(value = "sale_rent", required = false) Integer saleRent,
-                                                              @RequestParam(value = "status",required = false) Integer status,
+                                                              @RequestParam(value = "status", required = false) Integer status,
                                                               @RequestParam(value = "page", defaultValue = "1") Integer page) {
+
+        BuildingFilter filter = new BuildingFilter();
+        filter.setPrice(price);
+        filter.setBuildingCategory(buildingCategory);
+        filter.setBedRoom(bedRoom);
+        filter.setFunctionRoom(functionRoom);
+        filter.setDirection(direction);
+        filter.setFloorArea(floorArea);
+        filter.setSaleRent(saleRent);
+        filter.setWard(ward);
+        filter.setPage(page);
+        filter.setStatus(status);
+        return iBuildingService.filters(request, filter);
+    }
+
+    @PostMapping(value = "/buildings/filters/body")
+    public ResponseEntity<SystemResponse<Object>> getByFilterBody(HttpServletRequest request,
+                                                              @RequestBody BuildingFilter filter) {
+        return iBuildingService.filters(request, filter);
+    }
+
+    @GetMapping(value = "/user/buildings/filters")
+    public ResponseEntity<SystemResponse<Object>> getUserBuildingByFilter(HttpServletRequest request,
+                                                                          @RequestParam(value = "category", required = false) String buildingCAtegory,
+                                                                          @RequestParam(value = "ward", required = false) Integer ward,
+                                                                          @RequestParam(value = "bedRoom", required = false) Integer bedRoom,
+                                                                          @RequestParam(value = "function_room", required = false) Integer functionRoom,
+                                                                          @RequestParam(value = "price", required = false) Long price,
+                                                                          @RequestParam(value = "floor_area", required = false) Integer floorArea,
+                                                                          @RequestParam(value = "direction", required = false) String direction,
+                                                                          @RequestParam(value = "sale_rent", required = false) Integer saleRent,
+                                                                          @RequestParam(value = "status", required = false) Integer status,
+                                                                          @RequestParam(value = "page", defaultValue = "1") Integer page) {
 
         BuildingFilter filter = new BuildingFilter();
         filter.setPrice(price);
@@ -53,7 +89,34 @@ public class BuildingController {
         filter.setWard(ward);
         filter.setPage(page);
         filter.setStatus(status);
-        return iBuildingService.filters(request, filter);
+        return iBuildingService.userFilters(request, filter);
+    }
+
+    @GetMapping(value = "/buildings/excel")
+    public ResponseEntity<SystemResponse<String>> exportExcel(HttpServletRequest request,
+                                                              @RequestParam(value = "category", required = false) String buildingCAtegory,
+                                                              @RequestParam(value = "ward", required = false) Integer ward,
+                                                              @RequestParam(value = "bedRoom", required = false) Integer bedRoom,
+                                                              @RequestParam(value = "function_room", required = false) Integer functionRoom,
+                                                              @RequestParam(value = "price", required = false) Long price,
+                                                              @RequestParam(value = "floor_area", required = false) Integer floorArea,
+                                                              @RequestParam(value = "direction", required = false) String direction,
+                                                              @RequestParam(value = "sale_rent", required = false) Integer saleRent,
+                                                              @RequestParam(value = "status", required = false) Integer status,
+                                                              @NotBlank @RequestParam(value = "fields") String fields) throws IOException, IllegalAccessException {
+
+        ExportExcel excel = new ExportExcel();
+        excel.setPrice(price);
+        excel.setBuildingCategory(buildingCAtegory);
+        excel.setBedRoom(bedRoom);
+        excel.setFunctionRoom(functionRoom);
+        excel.setDirection(direction);
+        excel.setFloorArea(floorArea);
+        excel.setSaleRent(saleRent);
+        excel.setWard(ward);
+        excel.setStatus(status);
+        excel.setFields(fields);
+        return iBuildingService.exportExcel(excel);
     }
 
     @PostMapping(value = "/buildings")

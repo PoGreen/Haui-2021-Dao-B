@@ -1,5 +1,7 @@
 package com.haui.demo.models.entities;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -42,10 +44,9 @@ public class User extends AbsEntity {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password, PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
     }
-
     public String getFullName() {
         return fullName;
     }
@@ -92,5 +93,9 @@ public class User extends AbsEntity {
 
     public void setWard(Integer ward) {
         this.ward = ward;
+    }
+
+    public boolean comparePassword(String passwordIn, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(passwordIn, this.password);
     }
 }

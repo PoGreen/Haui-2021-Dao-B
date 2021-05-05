@@ -20,7 +20,7 @@ public class ImageController {
     private IImageService iImageService;
 
     @PostMapping(value = "/images/load")
-    public ResponseEntity<SystemResponse<Object>> loadImage(@RequestParam(value = "images") MultipartFile[] image) throws IOException {
+    public ResponseEntity<SystemResponse<Object>> loadImage(@RequestParam(value = "image") MultipartFile[] image) throws IOException {
         return iImageService.loadImage(image);
     }
 

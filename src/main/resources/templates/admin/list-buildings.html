@@ -19,8 +19,9 @@
     <link rel="stylesheet" th:href="@{/css/jquery.dataTables.min.css}">
     <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
     <script th:src="@{/js/mi/buildings.js}"></script>
+    <script th:src="@{/js/mi/base.js}"></script>
 </head>
-<body onload="genBuildingsTable(1,1)">
+<body onload="genBuildingsTable(0,0)">
 <!-- Preloader -->
 <div id="preloader">
     <div class="south-load"></div>
@@ -42,7 +43,7 @@
     <a href="#" onclick="genBuildingsTable(2,1)" class="btn south-btn btn-3 m-1">Chờ duyệt - cho bán</a>
     <a href="#" onclick="genBuildingsTable(2,2)" class="btn south-btn btn-3 m-1">Chờ duyệt - cho thuê</a>
     <a href="#" onclick="genBuildingsTable(0,0)" class="btn south-btn btn-3 m-1">Tất cả</a>
-
+    <a href="#" onclick="genFileExcel()" class="btn south-btn btn-3 m-1">Xuất file Excel</a>
 
     <div id="buildings-table" style="margin: auto"></div>
 

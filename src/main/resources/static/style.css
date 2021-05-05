@@ -735,7 +735,7 @@ img {
         padding: 30px 20px; } }
     .south-search-area .advanced-search-form .search-title {
       position: absolute;
-      width: 260px;
+      width: 300px;
       height: 45px;
       background-color: #947054;
       top: -46px;
@@ -746,7 +746,7 @@ img {
       text-align: center; }
       @media only screen and (max-width: 767px) {
         .south-search-area .advanced-search-form .search-title {
-          width: 210px;
+          width: 300px;
           padding: 0 15px; } }
       .south-search-area .advanced-search-form .search-title p {
         margin-bottom: 0;

@@ -8,17 +8,16 @@ import com.haui.demo.models.entities.User;
 import com.haui.demo.models.entities.Ward;
 import com.haui.demo.models.requests.BuildingFilter;
 import com.haui.demo.models.requests.BuildingRq;
+import com.haui.demo.models.requests.ExportExcel;
 import com.haui.demo.models.requests.StatusRq;
 import com.haui.demo.models.responses.*;
 import com.haui.demo.repositories.BuildingCategoryRepository;
 import com.haui.demo.repositories.BuildingRepository;
 import com.haui.demo.repositories.ImageRepository;
 import com.haui.demo.repositories.WardRepository;
-import com.haui.demo.services.IBuildingService;
-import com.haui.demo.services.IImageService;
-import com.haui.demo.services.JwtUser;
-import com.haui.demo.services.PagingService;
+import com.haui.demo.services.*;
 import com.haui.demo.services.mappers.BuildingMapper;
+import com.haui.demo.services.validators.BuildingValidator;
 import com.haui.demo.utils.Global;
 import com.haui.demo.utils.StringResponse;
 import com.haui.demo.utils.Utils;
@@ -37,6 +36,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -71,6 +71,12 @@ public class BuildingService implements IBuildingService {
     @Autowired
     private PagingService pagingService;
 
+    @Autowired
+    private BuildingValidator validator;
+
+    @Autowired
+    private ExcelService excelService;
+
     @Override
     public ResponseEntity<SystemResponse<Object>> getAllByUser(HttpServletRequest request, Panigation panigation) {
         User user = jwtUser.getUser(request);
@@ -96,6 +102,32 @@ public class BuildingService implements IBuildingService {
         Paging<List<BuildingRp>> pagingDTO = pagingService.mapPagingDTO(buildingRps, paging);
 
         return Response.ok(pagingDTO);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> userFilters(HttpServletRequest request, BuildingFilter filter) {
+        User user = jwtUser.getUser(request);
+        filter.setUser(user.getId());
+        Paging<List<Building>> paging = this.filter(filter);
+
+        List<BuildingRp> buildingRps = mapper.map(paging.getData());
+
+        Paging<List<BuildingRp>> pagingDTO = pagingService.mapPagingDTO(buildingRps, paging);
+
+        return Response.ok(pagingDTO);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<String>> exportExcel(ExportExcel exportExcel) throws IOException, IllegalAccessException {
+        ResponseEntity<SystemResponse<String>> validate = validator.validate(exportExcel);
+        if (!validate.getStatusCode().is2xxSuccessful()) return validate;
+
+        List<Building> buildings = this.filterNoPaging(exportExcel);
+
+        List<BuildingDetailRp> buildingDetailRps = mapper.mapToBuildingDetailRps(buildings);
+        String fileName = excelService.exportExcel(exportExcel.getFields(), buildingDetailRps, new BuildingDetailRp());
+        String urlStatistical = "tranducdao" + fileName;
+        return Response.ok(urlStatistical);
     }
 
     @Override
@@ -130,8 +162,9 @@ public class BuildingService implements IBuildingService {
         }
         Building building = new Building();
         mapper.map(building, buildingRq);
-        building.setStatus(Global.WAIT);
         building.setCreated_by(user.getId());
+        building.setStatus(Global.WAIT);
+        building.setUser(user.getId());
 
         buildingRepository.save(building);
         List<ImageRp> image = imageService.saveImage(building.getId(), Global.BUILDINGS, buildingRq.getImages());
@@ -230,6 +263,24 @@ public class BuildingService implements IBuildingService {
         return pagingService.getListPaging(filter, cb, cq, cq1, root, predicates);
     }
 
+    public List<Building> filterNoPaging(BuildingFilter filter) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Building> cq = cb.createQuery(Building.class);
+        CriteriaQuery<Long> cq1 = cb.createQuery(Long.class);
+        Root<Building> root = cq.from(Building.class);
+
+        cq.select(root);
+        cq1.select(cb.count(cq1.from(Building.class)));
+
+        List<Predicate> predicates = buildPredicates(filter, cb, root);
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        cq.orderBy(cb.desc(root.get("createdAt")));
+        List<Building> building = entityManager.createQuery(cq)
+                .getResultList();
+        return building;
+    }
+
     private List<Predicate> buildPredicates(BuildingFilter filter, CriteriaBuilder cb, Root<Building> root) {
         List<Predicate> predicates = new ArrayList<>();
 
@@ -238,11 +289,11 @@ public class BuildingService implements IBuildingService {
         if (filter.getFloorArea() != null)
             predicates.add(cb.equal(root.get("floorArea"), filter.getFloorArea()));
         if (filter.getBedRoom() != null)
-            predicates.add(cb.equal(root.get("bedRoom"), filter.getBedRoom()));
+            predicates.add(cb.equal(root.get("bedroom"), filter.getBedRoom()));
         if (filter.getFunctionRoom() != null)
             predicates.add(cb.equal(root.get("functionRoom"), filter.getFunctionRoom()));
         if (filter.getPrice() != null)
-            predicates.add(cb.gt(root.get("price"), filter.getPrice()));
+            predicates.add(cb.greaterThanOrEqualTo(root.get("price"), filter.getPrice()));
         if (filter.getStatus() != null)
             predicates.add(cb.equal(root.get("status"), filter.getStatus()));
         if (filter.getSaleRent() != null)

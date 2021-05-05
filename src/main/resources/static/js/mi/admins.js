@@ -34,7 +34,7 @@ function gen(status) {
                 "        <tbody>";
             for (var i = 0; i < leng; i++) {
                 if (data[i].status == 1) status = "Active";
-                if (data[i].status == 0) status = "NoActive";
+                if (data[i].status == 3) status = "NoActive";
                 generated += "  <tr>\n" +
                     "  <input class='admin-id' type='hidden' value=" + data[i].id + ">\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +
@@ -64,7 +64,7 @@ function gen(status) {
 function deleteUser(i) {
     var data = {
         "id": document.getElementsByClassName("admin-id")[i].value,
-        "status": 0,
+        "status": 3,
     };
     console.log(data);
     $.ajax({

@@ -21,6 +21,7 @@
     <script th:src="@{/js/mi/buildings.js}"></script>
     <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
     <script th:src="@{/ckeditor/ckeditor.js}"></script>
+    <script th:src="@{/js/mi/base.js}"></script>
 
 </head>
 <body onload="generatedProvince();genBuildingCategory()">
@@ -46,7 +47,7 @@
             <!-- Contact Form Area -->
             <div class="col-12 col-lg-12">
                 <div class="contact-form">
-                    <form id="buildings" enctype="multipart/form-data">
+                    <form method="post" action="" id="fileUploadForm" enctype="multipart/form-data">
                         <div class="alert alert-primary" role="alert" style="display: none" id="alert">
                             Đã xảy ra lỗi trong quá trình xử lí! vui lòng thử lại
                         </div>
@@ -64,28 +65,36 @@
                             <div class="row">
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="carPark" id="carPark"
+                                        <input type="number" class="form-control" name="car_park" id="car_park"
                                                placeholder="Gara ôtô (m2)">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="motoPark" id="motoPark"
+                                        <input type="number" class="form-control" name="moto_park" id="moto_park"
                                                placeholder="Gara môtô (m2)">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="floorArea" id="floorArea"
+                                        <input type="number" class="form-control" name="floor_area" id="floor_area"
                                                placeholder="Diện tích sàn">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="homeFrontage" id="homeFrontage"
+                                        <input type="number" class="form-control" name="home_frontage"
+                                               id="home_frontage"
                                                placeholder="Diện tích mặt tiền">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="campus_area" id="campus_area"
+                                               placeholder="diện tích khuân viên">
                                     </div>
                                 </div>
                             </div>
@@ -104,22 +113,30 @@
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="functionRoom" id="functionRoom"
+                                        <input type="number" class="form-control" name="function_room"
+                                               id="function_room"
                                                placeholder="Số phòng chức năng">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="altarRoom" id="altarRoom"
+                                        <input type="text" class="form-control" name="altar_room" id="altar_room"
                                                placeholder="Phòng thờ">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="numberFloor" id="numberFloor"
+                                        <input type="number" class="form-control" name="number_floor" id="number_floor"
                                                placeholder="Số tầng">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="frequence" id="frequence"
+                                               placeholder="Tầng số">
                                     </div>
                                 </div>
                             </div>
@@ -129,30 +146,39 @@
                             <div class="row">
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="electricityPrice"
-                                               id="electricityPrice" placeholder="Giá điện">
+                                        <input type="number" class="form-control" name="electricity_price"
+                                               id="electricity_price" placeholder="Giá điện">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="waterPrice" id="waterPrice"
+                                        <input type="number" class="form-control" name="water_price" id="water_price"
                                                placeholder="Giá nước">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" name="servicePrice" id="servicePrice"
+                                        <input type="number" class="form-control" name="service_price"
+                                               id="service_price"
                                                placeholder="Giá dịch vụ">
                                     </div>
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <input type="file" class="form-control" name="images" id="images">
+                                        <input type="number" class="form-control" name="price" id="price"
+                                               placeholder="Giá bất động sản">
                                     </div>
                                 </div>
+
+                                <div class="col-12 col-md-4 col-lg-3">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="image" id="image">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -164,7 +190,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <select class="form-control" id="homeDeposit" style="padding: 6px">
+                                        <select class="form-control" style="padding: 6px" name="direction">
                                             <option value="Chính Đông">Chính Đông</option>
                                             <option value="Đông Nam">Đông Nam</option>
                                             <option value="Chính Nam">Chính Nam</option>
@@ -178,10 +204,11 @@
                                 </div>
 
                                 <div class="col-12 col-md-4 col-lg-3">
-                                    <div class="form-group" >
-                                        <select class="form-control" id="saleRent" style="padding: 6px">
-                                            <option value="1">Bất động sản đăng bán</option>
-                                            <option value="0">Bất động sản cho thuê</option>
+                                    <div class="form-group">
+                                        <select class="form-control" id="saleRent" name="sale_rent"
+                                                style="padding: 6px">
+                                            <option value="1">Đăng bắn</option>
+                                            <option value="0">Đăng cho thuê</option>
                                         </select>
                                     </div>
                                 </div>
@@ -214,7 +241,7 @@
                         </div>
 
                         <div class="form-group" style="margin-top: 10px">
-                            <input type="text" class="form-control" name="number" id="address"
+                            <input type="text" class="form-control" name="address" id="address"
                                    placeholder="Địa chỉ chi tiết">
                         </div>
 
@@ -222,7 +249,9 @@
                             <textarea class="form-control" name="description" id="description" cols="30" rows="10"
                                       placeholder="Mô tẩ bất động sản"></textarea>
 
-                            <button type="button" onclick="submitBuilding()" class="btn south-btn">Thêm mới</button>
+                            <input type="hidden" id="images" name="images">
+
+                            <button type="button" id="btnSubmit" class="btn south-btn">Thêm mới</button>
                         </div>
                     </form>
                 </div>
@@ -238,8 +267,82 @@
     CKEDITOR.replace('description');
 </script>
 
-<!-- Google Maps -->
+<script>
+    $(document).ready(function () {
 
+        $("#btnSubmit").click(function (event) {
+
+            //stop submit the form, we will post it manually.
+            event.preventDefault();
+
+            // Get form
+            var form = $('#fileUploadForm')[0];
+
+            // Create an FormData object
+            var data = new FormData(form);
+
+            // disabled the submit button
+            $("#btnSubmit").prop("disabled", true);
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/images/load",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+
+                    var mota = CKEDITOR.instances.description.getData();
+                    console.log(mota);
+                    var building = $('#fileUploadForm').serializeArray();
+                    building.push({name: 'images', value: data.data});
+                    building.push({name: 'description', value: mota});
+                    building = mapToJson(building);
+                    console.log(building);
+                    $.ajax({
+                        url: '/buildings',
+                        type: 'POST',
+                        contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
+                        dataType: 'JSON', //dinh nghi kieu du lieu server gui len
+                        data: building,
+                        headers: {
+                            Authorization: 'Bearer ' + document.cookie
+                        },
+                        success: function (result) { // result la ket qua server tra ve
+                            // window.location = "/admin/buildings-categories";
+                        },
+                        error: function (result) {
+                            $('#alert').css('display', '')
+                        }
+                    });
+                },
+                error: function (e) {
+                    $('#alert').css('display', '')
+                }
+            });
+
+        });
+
+    });
+
+    function mapToJson(data) {
+        var o = {};
+        $.each(data, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return JSON.stringify(o);
+    }
+</script>
 </body>
 
 </html>

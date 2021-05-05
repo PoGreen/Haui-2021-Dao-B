@@ -91,4 +91,7 @@ public class BuildingFilter extends AbsFilter {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+
+
 }

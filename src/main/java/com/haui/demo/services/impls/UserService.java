@@ -23,6 +23,7 @@ import com.haui.demo.services.mappers.UserMapper;
 import com.haui.demo.services.validators.UserValidator;
 import com.haui.demo.utils.Global;
 import com.haui.demo.utils.StringResponse;
+import com.haui.demo.utils.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,11 +61,18 @@ public class UserService implements IUserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public ResponseEntity<SystemResponse<Object>> login(HttpServletRequest request, Login login) {
 
-        User user = userRepository.findByUserNameAndPasswordAndStatus(login.getUserName(), login.getPassword(), Global.ACTIVE);
+
+        User user = userRepository.findByUserNameAndStatus(login.getUserName(), Global.ACTIVE);
+
         if (user == null) return Response.unauthorized();
+        if (!user.comparePassword(login.getPassword(), passwordEncoder)) return Response.unauthorized();
+
         String token = jwtUser.findNGenerateToken(user);
         UserLoginResponse response = new UserLoginResponse();
         response.setUser(user);
@@ -73,6 +82,13 @@ public class UserService implements IUserService {
 
         response.setRole(role.getRoleName());
         return Response.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> logout(HttpServletRequest request) {
+        User user = jwtUser.getUser(request);
+        if (user != null) jwtUser.revokeToken(user.getId());
+        return Response.ok();
     }
 
     @Override
@@ -102,6 +118,7 @@ public class UserService implements IUserService {
         Role role = roleRepository.findByRoleName(Global.ROLE_USER);
         user.setRole(role.getId());
         user.setStatus(Global.ACTIVE);
+        user.setPassword(signupRq.getPassword(), passwordEncoder);
         userRepository.save(user);
 
         SignupRp signupRp = mapper.map(user);
@@ -110,7 +127,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseEntity<SystemResponse<Object>>create(HttpServletRequest request, AdminRq adminRq) {
+    public ResponseEntity<SystemResponse<Object>> create(HttpServletRequest request, AdminRq adminRq) {
 
         ResponseEntity<SystemResponse<Object>> validateUserName = existByUserName(adminRq.getUserName());
         if (!validateUserName.getStatusCode().is2xxSuccessful()) {
@@ -130,6 +147,7 @@ public class UserService implements IUserService {
         }
         user.setRole(role.getId());
         user.setStatus(Global.ACTIVE);
+        user.setPassword(adminRq.getPassword(), passwordEncoder);
         userRepository.save(user);
 
         SignupRp signupRp = mapper.map(user);
@@ -152,6 +170,7 @@ public class UserService implements IUserService {
         }
 
         mapper.map(user, accountUpdateRq);
+        user.setPassword(user.getPassword(), passwordEncoder);
         userRepository.save(user);
         SignupRp signupRp = mapper.map(user);
         return Response.ok(signupRp);
@@ -176,7 +195,7 @@ public class UserService implements IUserService {
             case 1:
                 users = userRepository.findByStatus(Global.ACTIVE, pageable);
                 break;
-            case 0:
+            case 3:
                 users = userRepository.findByStatus(Global.NOACTIVE, pageable);
                 break;
             default:
@@ -190,20 +209,20 @@ public class UserService implements IUserService {
     @Override
     public ResponseEntity<SystemResponse<Object>> changeStatus(HttpServletRequest request, StatusRq statusRq) {
         User user = userRepository.findById(statusRq.getId()).orElse(null);
-        if(Objects.isNull(user)){
+        if (Objects.isNull(user)) {
             return Response.badRequest(StringResponse.USER_ID_FAKE);
         }
         User userAdmin = jwtUser.getUser(request);
-        if(!Objects.isNull(userAdmin)){
+        if (!Objects.isNull(userAdmin)) {
             user.setUpdated_by(userAdmin.getId());
         }
-        if(statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE){
+        if (statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE) {
             return Response.badRequest(StringResponse.STATUS_IS_FAKE);
         }
-        if(statusRq.getStatus() == Global.ACTIVE){
+        if (statusRq.getStatus() == Global.ACTIVE) {
             user.setStatus(Global.ACTIVE);
         }
-        if (statusRq.getStatus() == Global.NOACTIVE){
+        if (statusRq.getStatus() == Global.NOACTIVE) {
             user.setStatus(Global.NOACTIVE);
         }
         userRepository.save(user);

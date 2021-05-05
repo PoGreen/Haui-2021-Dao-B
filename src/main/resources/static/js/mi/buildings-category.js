@@ -8,7 +8,7 @@ function submitBuildingCategory() {
         dataType: 'JSON', //dinh nghi kieu du lieu server gui len
         data: mapToJson(data),
         headers: {
-            Authorization: 'Bearer ' + document.cookie
+            Authorization: 'Bearer ' + localStorage.getItem("token")
         },
         success: function (result) { // result la ket qua server tra ve
             window.location = "/admin/buildings-categories";
@@ -39,7 +39,7 @@ function mapToJson(data) {
 function deleteBuildingCategory(i) {
     var data = {
         "id": document.getElementsByClassName("building-category-id")[i].value,
-        "status": 0,
+        "status": 3,
     };
     console.log(data);
     $.ajax({
@@ -49,7 +49,7 @@ function deleteBuildingCategory(i) {
         dataType: 'JSON', //dinh nghi kieu du lieu server gui len
         data: JSON.stringify(data),
         headers: {
-            Authorization: 'Bearer ' + document.cookie
+            Authorization: 'Bearer ' + localStorage.getItem("token")
         },
         success: function (result) { // result la ket qua server tra ve
             window.location = "/admin/buildings-categories";
@@ -91,7 +91,7 @@ function gen(status) {
                 "        <tbody>";
             for (var i = 0; i < leng; i++) {
                 if (data[i].status == 1) status = "Active";
-                if (data[i].status == 0) status = "NoActive";
+                if (data[i].status == 3) status = "NoActive";
                 generated += "  <tr>\n" +
                     "  <input class='building-category-id' type='hidden' value=" + data[i].id + ">\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +

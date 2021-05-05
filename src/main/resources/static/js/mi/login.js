@@ -1,4 +1,4 @@
-function subitLogin(){
+function subitLogin() {
 
     var data = $('#login').serializeArray();
 
@@ -9,20 +9,21 @@ function subitLogin(){
         dataType: 'JSON', //dinh nghi kieu du lieu server gui len
         data: mapToJson(data),
         success: function (result) { // result la ket qua server tra ve
-
-        document.cookie = result.data.token;
-        if(result.data.role === 'USER') window.location = '/home';
-        if(result.data.role === 'ADMIN') window.location = '/admin/home';
+            console.log(result);
+            document.cookie = result.data.token;
+            localStorage.setItem("token", result.data.token);
+            if (result.data.role === 'USER') window.location = '/home';
+            if (result.data.role === 'ADMIN') window.location = '/admin/home';
         },
-        error: function (result){
-            $('#alert').css('display','')
+        error: function (result) {
+            $('#alert').css('display', '')
         }
     });
 }
 
-function mapToJson(data){
-    var o ={};
-    $.each(data, function() {
+function mapToJson(data) {
+    var o = {};
+    $.each(data, function () {
         if (o[this.name]) {
             if (!o[this.name].push) {
                 o[this.name] = [o[this.name]];
@@ -35,3 +36,5 @@ function mapToJson(data){
 
     return JSON.stringify(o);
 }
+
+

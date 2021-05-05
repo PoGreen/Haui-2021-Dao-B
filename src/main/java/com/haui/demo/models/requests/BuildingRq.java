@@ -4,6 +4,7 @@ package com.haui.demo.models.requests;
 import com.haui.demo.models.responses.ImageRp;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,34 +22,34 @@ public class BuildingRq {
     @NotBlank
     private String title;
 
-    @NotBlank
+    @NotNull
     private Integer carPark;
 
-    @NotBlank
+    @NotNull
     private Integer motoPark;
 
-    @NotBlank
+    @NotNull
     private Integer floorArea;
 
-    @NotBlank
+    @NotNull
     private Integer homeFrontage;
 
-    @NotBlank
+    @NotNull
     private Integer numberFloor;
 
-    @NotBlank
+    @NotNull
     private Integer bedroom;
 
-    @NotBlank
+    @NotNull
     private Integer functionRoom;
 
-    @NotBlank
+    @NotNull
     private Integer altarRoom;
 
-    @NotBlank
+    @NotNull
     private Long price;
 
-    @NotBlank
+    @NotNull
     private Integer campusArea;
 
     @NotBlank
@@ -57,31 +58,31 @@ public class BuildingRq {
     @NotBlank
     private String map;
 
-    @NotBlank
+    @NotNull
     private Integer electricityPrice;
 
-    @NotBlank
+    @NotNull
     private Integer frequence;
 
-    @NotBlank
+    @NotNull
     private Integer waterPrice;
 
-    @NotBlank
+    @NotNull
     private Integer servicePrice;
 
-    @NotBlank
+    @NotNull
     private Integer homeDeposit;
 
     @NotBlank
     private String address;
 
-    @NotBlank
+    @NotNull
     private Integer ward;
 
     @NotBlank
     private String buildingCategory;
 
-    @NotBlank
+    @NotNull
     private Integer saleRent;
 
     @NotBlank

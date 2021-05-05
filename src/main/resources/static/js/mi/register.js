@@ -10,7 +10,8 @@ function submitRegister() {
             Authorization: 'Bearer ' + document.cookie
         },
         success: function (result) { // result la ket qua server tra ve
-            window.location = "/home";
+            window.location = "/login";
+
         },
         error: function (result) {
             $('#alert').css('display', '')

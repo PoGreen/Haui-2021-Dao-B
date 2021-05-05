@@ -29,10 +29,10 @@ public interface StringResponse {
     String PROVINCE_IS_FAKE = "province is fake";
     String DISTRICT_IS_FAKE = "district is fake";
 
-    String NAME_IS_EXIST= "name is exists";
+    String NAME_IS_EXIST = "name is exists";
 
-    String ID_IS_FAKE= "ID is FAKE";
-    String STATUS_IS_FAKE= "ID is FAKE";
+    String ID_IS_FAKE = "ID is FAKE";
+    String STATUS_IS_FAKE = "ID is FAKE";
 
     String FILE_IS_NOT_IMAGE = "file is not image";
     String FILE_IS_NOT_EXISTS = "file is not exists";
@@ -41,6 +41,8 @@ public interface StringResponse {
     String BUILDING_IS_FAKE = "building is fake";
     String USER_HAS_NOT_IT = "user does not has it";
 
-    String NEWS_CATEGORY_IS_FAKE= "news category is FAKE";
-    String NEWS_IS_FAKE= "news is FAKE";
+    String NEWS_CATEGORY_IS_FAKE = "news category is FAKE";
+    String NEWS_IS_FAKE = "news is FAKE";
+
+    String FIELD_IN_VALID = "Field in valid";
 }
