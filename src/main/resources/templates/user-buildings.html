@@ -10,30 +10,22 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Quản trị bất động sản</title>
+    <title>Danh sách bất động sản</title>
 
     <!-- Favicon  -->
     <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
     <!-- Style CSS -->
     <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery.dataTables.min.css}">
-    <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
     <script th:src="@{/js/mi/user-buildings.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
 </head>
-<body onload="genUserBuildingsTable(0,0)">
-<!-- Preloader -->
-<div id="preloader">
-    <div class="south-load"></div>
-</div>
 
+<body onload="genUserBuildingsTable(0,0),base()">
 <!-- ##### Header Area Start ##### -->
-<div th:replace="common/header :: header"></div>
+<div th:replace="common/web.header :: header"></div>
 <!-- ##### Header Area End ##### -->
 
-<!-- ##### Editor Area Start ##### -->
-<section
-        style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
+<section style="padding-left: 5%; padding-right: 5%; padding-top: 10%">
     <h4>Danh sách bất động sản</h4>
     <a href="/admin/new-buildings" class="btn south-btn btn-3 m-1">Thêm mới</a>
     <a href="#" onclick="genUserBuildingsTable(1,1)" class="btn south-btn btn-3 m-1">Đang hoạt động - đang bán</a>
@@ -47,9 +39,8 @@
 
 
 </section>
-<!-- ##### Editor Area End ##### -->
-<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 <!-- Popper js -->
 <script th:src="@{/js/popper.min.js}"></script>
 <!-- Bootstrap js -->
@@ -60,8 +51,7 @@
 <script th:src="@{/js/jquery-ui.min.js}"></script>
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
-
-
+<!-- Google Maps -->
 </body>
 
 </html>

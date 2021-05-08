@@ -11,10 +11,7 @@ import com.haui.demo.models.requests.BuildingRq;
 import com.haui.demo.models.requests.ExportExcel;
 import com.haui.demo.models.requests.StatusRq;
 import com.haui.demo.models.responses.*;
-import com.haui.demo.repositories.BuildingCategoryRepository;
-import com.haui.demo.repositories.BuildingRepository;
-import com.haui.demo.repositories.ImageRepository;
-import com.haui.demo.repositories.WardRepository;
+import com.haui.demo.repositories.*;
 import com.haui.demo.services.*;
 import com.haui.demo.services.mappers.BuildingMapper;
 import com.haui.demo.services.validators.BuildingValidator;
@@ -28,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -76,6 +74,12 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private ExcelService excelService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public ResponseEntity<SystemResponse<Object>> getAllByUser(HttpServletRequest request, Panigation panigation) {
@@ -247,6 +251,23 @@ public class BuildingService implements IBuildingService {
         List<ImageRp> imageRps = imageService.loadBuildingImages(id);
         buildingDetailRp.setImageRps(imageRps);
         return Response.ok(buildingDetailRp);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> likeBuilding(HttpServletRequest request, String buildingId) {
+        User user = jwtUser.getUser(request);
+        Building building = buildingRepository.findById(buildingId).orElse(null);
+        if (building == null) return Response.badRequest(StringResponse.BUILDING_IS_FAKE);
+
+        User userCustom = userRepository.findById(building.getUser()).orElse(null);
+
+        try {
+            emailService.send(userCustom.getEmail(), user.getEmail());
+            return Response.ok();
+        } catch (MessagingException e) {
+            return Response.badRequest();
+        }
+
     }
 
     public Paging<List<Building>> filter(BuildingFilter filter) {

@@ -27,8 +27,7 @@ function showDetail(i) {
     window.location.href = "/buildings-detail";
 }
 
-function genBuildinDetail(id) {
-    var view = document.getElementById("images");
+function genBuildinDetail() {
     var element = document.getElementById("element");
     var data = sessionStorage.getItem("id-building");
     console.log(data);
@@ -250,7 +249,7 @@ function deleteBuildings(i) {
             window.location = "/admin/buildings";
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }
@@ -274,7 +273,34 @@ function activeBuildings(i) {
             window.location = "/admin/buildings";
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }
+
+
+function sendEmail() {
+    var buildingId = sessionStorage.getItem("id-building");
+    $.ajax({
+        url: '/user/buildings/send-email?building-id=' + buildingId,
+        type: 'POST',
+        contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
+        dataType: 'JSON', //dinh nghi kieu du lieu server gui len
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token")
+        },
+        success: function (result) { // result la ket qua server tra ve
+            alert("Gửi thông báo thành công đến chủ sở hữu! vui lòng kiểm tra mail cá nhân");
+        },
+        error: function (result) {
+            alert("Sảy ra lỗi! vui lòng thử lại");
+        }
+    });
+}
+
+
+function validateBuilding(){
+
+}
+
+

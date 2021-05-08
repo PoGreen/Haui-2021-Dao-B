@@ -15,7 +15,7 @@ function submitNewsCategory() {
             window.location = '/admin/news-categories';
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }
@@ -133,7 +133,7 @@ function deleteNewsCategory(i) {
             window.location = "/admin/news-categories";
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");;
         }
     });
 }

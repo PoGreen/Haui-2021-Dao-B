@@ -61,7 +61,7 @@ public class BuildingController {
 
     @PostMapping(value = "/buildings/filters/body")
     public ResponseEntity<SystemResponse<Object>> getByFilterBody(HttpServletRequest request,
-                                                              @RequestBody BuildingFilter filter) {
+                                                                  @RequestBody BuildingFilter filter) {
         return iBuildingService.filters(request, filter);
     }
 
@@ -147,5 +147,10 @@ public class BuildingController {
         panigation.setPage(page);
         panigation.setLimit(limit);
         return iBuildingService.getAllByUser(request, panigation);
+    }
+
+    @PostMapping(value = "/user/buildings/send-email")
+    public ResponseEntity<SystemResponse<Object>> likeBuilding(HttpServletRequest request, @RequestParam(value = "building-id") String buildingId) {
+        return iBuildingService.likeBuilding(request, buildingId);
     }
 }

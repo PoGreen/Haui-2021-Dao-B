@@ -11,7 +11,7 @@ function base() {
             "                            <li><a href=\"/buildings-rent-page\">Bất động sản đang bán</a></li>\n" +
             "                            <li><a href=\"/news-page\">Tin tức</a></li>\n" +
             "                            <li><a href=\"#\">Giới thiệu</a></li>\n" +
-            "                            <li><a href=\"#\">Bất động sản cá nhân</a></li>\n" +
+            "                            <li><a href=\"/login\">Bất động sản cá nhân</a></li>\n" +
             "                            <li><a href=\"/login\">Đăng nhập</a></li>\n" +
             "                        </ul>";
     }
@@ -23,7 +23,7 @@ function base() {
             "                            <li><a href=\"/buildings-rent-page\">Bất động sản đang bán</a></li>\n" +
             "                            <li><a href=\"/news-page\">Tin tức</a></li>\n" +
             "                            <li><a href=\"#\">Giới thiệu</a></li>\n" +
-            "                            <li><a href=\"/login\">Bất động sản cá nhân</a></li>\n" +
+            "                            <li><a href=\"/buildings-list-page\">Bất động sản cá nhân</a></li>\n" +
             "                            <li><a onclick='logout()' href=\"#\">Logout</a></li>\n" +
             "                        </ul>"
     }

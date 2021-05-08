@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- The above 4 meta tags (*)must(*) come first in the head; any other head content must come (*)after(*) these tags -->
 
     <!-- Title  -->
-    <title>Tạo mới bất động sản</title>
+    <title>Chỉnh sửa bất động sản</title>
 
     <!-- Favicon  -->
     <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -22,9 +22,9 @@
     <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
     <script th:src="@{/ckeditor/ckeditor.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
-
+    <script th:src="@{/js/mi/edit-building.js}"></script>
 </head>
-<body onload="generatedProvince();genBuildingCategory()">
+<body onload="generatedProvince();genBuildingCategory();genBuildingDetail()">
 
 
 <!-- ##### Header Area Start ##### -->
@@ -308,6 +308,7 @@
             // disabled the submit button
             $("#btnSubmit").prop("disabled", true);
 
+            console.log("submit form")
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
@@ -318,7 +319,7 @@
                 cache: false,
                 timeout: 600000,
                 success: function (data) {
-
+                    console.log(data);
                     if (validateBuildings()) {
                         var mota = CKEDITOR.instances.description.getData();
                         console.log(mota);
@@ -329,7 +330,7 @@
                         console.log(building);
                         $.ajax({
                             url: '/buildings',
-                            type: 'POST',
+                            type: 'PUT',
                             contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
                             dataType: 'JSON', //dinh nghi kieu du lieu server gui len
                             data: building,

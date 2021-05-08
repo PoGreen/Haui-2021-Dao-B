@@ -15,7 +15,7 @@ function submitNewsCategory() {
             window.location = '';
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }

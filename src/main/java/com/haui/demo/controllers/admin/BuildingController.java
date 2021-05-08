@@ -14,4 +14,9 @@ public class BuildingController {
     public String getBuildingPage() {
         return "admin/list-buildings.html";
     }
+
+    @GetMapping(value = "/buildings-edit")
+    public String getBuildingsEdit() {
+        return "admin/buildings-edit";
+    }
 }

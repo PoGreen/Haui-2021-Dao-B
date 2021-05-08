@@ -30,4 +30,6 @@ public interface IBuildingService {
     ResponseEntity<SystemResponse<Object>> changeStatus(HttpServletRequest request, StatusRq statusRq);
 
     ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request, String id);
+
+    ResponseEntity<SystemResponse<Object>> likeBuilding(HttpServletRequest request, String buildingId);
 }

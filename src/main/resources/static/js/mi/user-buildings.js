@@ -54,6 +54,7 @@ function genUserBuildingsTable(status, saleRent) {
                     "      <td>" + status + "</td>\n" +
                     "      <td>" + loai + "</td>\n" +
                     "      <td><a onclick='deleteBuildings(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Xóa</a></td>\n" +
+                    "      <td><a onclick='genEditBuilding(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Chỉnh sửa</a></td>\n" +
                     "      <td><a onclick='showDetail(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Chi tiết</a></td>\n" +
                     "    </tr>";
             }
@@ -79,4 +80,10 @@ function showDetail(i) {
     console.log(id);
     sessionStorage.setItem("id-building", id);
     window.location.href = "/buildings-detail";
+}
+function genEditBuilding(i) {
+    var id = document.getElementsByClassName("building-id")[i].value;
+    console.log(id);
+    sessionStorage.setItem("id-building", id);
+    window.location.href = "/buildings-edit";
 }

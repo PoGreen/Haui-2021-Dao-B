@@ -119,7 +119,7 @@ function searchBuilding() {
             $('#buildings').append(generated);
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }

@@ -80,7 +80,7 @@ function deleteUser(i) {
             window.location = "/admin/list-users-page";
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }

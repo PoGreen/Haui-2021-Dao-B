@@ -14,7 +14,7 @@ function submitBuildingCategory() {
             window.location = "/admin/buildings-categories";
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }
@@ -55,7 +55,7 @@ function deleteBuildingCategory(i) {
             window.location = "/admin/buildings-categories";
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }

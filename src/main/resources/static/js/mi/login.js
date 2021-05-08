@@ -16,7 +16,7 @@ function subitLogin() {
             if (result.data.role === 'ADMIN') window.location = '/admin/home';
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("Sảy ra lỗi! vui lòng thử lại");
         }
     });
 }

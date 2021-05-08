@@ -11,6 +11,7 @@ public class BuildingsController {
         return "/buildings-rent";
 
     }
+
     @GetMapping(value = "/buildings-rent-page")
     public String getBuildingsBuyPages() {
         return "/buildings-buy";
@@ -20,4 +21,6 @@ public class BuildingsController {
     public String getBuildingsTable() {
         return "/user-buildings";
     }
+
+
 }
