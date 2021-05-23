@@ -47,6 +47,9 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
+
+    // https://mvnrepository.com/artifact/com.rometools/rome
+    implementation group: 'com.rometools', name: 'rome', version: '1.15.0'
 }
 
 test {

@@ -15,4 +15,6 @@ public class NewsCategoryController {
     public String getNewsCategoryTable() {
         return "admin/list-news-category.html";
     }
+
+
 }

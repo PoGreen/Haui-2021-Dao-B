@@ -19,6 +19,8 @@ public interface IBuildingService {
 
     ResponseEntity<SystemResponse<Object>> userFilters(HttpServletRequest request, BuildingFilter filter);
 
+    ResponseEntity<SystemResponse<Object>> userFilters(HttpServletRequest request, int saleRent, int status, Panigation panigation);
+
     ResponseEntity<SystemResponse<String>> exportExcel(ExportExcel exportExcel) throws IOException, IllegalAccessException;
 
     ResponseEntity<SystemResponse<Object>> getAllShow(Panigation panigation);

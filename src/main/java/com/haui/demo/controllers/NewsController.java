@@ -35,8 +35,8 @@ public class NewsController {
     }
 
     @GetMapping("/news")
-    public ResponseEntity<SystemResponse<Object>> getAll(@RequestParam(value = "page",defaultValue = "1", required = false) int page,
-                                                         @RequestParam(value = "limit", defaultValue = "10",required = false) int limit) {
+    public ResponseEntity<SystemResponse<Object>> getAll(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+                                                         @RequestParam(value = "limit", defaultValue = "10", required = false) int limit) {
         Panigation panigation = new Panigation();
         panigation.setPage(page);
         panigation.setLimit(limit);
@@ -52,4 +52,20 @@ public class NewsController {
         panigation.setLimit(limit);
         return newsService.getAllByStatus(status, panigation);
     }
+
+    @GetMapping("/news/categories")
+    public ResponseEntity<SystemResponse<Object>> getAllByCategory(@RequestParam(name = "id",required = false) String id,
+                                                                   @RequestParam(value = "page", defaultValue = "1") int page,
+                                                                   @RequestParam(value = "limit", defaultValue = "10") int limit) {
+        Panigation panigation = new Panigation();
+        panigation.setPage(page);
+        panigation.setLimit(limit);
+        return newsService.getAllByCategory(id, panigation);
+    }
+
+    @PutMapping("/news/status/{id}")
+    public ResponseEntity<SystemResponse<Object>> delOne(HttpServletRequest request, @PathVariable(name = "id") String id) {
+        return newsService.delOne(request, id);
+    }
+
 }

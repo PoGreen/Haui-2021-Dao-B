@@ -16,8 +16,8 @@ function gen(status) {
             var leng = data.length;
             console.log(data);
             $('#users-table').html("");
-            var generated = "<table class=\"table\" style=\" border: 2px solid black; display:inline-block\" >" +
-                "        <thead>" +
+            var generated = "<table class=\"table table-bordered\" style=\" border: 2px solid black; display:inline-block\" >" +
+                "        <thead class=\"thead-dark\">" +
                 "        <tr>\<n></n>" +
                 "            <th scope=\"col\">#</th>" +
                 "            <th scope=\"col\">Tên tài khoản</th>" +
@@ -80,7 +80,7 @@ function deleteUser(i) {
             window.location = "/admin/list-users-page";
         },
         error: function (result) {
-            alert("Sảy ra lỗi! vui lòng thử lại");
+            toastr.error('Đã xảy ra lỗi! vui lòng thử lai ');
         }
     });
 }

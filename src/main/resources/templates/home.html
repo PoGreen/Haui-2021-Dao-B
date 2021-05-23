@@ -20,8 +20,10 @@
     <script th:src="@{/js/mi/home.js}"></script>
     <script th:src="@{/js/mi/buildings.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
-<body onload="searchBuilding();generatedProvince();genBuildingCategoryHome();base()">
+<body onload="genBuildings();generatedProvince();genBuildingCategoryHome();base()">
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/web.header :: header"></div>
@@ -88,7 +90,7 @@
 
                             <div class="col-12 col-md-4 col-xl-2">
                                 <div class="form-group">
-                                    <select class="form-control" id="function_room" name="function_room">
+                                    <select class="form-control" id="functionRoom" name="functionRoom">
                                         <option value="null">Phòng chức năng</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -102,15 +104,14 @@
 
                             <div class="col-12 col-md-4 col-xl-2">
                                 <div class="form-group">
-                                    <select class="form-control" id="floor_area" name="floor_area">
+                                    <select class="form-control" id="floorArea" name="floorArea">
                                         <option value="null">Diện tích sàn</option>
                                         <option value="20"> 20 m2</option>
                                         <option value="40"> 40 m2</option>
                                         <option value="80"> 80 m2</option>
                                         <option value="100"> 100 m2</option>
-                                        <option value="200"> 200 m2</option>
                                         <option value="300"> 300 m2</option>
-                                        <option value="400"> 400 m2</option>
+                                        <option value="400"> 500 m2</option>
 
                                     </select>
                                 </div>
@@ -119,6 +120,7 @@
                             <div class="col-12 col-md-4 col-xl-2">
                                 <div class="form-group">
                                     <select class="form-control" id="direction" name="direction">
+                                        <option value="null">Phương hướng</option>
                                         <option value="Chính Đông">Chính Đông</option>
                                         <option value="Đông Nam">Đông Nam</option>
                                         <option value="Chính Nam">Chính Nam</option>

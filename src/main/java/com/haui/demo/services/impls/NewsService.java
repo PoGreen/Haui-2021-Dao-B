@@ -82,6 +82,24 @@ public class NewsService implements INewsService {
     }
 
     @Override
+    public ResponseEntity<SystemResponse<Object>> getAllByCategory(String id, Panigation panigation) {
+        Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
+        Page<News> news = null;
+        if (id != null)
+            news = newsRepository.findByNewsCategoryAndStatus(id, Global.ACTIVE, pageable);
+        else {
+            news = newsRepository.findByStatus(Global.ACTIVE, pageable);
+        }
+        Page<NewsRp> rpPage = mapper.map(news);
+        for (NewsRp newsRp : rpPage) {
+            ImageRp image = imageService.loadNewsAvatarImages(newsRp.getId());
+            newsRp.setImageRp(image);
+        }
+        return Response.ok(rpPage);
+
+    }
+
+    @Override
     public ResponseEntity<SystemResponse<Object>> addOne(HttpServletRequest request, NewsRq newsRq) {
         NewsCategory newsCategory = newsCategoryRepository.findById(newsRq.getNewsCategory()).orElse(null);
         if (Objects.isNull(newsCategory)) {
@@ -159,5 +177,19 @@ public class NewsService implements INewsService {
         NewsDetailRp newsDetailRp = mapper.maps(news);
         newsDetailRp.setImageRqs(imageRps);
         return Response.ok(newsDetailRp);
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> delOne(HttpServletRequest request, String id) {
+        News news = newsRepository.findById(id).orElse(null);
+        if (news == null) return Response.badRequest(StringResponse.NEWS_IS_FAKE);
+
+        User user = jwtUser.getUser(request);
+        if (!Objects.isNull(user)) {
+            news.setUpdated_by(user.getId());
+        }
+        news.setStatus(Global.NOACTIVE);
+        newsRepository.save(news);
+        return Response.ok();
     }
 }

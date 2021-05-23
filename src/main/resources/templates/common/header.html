@@ -7,7 +7,7 @@
             <nav class="classy-navbar justify-content-between" id="southNav">
 
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.html"><img src="img/GreyGrey.png" alt=""></a>
 
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
@@ -41,6 +41,9 @@
 
                             <li><a href="/admin/list-users-page">Danh sách tài khoản</a>
                             </li>
+
+                            <li><a onclick="logout()">Đăng xuất</a>
+                            </li>
                         </ul>
 
                         <!-- Search Form -->
@@ -60,3 +63,24 @@
         </div>
     </div>
 </header>
+<script>
+    function logout() {
+
+        $.ajax({
+            url: '/users/logout',
+            type: 'DELETE',
+            contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
+            dataType: 'JSON', //dinh nghi kieu du lieu server gui len
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem("token")
+            },
+            success: function (result) { // result la ket qua server tra ve
+                localStorage.removeItem("token");
+                window.location = '/home';
+            },
+            error: function (result) {
+                $('#alert').css('display', '')
+            }
+        });
+    }
+</script>

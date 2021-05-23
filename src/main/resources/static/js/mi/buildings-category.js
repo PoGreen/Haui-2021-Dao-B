@@ -14,7 +14,7 @@ function submitBuildingCategory() {
             window.location = "/admin/buildings-categories";
         },
         error: function (result) {
-            alert("Sảy ra lỗi! vui lòng thử lại");
+            toastr.error('Đã xảy ra lỗi! vui lòng thử lai ');
         }
     });
 }
@@ -55,7 +55,7 @@ function deleteBuildingCategory(i) {
             window.location = "/admin/buildings-categories";
         },
         error: function (result) {
-            alert("Sảy ra lỗi! vui lòng thử lại");
+            toastr.error('Đã xảy ra lỗi! vui lòng thử lai ');
         }
     });
 }
@@ -77,15 +77,15 @@ function gen(status) {
             var leng = data.length;
             console.log(data);
             $('#building-category-table').html("");
-            var generated = "<table class=\"table\" style=\" border: 2px solid black; display:inline-block\" >" +
-                "        <thead>" +
+            var generated = "<table class=\"table table-bordered\" style=\" border: 2px solid black; display:inline-block\" >" +
+                "        <thead class=\"thead-dark\">" +
                 "        <tr>\<n></n>" +
-                "            <th scope=\"col\">#</th>" +
-                "            <th scope=\"col\">Tên</th>" +
-                "            <th scope=\"col\">Mô tả</th>" +
-                "            <th scope=\"col\">Trạng thái</th>" +
-                "            <th scope=\"col\">Ngày tạo</th>" +
-                "            <th scope=\"col\">Xóa</th>" +
+                "            <th scope=\"col\" style='width: 5%'>#</th>" +
+                "            <th scope=\"col\" style='width: 35%'>Tên</th>" +
+                "            <th scope=\"col\" style='width: 35%'>Mô tả</th>" +
+                "            <th scope=\"col\" style='width: 15%'>Trạng thái</th>" +
+                "            <th scope=\"col\" style='width: 15%'>Ngày tạo</th>" +
+                "            <th scope=\"col\" style='width: 5%'>Xóa</th>" +
                 "        </tr>" +
                 "        </thead>" +
                 "        <tbody>";

@@ -65,4 +65,6 @@ public class NewsRq {
     public void setImages(List<ImageRq> images) {
         this.images = images;
     }
+
+
 }

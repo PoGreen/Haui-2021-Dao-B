@@ -20,6 +20,8 @@
     <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
     <script th:src="@{/js/mi/buildings-category.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 <body onload="gen(2)">
 
@@ -30,13 +32,32 @@
 
 <!-- ##### Editor Area Start ##### -->
 <section
-         style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
+        style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
     <a href="/admin/new-buildings-categories" class="btn south-btn btn-3 m-1">Thêm mới</a>
+    <button type="submit"><a href="#" onclick="gen(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
     <button type="submit"><a href="#" onclick="gen(1)" class="btn south-btn btn-3 m-1">Đang hoạt động</a></button>
     <button type="submit"><a href="#" onclick="gen(0)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
-    <button type="submit"><a href="#" onclick="gen(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
-     <div id="building-category-table" style="margin: auto"></div>
 
+    <div id="building-category-table" style="margin: auto"></div>
+    <nav aria-label="Page navigation example" style="float: right">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </section>
 
 <!-- ##### Editor Area End ##### -->

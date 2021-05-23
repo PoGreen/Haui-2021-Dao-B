@@ -40,6 +40,7 @@ public class NewsMapper {
         newsDetailRp.setTitle(news.getTitle());
         newsDetailRp.setContent(news.getContent());
         newsDetailRp.setNewsCategory(news.getNewsCategory());
+        newsDetailRp.setCreatedAt(news.getCreatedAt());
         return newsDetailRp;
     }
 

@@ -1,13 +1,14 @@
 function genBuildings() {
     $.ajax({
-        url: '/buildings/filters',
+        url: '/buildings',
         type: 'GET',
         contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
         dataType: 'json', //dinh nghi kieu du lieu server gui len
         success: function (result) { // result la ket qua server tra ve
-            var data = result.data.data;
+            console.log(result);
+            var data = result.data.content;
             var generated = "";
-            $('#buildings').html("<div></div>");
+            $('#buildings').html("");
             for (var i = 0; i < 9; i++) {
                 var id = data[i].id;
                 // console.log(id);
@@ -52,6 +53,7 @@ function genBuildings() {
         },
     });
 }
+
 function showDetail(i) {
     var id = document.getElementsByClassName("building-id")[i].value;
     sessionStorage.setItem("id-building", id);

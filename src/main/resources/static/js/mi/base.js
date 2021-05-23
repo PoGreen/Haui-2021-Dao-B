@@ -24,7 +24,7 @@ function base() {
             "                            <li><a href=\"/news-page\">Tin tức</a></li>\n" +
             "                            <li><a href=\"#\">Giới thiệu</a></li>\n" +
             "                            <li><a href=\"/buildings-list-page\">Bất động sản cá nhân</a></li>\n" +
-            "                            <li><a onclick='logout()' href=\"#\">Logout</a></li>\n" +
+            "                            <li><a onclick='logout()' href=\"#\">Đăng xuất</a></li>\n" +
             "                        </ul>"
     }
     $('#menu').append(generated);

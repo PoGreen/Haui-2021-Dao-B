@@ -122,6 +122,20 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    public ResponseEntity<SystemResponse<Object>> userFilters(HttpServletRequest request, int saleRent, int status, Panigation panigation) {
+        User user = jwtUser.getUser(request);
+
+        Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
+        Page<Building> buildings = buildingRepository.findByCreated_byAndStatusAndSaleRent(user.getId(), status, saleRent, pageable);
+        Page<BuildingRp> buildingRps = mapper.map(buildings);
+        for (BuildingRp buildingRp : buildingRps) {
+            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
+            buildingRp.setImageRp(image);
+        }
+        return Response.ok(buildingRps);
+    }
+
+    @Override
     public ResponseEntity<SystemResponse<String>> exportExcel(ExportExcel exportExcel) throws IOException, IllegalAccessException {
         ResponseEntity<SystemResponse<String>> validate = validator.validate(exportExcel);
         if (!validate.getStatusCode().is2xxSuccessful()) return validate;
@@ -150,10 +164,6 @@ public class BuildingService implements IBuildingService {
     @Transactional
     public ResponseEntity<SystemResponse<Object>> addOne(HttpServletRequest request, BuildingRq buildingRq) {
 
-        User user = jwtUser.getUser(request);
-        if (Objects.isNull(user)) {
-            return Response.badRequest(StringResponse.USER_ID_FAKE);
-        }
 
         Ward ward = wardRepository.findById(buildingRq.getWard()).orElse(null);
         if (Objects.isNull(ward)) {
@@ -166,9 +176,15 @@ public class BuildingService implements IBuildingService {
         }
         Building building = new Building();
         mapper.map(building, buildingRq);
-        building.setCreated_by(user.getId());
+
+        User user = jwtUser.getUser(request);
+        if (user != null) {
+            building.setCreated_by(user.getId());
+            building.setUser(user.getId());
+        }
+
         building.setStatus(Global.WAIT);
-        building.setUser(user.getId());
+
 
         buildingRepository.save(building);
         List<ImageRp> image = imageService.saveImage(building.getId(), Global.BUILDINGS, buildingRq.getImages());
@@ -261,12 +277,8 @@ public class BuildingService implements IBuildingService {
 
         User userCustom = userRepository.findById(building.getUser()).orElse(null);
 
-        try {
-            emailService.send(userCustom.getEmail(), user.getEmail());
-            return Response.ok();
-        } catch (MessagingException e) {
-            return Response.badRequest();
-        }
+        emailService.sendEmail(userCustom.getEmail(), user.getEmail());
+        return Response.ok();
 
     }
 
@@ -305,21 +317,21 @@ public class BuildingService implements IBuildingService {
     private List<Predicate> buildPredicates(BuildingFilter filter, CriteriaBuilder cb, Root<Building> root) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (filter.getWard() != null)
+        if (filter.getWard() != 0)
             predicates.add(cb.equal(root.get("ward"), filter.getWard()));
-        if (filter.getFloorArea() != null)
-            predicates.add(cb.equal(root.get("floorArea"), filter.getFloorArea()));
-        if (filter.getBedRoom() != null)
-            predicates.add(cb.equal(root.get("bedroom"), filter.getBedRoom()));
-        if (filter.getFunctionRoom() != null)
-            predicates.add(cb.equal(root.get("functionRoom"), filter.getFunctionRoom()));
-        if (filter.getPrice() != null)
+        if (filter.getFloorArea() != 0)
+            predicates.add(cb.greaterThanOrEqualTo(root.get("floorArea"), filter.getFloorArea()));
+        if (filter.getBedRoom() != 0)
+            predicates.add(cb.greaterThanOrEqualTo(root.get("bedroom"), filter.getBedRoom()));
+        if (filter.getFunctionRoom() != 0)
+            predicates.add(cb.greaterThanOrEqualTo(root.get("functionRoom"), filter.getFunctionRoom()));
+        if (filter.getPrice() != 0)
             predicates.add(cb.greaterThanOrEqualTo(root.get("price"), filter.getPrice()));
-        if (filter.getStatus() != null)
+        if (filter.getStatus() != 0)
             predicates.add(cb.equal(root.get("status"), filter.getStatus()));
-        if (filter.getSaleRent() != null)
+        if (filter.getSaleRent() != 0)
             predicates.add(cb.equal(root.get("saleRent"), filter.getSaleRent()));
-        if (Utils.notNullAndEmpty(filter.getDirection()))
+        if (Utils.notNullAndEmpty(filter.getDirection()) && !filter.getDirection().equals("null"))
             predicates.add(cb.equal(root.get("direction"), filter.getDirection().trim()));
         if (Utils.notNullAndEmpty(filter.getBuildingCategory()))
             predicates.add(cb.equal(root.get("buildingCategory"), filter.getBuildingCategory().trim()));

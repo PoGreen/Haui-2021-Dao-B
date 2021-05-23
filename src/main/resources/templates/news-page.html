@@ -19,9 +19,12 @@
     <script th:src="@{/js/mi/news-category.js}"></script>
     <script th:src="@{/js/mi/news.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
+    <script th:src="@{/js/mi/rss.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
-<body onload="genNewsCategory(),genNews(),base()">
+<body onload="genNewsCategory1(),genNews(0),base()">
 <!-- Preloader -->
 <div id="preloader">
     <div class="south-load"></div>
@@ -46,23 +49,36 @@
                 <div id="content"></div>
             </div>
 
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4 navbar-news" >
                 <div class="blog-sidebar-area">
-
-                    <!-- Search Widget -->
-                    <div class="search-widget-area mb-70">
-                        <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-
                     <!-- Catagories Widget -->
                     <div class="south-catagories-card mb-70">
-                        <h5>Thể loại tin tức</h5>
+                        <h5>Tin tức trên website</h5>
                         <span id="news-category"></span>
                     </div>
                 </div>
+
+                <div class="south-catagories-card mb-50">
+                    <h5>Trang tin cập nhật thế giới</h5>
+                    <ul class="catagories-menu" style="text-decoration-line: underline;color: #0b0b0b; font-weight: lighter">
+                        <li><a onclick="setCategory(1)">Kinh nghiệm mua nhà</a></li>
+                        <li><a onclick="setCategory(2)">Kinh nghiệm bán nhà đất</a></li>
+                        <li><a onclick="setCategory(3)">Kinh nghiệm đầu tư nhà</a></li>
+                    </ul>
+                </div>
+
+                <div class="south-catagories-card mb-50">
+                    <h5>Trang tin thị trường</h5>
+                    <ul class="catagories-menu" style="text-decoration-line: underline">
+                        <li><a onclick="setCategory(6)">Phân tích - nhận định</a></li>
+                        <li><a onclick="setCategory(7)">Chính sách - quản lí</a></li>
+                        <li><a onclick="setCategory(8)">Thông tin quy hoạch</a></li>
+                        <li><a onclick="setCategory(9)">Tin dự án</a></li>
+                        <li><a onclick="setCategory(10)">Tài chính - chứng khoán</a></li>
+                    </ul>
+                </div>
+
+
             </div>
         </div>
 
@@ -102,6 +118,22 @@
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
 <!-- Google Maps -->
+
+<script>
+    window.onscroll = function() {myFunction()};
+
+    var navbar = $(".navbar-news")[0];
+    var sticky = navbar.offsetTop + 700;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+</script>
+
 </body>
 
 </html>

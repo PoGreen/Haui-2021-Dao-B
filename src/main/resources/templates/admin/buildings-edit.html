@@ -23,6 +23,8 @@
     <script th:src="@{/ckeditor/ckeditor.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
     <script th:src="@{/js/mi/edit-building.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 <body onload="generatedProvince();genBuildingCategory();genBuildingDetail()">
 
@@ -391,28 +393,6 @@
         var sale_rent = document.getElementById("sale_rent").value;
         var address = document.getElementById("name").value;
         var description = CKEDITOR.instances.description.getData();
-
-
-        console.log(name);
-        console.log(title);
-        console.log(car_park);
-        console.log(moto_park);
-        console.log(floor_area);
-        console.log(home_frontage);
-        console.log(campus_area);
-        console.log(bedroom);
-        console.log(function_room);
-        console.log(altar_room);
-        console.log(number_floor);
-        console.log(frequence);
-        console.log(electricity_price);
-        console.log(water_price);
-        console.log(service_price);
-        console.log(price);
-        console.log(direction);
-        console.log(sale_rent);
-        console.log(address);
-        console.log(description);
 
 
         if (name === "" || name.length > 50 || name < 0) {

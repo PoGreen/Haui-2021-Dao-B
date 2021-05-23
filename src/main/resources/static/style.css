@@ -134,7 +134,7 @@ img {
   margin-right: 30px; }
 
 .mb-70 {
-  margin-bottom: 70px; }
+  margin-bottom: 20px; }
 
 .mb-100 {
   margin-bottom: 100px; }
@@ -1791,3 +1791,18 @@ img {
   color: #7d7d7d; }
 
 /*# sourceMappingURL=style.css.map */
+
+.navbar-news {
+  overflow: hidden;
+  /*background-color: #333;*/
+}
+.sticky {
+  position: fixed;
+  top: 90px;
+  right: 120px;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}

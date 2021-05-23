@@ -20,6 +20,8 @@
     <!--    <script th:src="@{/js/mi/list-buildings.js}"></script>-->
     <script th:src="@{/js/mi/news.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 <body onload="genNewsTable()">
 <!-- Preloader -->
@@ -35,9 +37,27 @@
 <section
          style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
     <h4>Danh sách tin tức</h4>
-    <a href="#" class="btn south-btn btn-3 m-1">Thêm mới</a>
+    <a href="/add-news-page" class="btn south-btn btn-3 m-1">Thêm mới</a>
      <div id="news-table" style="margin: auto"></div>
-
+    <nav aria-label="Page navigation example" style="float: right">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </section>
 
 <!-- ##### Editor Area End ##### -->

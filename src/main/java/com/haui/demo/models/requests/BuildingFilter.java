@@ -1,47 +1,48 @@
 package com.haui.demo.models.requests;
 
+
 public class BuildingFilter extends AbsFilter {
-    private Integer floorArea;
-    private Integer bedRoom;
-    private Integer functionRoom;
-    private Long price;
+    private int floorArea;
+    private int bedRoom;
+    private int functionRoom;
+    private long price;
     private String direction;
     private Integer ward;
-    private Integer saleRent;
+    private int saleRent;
     private String buildingCategory;
     private String user;
-    private Integer status;
+    private int status;
 
-    public Integer getFloorArea() {
+    public int getFloorArea() {
         return floorArea;
     }
 
     public void setFloorArea(Integer floorArea) {
-        this.floorArea = floorArea;
+        this.floorArea = floorArea != null ? floorArea : 0;
     }
 
-    public Integer getBedRoom() {
+    public int getBedRoom() {
         return bedRoom;
     }
 
     public void setBedRoom(Integer bedRoom) {
-        this.bedRoom = bedRoom;
+        this.bedRoom = bedRoom != null ? bedRoom : 0;
     }
 
-    public Integer getFunctionRoom() {
+    public int getFunctionRoom() {
         return functionRoom;
     }
 
     public void setFunctionRoom(Integer functionRoom) {
-        this.functionRoom = functionRoom;
+        this.functionRoom = functionRoom != null ? functionRoom : 0;
     }
 
-    public Long getPrice() {
+    public long getPrice() {
         return price;
     }
 
     public void setPrice(Long price) {
-        this.price = price;
+        this.price = price != null ? price : 0;
     }
 
     public String getDirection() {
@@ -57,15 +58,15 @@ public class BuildingFilter extends AbsFilter {
     }
 
     public void setWard(Integer ward) {
-        this.ward = ward;
+        this.ward = ward != null ? ward : 0;
     }
 
-    public Integer getSaleRent() {
+    public int getSaleRent() {
         return saleRent;
     }
 
     public void setSaleRent(Integer saleRent) {
-        this.saleRent = saleRent;
+        this.saleRent = saleRent != null ? saleRent : 0;
     }
 
     public String getBuildingCategory() {
@@ -84,14 +85,13 @@ public class BuildingFilter extends AbsFilter {
         this.user = user;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
-        this.status = status;
+        this.status = status != null ? status : 0;
     }
-
 
 
 }

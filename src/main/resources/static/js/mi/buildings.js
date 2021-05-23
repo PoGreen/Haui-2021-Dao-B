@@ -157,20 +157,20 @@ function genBuildingsTable(status, saleRent) {
             var leng = data.total_record;
             console.log(data);
             console.log(leng);
-            var generated = "<table class=\"table\" style=\" border: 2px solid black; display:inline-block\" >" +
-                "        <thead>" +
+            var generated = "<table class=\"table table-bordered\" style=\" border: 2px solid black; display:inline-block\" >" +
+                "        <thead class=\"thead-dark\">" +
                 "        <tr>\<n></n>" +
-                "            <th scope=\"col\">#</th>" +
-                "            <th scope=\"col\">Tên</th>" +
-                "            <th scope=\"col\">Địa chỉ</th>" +
-                "            <th scope=\"col\">Số phòng ngủ</th>" +
-                "            <th scope=\"col\">Số phòng chức năng</th>" +
-                "            <th scope=\"col\">Giá</th>" +
-                "            <th scope=\"col\">Diện tích sàn</th>" +
-                "            <th scope=\"col\">Trạng thái</th>" +
-                "            <th scope=\"col\">Loại</th>" +
-                "            <th scope=\"col\">Kích hoạt</th>" +
-                "            <th scope=\"col\">Xóa</th>" +
+                "            <th scope=\"col\" style='width: 10%'>#</th>" +
+                "            <th scope=\"col\" style='width: 30%'>Tên</th>" +
+                "            <th scope=\"col\" style='width: 7%'>Địa chỉ</th>" +
+                "            <th scope=\"col\" style='width: 9%'>Số phòng ngủ</th>" +
+                "            <th scope=\"col\" style='width: 9%'>Số phòng chức năng</th>" +
+                "            <th scope=\"col\" style='width: 7%'>Giá</th>" +
+                "            <th scope=\"col\" style='width: 10%'>Diện tích sàn</th>" +
+                "            <th scope=\"col\" style='width: 10%'>Trạng thái</th>" +
+                "            <th scope=\"col\" style='width: 3%'>Loại</th>" +
+                "            <th scope=\"col\" style='width: 5%'>Kích hoạt</th>" +
+                "            <th scope=\"col\" style='width: 5%'>Xóa</th>" +
                 "            <th scope=\"col\">Chi tiết</th>" +
                 "        </tr>" +
                 "        </thead>" +
@@ -186,17 +186,17 @@ function genBuildingsTable(status, saleRent) {
                 generated += "  <tr>\n" +
                     "      <input class='building-id' type='hidden' value=" + data.data[i].id + ">\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +
-                    "      <td>" + data.data[i].name + "</td>\n" +
-                    "      <td>" + data.data[i].address + "</td>\n" +
-                    "      <td>" + data.data[i].bedroom + "</td>\n" +
-                    "      <td>" + data.data[i].function_room + "</td>\n" +
-                    "      <td>" + data.data[i].price + "</td>\n" +
-                    "      <td>" + data.data[i].floor_area + "</td>\n" +
-                    "      <td>" + status + "</td>\n" +
-                    "      <td>" + loai + "</td>\n" +
-                    "      <td><a onclick='activeBuildings(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Kích hoạt</a></td>\n" +
-                    "      <td><a onclick='deleteBuildings(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Xóa</a></td>\n" +
-                    "      <td><a onclick='showDetail(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Chi tiết</a></td>\n" +
+                    "      <td >" + data.data[i].name + "</td>\n" +
+                    "      <td >" + data.data[i].address + "</td>\n" +
+                    "      <td >" + data.data[i].bedroom + "</td>\n" +
+                    "      <td >" + data.data[i].function_room + "</td>\n" +
+                    "      <td >" + data.data[i].price + "</td>\n" +
+                    "      <td >" + data.data[i].floor_area + "</td>\n" +
+                    "      <td >" + status + "</td>\n" +
+                    "      <td >" + loai + "</td>\n" +
+                    "      <td ><a onclick='activeBuildings(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Kích hoạt</a></td>\n" +
+                    "      <td ><a onclick='deleteBuildings(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Xóa</a></td>\n" +
+                    "      <td ><a onclick='showDetail(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Chi tiết</a></td>\n" +
                     "    </tr>";
             }
             generated +=
@@ -226,7 +226,11 @@ function genFileExcel() {
         dataType: 'JSON', //dinh nghi kieu du lieu server gui len
 
         success: function (result) { // result la ket qua server tra ve
+            alert("Xuất dữ liệu thành công vui lòng kiểm tra thư mục    ");
         },
+        error: function (result) {
+            alert("Đã xảy ra lỗi!! vui lòng thử lại");
+        }
     });
 };
 
@@ -281,25 +285,30 @@ function activeBuildings(i) {
 
 function sendEmail() {
     var buildingId = sessionStorage.getItem("id-building");
-    $.ajax({
-        url: '/user/buildings/send-email?building-id=' + buildingId,
-        type: 'POST',
-        contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
-        dataType: 'JSON', //dinh nghi kieu du lieu server gui len
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem("token")
-        },
-        success: function (result) { // result la ket qua server tra ve
-            alert("Gửi thông báo thành công đến chủ sở hữu! vui lòng kiểm tra mail cá nhân");
-        },
-        error: function (result) {
-            alert("Sảy ra lỗi! vui lòng thử lại");
-        }
-    });
+    if(localStorage.getItem("token") === null){
+        alert("Vui lòng đăng nhập vào hệ thống!!");
+    }else{
+        $.ajax({
+            url: '/user/buildings/send-email?building-id=' + buildingId,
+            type: 'POST',
+            contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
+            dataType: 'JSON', //dinh nghi kieu du lieu server gui len
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem("token")
+            },
+            success: function (result) { // result la ket qua server tra ve
+                alert("Gửi thông báo thành công đến chủ sở hữu! vui lòng kiểm tra mail cá nhân");
+            },
+            error: function (result) {
+                alert("Sảy ra lỗi! vui lòng thử lại");
+            }
+        });
+    }
+
 }
 
 
-function validateBuilding(){
+function validateBuilding() {
 
 }
 

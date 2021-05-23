@@ -25,7 +25,7 @@ public class BuildingController {
 
     @GetMapping(value = "/buildings")
     public ResponseEntity<SystemResponse<Object>> getAllShow(@RequestParam(value = "page", defaultValue = "1") int page,
-                                                             @RequestParam(value = "limit", defaultValue = "6") int limit) {
+                                                             @RequestParam(value = "limit", defaultValue = "9") int limit) {
         Panigation panigation = new Panigation();
         panigation.setPage(page);
         panigation.setLimit(limit);
@@ -43,7 +43,7 @@ public class BuildingController {
                                                               @RequestParam(value = "direction", required = false) String direction,
                                                               @RequestParam(value = "sale_rent", required = false) Integer saleRent,
                                                               @RequestParam(value = "status", required = false) Integer status,
-                                                              @RequestParam(value = "page", defaultValue = "1") Integer page) {
+                                                              @RequestParam(value = "page", defaultValue = "1") int page) {
 
         BuildingFilter filter = new BuildingFilter();
         filter.setPrice(price);
@@ -69,14 +69,14 @@ public class BuildingController {
     public ResponseEntity<SystemResponse<Object>> getUserBuildingByFilter(HttpServletRequest request,
                                                                           @RequestParam(value = "category", required = false) String buildingCAtegory,
                                                                           @RequestParam(value = "ward", required = false) Integer ward,
-                                                                          @RequestParam(value = "bedRoom", required = false) Integer bedRoom,
-                                                                          @RequestParam(value = "function_room", required = false) Integer functionRoom,
-                                                                          @RequestParam(value = "price", required = false) Long price,
-                                                                          @RequestParam(value = "floor_area", required = false) Integer floorArea,
+                                                                          @RequestParam(value = "bedRoom", required = false) int bedRoom,
+                                                                          @RequestParam(value = "function_room", required = false) int functionRoom,
+                                                                          @RequestParam(value = "price", required = false) long price,
+                                                                          @RequestParam(value = "floor_area", required = false) int floorArea,
                                                                           @RequestParam(value = "direction", required = false) String direction,
-                                                                          @RequestParam(value = "sale_rent", required = false) Integer saleRent,
-                                                                          @RequestParam(value = "status", required = false) Integer status,
-                                                                          @RequestParam(value = "page", defaultValue = "1") Integer page) {
+                                                                          @RequestParam(value = "sale_rent", required = false) int saleRent,
+                                                                          @RequestParam(value = "status", required = false) int status,
+                                                                          @RequestParam(value = "page", defaultValue = "1") int page) {
 
         BuildingFilter filter = new BuildingFilter();
         filter.setPrice(price);
@@ -90,6 +90,18 @@ public class BuildingController {
         filter.setPage(page);
         filter.setStatus(status);
         return iBuildingService.userFilters(request, filter);
+    }
+
+    @GetMapping(value = "/user/buildings/v2")
+    public ResponseEntity<SystemResponse<Object>> getUserBuilding(HttpServletRequest request,
+                                                                  @RequestParam(value = "sale_rent", required = false) int saleRent,
+                                                                  @RequestParam(value = "status", required = false) int status,
+                                                                  @RequestParam(value = "page", defaultValue = "1") int page) {
+
+        Panigation panigation = new Panigation();
+        panigation.setPage(page);
+        panigation.setLimit(20);
+        return iBuildingService.userFilters(request, saleRent, status, panigation);
     }
 
     @GetMapping(value = "/buildings/excel")
@@ -141,8 +153,8 @@ public class BuildingController {
 
     @GetMapping(value = "/users/buildings")
     public ResponseEntity<SystemResponse<Object>> getByUser(HttpServletRequest request,
-                                                            @RequestParam(value = "page") int page,
-                                                            @RequestParam(value = "limit") int limit) {
+                                                            @RequestParam(value = "page", defaultValue = "1") int page,
+                                                            @RequestParam(value = "limit", defaultValue = "20") int limit) {
         Panigation panigation = new Panigation();
         panigation.setPage(page);
         panigation.setLimit(limit);

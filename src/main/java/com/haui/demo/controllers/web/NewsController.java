@@ -11,4 +11,9 @@ public class NewsController {
         return "/news-page";
     }
 
+    @GetMapping(value = "/news-page-detail")
+    public String getNewsDetailPage() {
+        return "/news-details-page.html";
+    }
+
 }

@@ -10,19 +10,24 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Danh sách căn hộ</title>
+    <title>Tin tức</title>
 
     <!-- Favicon  -->
     <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
     <!-- Style CSS -->
     <link rel="stylesheet" th:href="@{/style.css}">
-    <script th:src="@{/js/mi/buildings.js}"></script>
+    <script th:src="@{/js/mi/news-category.js}"></script>
+    <script th:src="@{/js/mi/news.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
 
-<body onload="genBuildingsByStatus(2),base()">
+<body onload="genNewsCategory1(),genNews(0),base()">
+<!-- Preloader -->
+<div id="preloader">
+    <div class="south-load"></div>
+</div>
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/web.header :: header"></div>
@@ -32,46 +37,47 @@
 <div th:replace="common/web.nav :: nav"></div>
 <!-- ##### Breadcumb Area End ##### -->
 
+<!-- ##### Advance Search Area Start ##### -->
+<!-- ##### Advance Search Area End ##### -->
 
-<section class="listings-content-wrapper section-padding-100">
+<!-- ##### Listings Content Area Start ##### -->
+<section class="south-blog-area section-padding-100">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="listings-top-meta d-flex justify-content-between mb-100">
-                    <div class="view-area d-flex align-items-center">
-                        <span>View as:</span>
-                        <div class="grid_view ml-15"><a href="#" class="active"><i class="fa fa-th" aria-hidden="true"></i></a></div>
-                        <div class="list_view ml-15"><a href="#"><i class="fa fa-th-list" aria-hidden="true"></i></a></div>
-                    </div>
-                    <div class="order-by-area d-flex align-items-center">
-                        <span class="mr-15">Order by:</span>
-                        <select>
-                            <option selected>Đang bán</option>
-                            <option value="1">Cho thuê</option>
-                        </select>
+            <div class="col-12 col-lg-8">
+                <div id="content"></div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="blog-sidebar-area">
+                    <!-- Catagories Widget -->
+                    <div class="south-catagories-card mb-70">
+                        <h5>Thể loại tin tức</h5>
+                        <span id="news-category"></span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="row" id="buildings">
-
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-12">
-                <div class="south-pagination d-flex justify-content-end">
+                <!-- Pagination -->
+                <div class="south-pagination mt-100 d-flex">
                     <nav aria-label="Page navigation">
-                        <ul id="pagination" class="pagination"></ul>
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link active" href="#">01</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                        </ul>
                     </nav>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- ##### Listing Content Wrapper Area End ##### -->
+<!-- ##### Listings Content Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
 <div th:replace="common/web.footer :: footer"></div>
 <!-- ##### Footer Area End ##### -->
 
@@ -89,8 +95,6 @@
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
 <!-- Google Maps -->
-<script th:src="@{/js/map-active.js}"></script>
-
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwuyLRa1uKNtbgx6xAJVmWy-zADgegA2s"></script>-->
 </body>
+
 </html>

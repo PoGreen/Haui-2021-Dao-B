@@ -14,6 +14,8 @@ public interface INewsService {
 
     ResponseEntity<SystemResponse<Object>> getAllByStatus(Integer status,Panigation panigation);
 
+    ResponseEntity<SystemResponse<Object>> getAllByCategory(String id,Panigation panigation);
+
     ResponseEntity<SystemResponse<Object>> addOne(HttpServletRequest request, NewsRq newsRq);
 
     ResponseEntity<SystemResponse<Object>> update(HttpServletRequest request, NewsRq newsRq);
@@ -21,4 +23,6 @@ public interface INewsService {
     ResponseEntity<SystemResponse<Object>> changeStatus(HttpServletRequest request, StatusRq statusRq);
 
     ResponseEntity<SystemResponse<Object>> getOne(HttpServletRequest request, String id);
+
+    ResponseEntity<SystemResponse<Object>> delOne(HttpServletRequest request, String id);
 }

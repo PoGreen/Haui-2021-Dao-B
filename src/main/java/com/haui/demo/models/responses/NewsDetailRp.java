@@ -1,7 +1,6 @@
 package com.haui.demo.models.responses;
 
-import com.haui.demo.models.requests.ImageRq;
-
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,8 @@ public class NewsDetailRp {
     private String newsCategory;
 
     private List<ImageRp> imageRqs = new ArrayList<>();
+
+    private ZonedDateTime createdAt;
 
     public String getId() {
         return id;
@@ -64,5 +65,13 @@ public class NewsDetailRp {
 
     public void setImageRqs(List<ImageRp> imageRqs) {
         this.imageRqs = imageRqs;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

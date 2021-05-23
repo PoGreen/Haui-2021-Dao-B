@@ -18,6 +18,8 @@
     <link rel="stylesheet" th:href="@{/style.css}">
     <script th:src="@{/js/mi/user-buildings.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
 <body onload="genUserBuildingsTable(0,0),base()">
@@ -28,15 +30,35 @@
 <section style="padding-left: 5%; padding-right: 5%; padding-top: 10%">
     <h4>Danh sách bất động sản</h4>
     <a href="/admin/new-buildings" class="btn south-btn btn-3 m-1">Thêm mới</a>
+    <a href="#" onclick="genUserBuildingsTable(0,0)" class="btn south-btn btn-3 m-1">Tất cả</a>
     <a href="#" onclick="genUserBuildingsTable(1,1)" class="btn south-btn btn-3 m-1">Đang hoạt động - đang bán</a>
     <a href="#" onclick="genUserBuildingsTable(1,2)" class="btn south-btn btn-3 m-1">Đang hoạt động - cho thuê</a>
     <a href="#" onclick="genUserBuildingsTable(2,1)" class="btn south-btn btn-3 m-1">Chờ duyệt - cho bán</a>
     <a href="#" onclick="genUserBuildingsTable(2,2)" class="btn south-btn btn-3 m-1">Chờ duyệt - cho thuê</a>
-    <a href="#" onclick="genUserBuildingsTable(0,0)" class="btn south-btn btn-3 m-1">Tất cả</a>
+
     <a href="#" onclick="genFileExcel()" class="btn south-btn btn-3 m-1">Xuất file Excel</a>
 
-    <div id="buildings-table" style="margin: auto"></div>
+    <div id="user-buildings-table" style="margin: auto"></div>
 
+    <nav aria-label="Page navigation example" style="float: right">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
 </section>
 
