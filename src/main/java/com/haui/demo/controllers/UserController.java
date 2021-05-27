@@ -61,6 +61,11 @@ public class UserController {
         return service.changeStatus(request, statusRq);
     }
 
+    @PutMapping("/forgot/password")
+    public ResponseEntity<SystemResponse<Object>> forgotPassword(@RequestBody EmailForgot emailForgot) {
+        return service.forgotPassword(emailForgot);
+    }
+
     @DeleteMapping("/users/logout")
     public ResponseEntity<SystemResponse<Object>> logout(HttpServletRequest request) {
         return service.logout(request);

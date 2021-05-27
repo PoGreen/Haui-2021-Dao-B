@@ -339,7 +339,7 @@
                             success: function (result) {
                                 // result la ket qua server tra ve
                                 alert("Đăng ký thành công!");
-                                 window.location = "/buildings-list-page";
+                                window.location = "/buildings-list-page";
                             },
                             error: function (result) {
                                 alert("Đã xảy ra lỗi!! vui lòng thử lại");
@@ -406,69 +406,69 @@
             return false;
         }
 
-        if ((!isNaN(Number(car_park)) && /^\d+$/.test(car_park)) && moto_park < 0) {
+        if ((!isNaN(Number(car_park)) || moto_park < 0)) {
             alert("Vui lòng nhập đúng định dạng diện tích car park");
             return false;
         }
-        if ((!isNaN(Number(moto_park)) && /^\d+$/.test(car_park)) && moto_park < 0) {
+        if ((!isNaN(Number(moto_park)) || moto_park < 0)) {
             alert("Vui lòng nhập đúng định dạng diện tích môt park (kiểu số & lớn hơn 0)");
             return false;
         }
-        if ((!isNaN(Number(floor_area)) && /^\d+$/.test(floor_area)) && floor_area < 0) {
+        if ((!isNaN(Number(floor_area))) || floor_area < 0) {
             alert("Vui lòng nhập đúng định dạng diện tích sàn (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(campus_area)) && /^\d+$/.test(campus_area)) && campus_area < 0) {
+        if ((!isNaN(Number(campus_area)) || campus_area < 0)) {
             alert("Vui lòng nhập đúng định dạng diện tích khuân viên (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(home_frontage)) && /^\d+$/.test(home_frontage)) && home_frontage < 0) {
+        if ((!isNaN(Number(home_frontage)) || home_frontage < 0)) {
             alert("Vui lòng nhập đúng định dạng chiều rộng mặt tiền (kiểu số & lớn hơn 0)");
             return false;
         }
-        if ((!isNaN(Number(bedroom)) && /^\d+$/.test(bedroom)) && bedroom < 0) {
+        if ((!isNaN(Number(bedroom)) || bedroom < 0)) {
             alert("Vui lòng nhập đúng định dạng số phòng ngủ (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(function_room)) && /^\d+$/.test(function_room)) && function_room < 0) {
+        if ((!isNaN(Number(function_room)) || function_room < 0)) {
             alert("Vui lòng nhập đúng định dạng số phòng chức năng (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(altar_room)) && /^\d+$/.test(altar_room)) && altar_room < 0) {
+        if ((!isNaN(Number(altar_room)) || altar_room < 0)) {
             alert("Vui lòng nhập đúng định dạng số phòng thờ (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(number_floor)) && /^\d+$/.test(number_floor)) && number_floor < 0) {
+        if ((!isNaN(Number(number_floor)) || number_floor < 0)) {
             alert("Vui lòng nhập đúng định dạng số tầng (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(frequence)) && /^\d+$/.test(frequence)) && frequence < 0) {
+        if ((!isNaN(Number(frequence)) || frequence < 0)) {
             alert("Vui lòng nhập đúng định dạng vị trí tầng (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(electricity_price)) && /^\d+$/.test(electricity_price)) && electricity_price < 0) {
+        if ((!isNaN(Number(electricity_price)) || electricity_price < 0)) {
             alert("Vui lòng nhập đúng định dạng giá điện (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(water_price)) && /^\d+$/.test(water_price)) && water_price < 0) {
+        if ((!isNaN(Number(water_price)) || water_price < 0)) {
             alert("Vui lòng nhập đúng định dạng giá nước (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(price)) && /^\d+$/.test(price)) && price < 0) {
+        if ((!isNaN(Number(price)) || price < 0)) {
             alert("Vui lòng nhập đúng định dạng dữ liệu (kiểu số & lớn hơn 0)");
             return false;
         }
 
-        if ((!isNaN(Number(service_price)) && /^\d+$/.test(service_price)) && service_price < 0) {
+        if ((!isNaN(Number(service_price)) || service_price < 0)) {
             alert("Vui lòng nhập đúng định dạng giá dịch vụ (kiểu số & lớn hơn 0)");
             return false;
         }
@@ -478,10 +478,6 @@
             return false;
         }
 
-        if ((!isNaN(Number(sale_rent)) && /^\d+$/.test(sale_rent)) && sale_rent < 0) {
-            alert("Vui lòng chọn đúng định dạng trạng thái ");
-            return false;
-        }
 
         if (address === "" || address.length > 2000 || address < 0) {
             alert("Vui lòng nhập đúng định dạng địa chỉ chi tiết (0-2000 ký tự)");

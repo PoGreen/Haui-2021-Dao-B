@@ -55,7 +55,7 @@
                 <div class="contact-form">
                     <form id="login">
                         <div class="alert alert-primary" role="alert" style="display: none" id="alert">
-                            Tên tài khoản hoặc mật khẩu  không chính xác !!
+                            Tên tài khoản hoặc mật khẩu không chính xác !!
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" name="user_name" id="contact-name"
@@ -67,9 +67,27 @@
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn south-btn" onclick="subitLogin()">Đăng nhập</button>
-                            <button type="button" class="btn south-btn" onclick="window.location='/signup'" >Đăng ký</button>
+                            <button type="button" class="btn south-btn" onclick="window.location='/signup'">Đăng ký
+                            </button>
+                            <button type="button" class="btn south-btn" onclick="show()">Quên mật khẩu</button>
                         </div>
                     </form>
+
+                    <div style="display: none" id="forgot">
+                        <form id="forgot-password" name="forgot">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="user_name" id="contact-namea"
+                                       placeholder="Account name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="email" id="email"
+                                       placeholder="email">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn south-btn" onclick="forgotPassword()">Xác thực</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,5 +112,50 @@
 <script th:src="@{/js/active.js}"></script>
 
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwuyLRa1uKNtbgx6xAJVmWy-zADgegA2s"></script>-->
+
+
+<script>
+
+    function forgotPassword() {
+        var data = $('#forgot-password').serializeArray();
+        console.log(data);
+        $.ajax({
+            url: '/forgot/password',
+            type: 'PUT',
+            contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
+            dataType: 'JSON', //dinh nghi kieu du lieu server gui len
+            data: mapToJson(data),
+            success: function (result) { // result la ket qua server tra ve
+                alert("Xác thự thành công! vui lòng kiểm tra Gmail");
+            },
+            error: function (result) {
+                alert("Gmail không chính xác, vui lòng thử lại");
+            }
+        });
+    };
+
+    function show() {
+        $('#forgot').show();
+    }
+
+    function mapToJson(data) {
+        var o = {};
+        $.each(data, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+
+        return JSON.stringify(o);
+    }
+
+</script>
+
+
 </body>
 </html>

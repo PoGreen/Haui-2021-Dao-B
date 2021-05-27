@@ -5,6 +5,7 @@ import com.haui.demo.models.entities.User;
 import com.haui.demo.utils.Global;
 import com.haui.demo.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,5 +62,14 @@ public class JwtDistribute {
         return null;
     }
 
+    public String getJWTToken(HttpServletRequest request) {
+        String authorizationVal = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (authorizationVal == null
+                || authorizationVal.length() <= Global.BEARER.length() + 1
+                || !authorizationVal.startsWith(Global.BEARER))
+            return "";
+
+        return authorizationVal.substring(Global.BEARER.length() + 1);
+    }
 
 }

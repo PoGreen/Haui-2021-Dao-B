@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ApiRepository extends JpaRepository<Api,String> {
     Api findByUrl(String url);
+
+    Api findByUrlAndMethod(String url, String method);
 }

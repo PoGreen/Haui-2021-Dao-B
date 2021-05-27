@@ -24,7 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
-<body onload="generatedProvince();genRole()">
+<body onload="generatedProvince();genRole(),verify('/admin/users-page','GET')">
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/header :: header"></div>

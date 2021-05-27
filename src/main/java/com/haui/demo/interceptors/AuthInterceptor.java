@@ -42,13 +42,12 @@ public class AuthInterceptor implements HandlerInterceptor {
             API.with("^/buildings-detail"),
             API.with("^/options$"),
             API.with("^/v2/api-docs(.*)$"),
-            API.with("^(.*)swagger(.*)$"),
+            API.with("^/buildings-list-page$"),
             API.with("^/$"),
             API.with("^/csrf$"),
-            API.with("^/actuator(.*)$"),
+            API.with("^/signup$"),
             API.with("^/favicon\\.ico$"),
-            API.with("^/swagger-ui/index.html$"),
-            API.with("^/admin/home"),
+            API.with("^/verify-role$"),
             API.with("^(.*)css$"),
             API.with("^(.*)/js$"),
             API.with("(.*)png$"),
@@ -71,6 +70,49 @@ public class AuthInterceptor implements HandlerInterceptor {
             API.with("^/locations/(.*)$"),
             API.with("^/ckeditor/(.*)$"),
 
+
+            API.with("^/buildings-detail$"),
+            API.with("^/buildings-rent-page$"),
+            API.with("^/buildings-buy-page$"),
+            API.with("^/news-page$"),
+            API.with("^/news-page-detail$"),
+            API.with("^/forgot/password"),
+            API.with("^/news/status$"),
+            API.with("^/news$"),
+            API.with("^/news$/(.*)$"),
+            API.with("^/news/categories$"),
+            API.with("^/buildings$"),
+            API.with("^/news-categories$"),
+            API.with("^/rss-news$"),
+            API.with("^/users/signup$"),
+            API.with("^/admin/new-buildings$"),
+            API.with("^/users/logout$"),
+
+
+            API.with("^/admin/new-buildings-categories$"),
+            API.with("^/admin/buildings-categories$"),
+            API.with("^/admin/new-buildings$"),
+            API.with("^/admin/buildings$"),
+            API.with("^/buildings-edit$"),
+            API.with("^/admin/home$"),
+            API.with("^/admin/new-news-categories$"),
+            API.with("^/admin/news-categories$"),
+            API.with("^/admin/news$"),
+            API.with("^/add-news-page$"),
+            API.with("^/news-page-edit$"),
+            API.with("^/admin/list-users-page$"),
+
+            API.with("^/edit-info$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$"),
+            API.with("^/users/logout$")
     };
 
     @Autowired
@@ -93,39 +135,26 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        logger.info("start preHandle =>>>>>>>>>>>>>>>>{}");
+        logger.info("Uri =>>>>>>>>>>>>>>>>{}" + request.getRequestURI());
+
         if (isSkipAuthAPI(request)) return true;
 
-        DecodedJWT decodedJWT = jwt.authenticate(request, response);
+        String token = jwt.getJWTToken(request);
+        if (token.isEmpty() || token.equals("")) {
+            response.sendRedirect("/login");
+            return false;
+        }
 
-//        if (decodedJWT == null) {
-//            ResponseEntity<SystemResponse<Object>> userResponse = firebaseService.verifyToken(request);
-//            if (userResponse.getStatusCode().is2xxSuccessful()) {
-//                User user = (User) Objects.requireNonNull(userResponse.getBody()).getData();
-//                if (user != null) {
-//                    request.setAttribute(Global.USER_ATTR, user);
-//                    jwt.findNGenerateToken(user);
-//                    return true;
-//                }
-//            }
-//            SystemResponse<?> errorResponse = new SystemResponse<>(HttpStatus.UNAUTHORIZED.value(), "UNAUTHORIZED!");
-//            response.setStatus(StatusResponse.UNAUTHORIZED);
-//            response.setContentType("application/json");
-//            response.getWriter().println(errorResponse.toString());
-//            logger.error(StringResponse.UNAUTHORIZED);
-//            return false;
-//        }
-           request.setAttribute(Global.USER_ATTR, decodedJWT);
-//           UserJwt user = UserJwt.from(decodedJWT);
-//            jwt.findNGenerateToken(user);
-//            boolean author = authorization.verifyRole(decodedJWT, request);
-//        if (!author) {
-//            SystemResponse<?> errorResponse = new SystemResponse<>(HttpStatus.UNAUTHORIZED.value(), "UNAUTHORIZED!");
-//            response.setStatus(StatusResponse.UNAUTHORIZED);
-//            response.setContentType("application/json");
-//            response.getWriter().println(errorResponse.toString());
-//            logger.error(StringResponse.UNAUTHORIZED);
-//            return true;
-//        }
+        DecodedJWT decodedJWT = jwt.authenticate(request, response);
+        if (decodedJWT == null) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.getWriter().println("invalid or expired access token");
+            response.sendRedirect("/login");
+            return false;
+        }
+
+        request.setAttribute(Global.USER_ATTR, decodedJWT);
         return true;
     }
 

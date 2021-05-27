@@ -63,24 +63,3 @@
         </div>
     </div>
 </header>
-<script>
-    function logout() {
-
-        $.ajax({
-            url: '/users/logout',
-            type: 'DELETE',
-            contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
-            dataType: 'JSON', //dinh nghi kieu du lieu server gui len
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem("token")
-            },
-            success: function (result) { // result la ket qua server tra ve
-                localStorage.removeItem("token");
-                window.location = '/home';
-            },
-            error: function (result) {
-                $('#alert').css('display', '')
-            }
-        });
-    }
-</script>

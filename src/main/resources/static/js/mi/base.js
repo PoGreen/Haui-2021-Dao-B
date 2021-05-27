@@ -24,6 +24,7 @@ function base() {
             "                            <li><a href=\"/news-page\">Tin tức</a></li>\n" +
             "                            <li><a href=\"#\">Giới thiệu</a></li>\n" +
             "                            <li><a href=\"/buildings-list-page\">Bất động sản cá nhân</a></li>\n" +
+            "                            <li><a href=\"/edit-info\">Thông tin cá nhân</a></li>\n" +
             "                            <li><a onclick='logout()' href=\"#\">Đăng xuất</a></li>\n" +
             "                        </ul>"
     }
@@ -46,7 +47,30 @@ function logout() {
             window.location = '/home';
         },
         error: function (result) {
-            $('#alert').css('display', '')
+            alert("logout errors")
+        }
+    });
+}
+
+function verify(url, method) {
+
+    $.ajax({
+        url: '/verify-role?url=' + url + '&method=' + method,
+        type: 'GET',
+        contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
+        dataType: 'JSON', //dinh nghi kieu du lieu server gui len
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token")
+        },
+        success: function (result) { // result la ket qua server tra ve
+            console.log("Success");
+            console.log(result);
+            if (result.data === false) window.location = "/login";
+        },
+        error: function (result) { // result la ket qua server tra ve
+            console.log("Error");
+            console.log(result);
+            if (result.data === false) window.location = "/login";
         }
     });
 }

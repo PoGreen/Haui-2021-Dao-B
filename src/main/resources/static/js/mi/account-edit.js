@@ -1,10 +1,39 @@
-function submitRegister() {
+function genAccount() {
+    $.ajax({
+        url: '/users',
+        type: 'GET',
+        contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
+        dataType: 'JSON', //dinh nghi kieu du lieu server gui len
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token")
+        },
+        success: function (result) { // result la ket qua server tra ve
+            console.log(result);
+            console.log(result.data);
+            result = result.data;
+            $('#user_name').val(result.user_name);
+            $('#full_name').val(result.full_name);
+            $('#phone').val(result.phone);
+            $('#email').val(result.email);
+            $('#address').val(result.address);
+            $('#id').val(result.id);
+
+            $('#user_name').prop("disabled", true);
+            $('#full_name').prop("disabled", true);
+            $('#phone').prop("disabled", true);
+            $('#email').prop("disabled", true);
+            $('#address').prop("disabled", true);
+        },
+    });
+}
+
+function submitChangeInfo() {
 
     if (validate()) {
         var data = $('#create-admins').serializeArray();
         $.ajax({
-            url: '/users/signup',
-            type: 'POST',
+            url: 'users',
+            type: 'PUT',
             contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
             dataType: 'JSON', //dinh nghi kieu du lieu server gui len
             data: mapToJson(data),
@@ -12,8 +41,7 @@ function submitRegister() {
                 Authorization: 'Bearer ' + document.cookie
             },
             success: function (result) { // result la ket qua server tra ve
-                window.location = "/login";
-
+                window.location = "/home";
             },
             error: function (result) {
                 alert("Đã xảy ra lỗi! vui lòng thử lại");

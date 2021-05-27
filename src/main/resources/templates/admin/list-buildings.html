@@ -23,11 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
-<body onload="genBuildingsTable(0,0)">
-<!-- Preloader -->
-<div id="preloader">
-    <div class="south-load"></div>
-</div>
+<body onload="genBuildingsTable(0,0), verify('/admin/buildings','GET')">
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/header :: header"></div>

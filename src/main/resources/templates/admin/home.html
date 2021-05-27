@@ -20,11 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
-<body>
-<!-- Preloader -->
-<div id="preloader">
-    <div class="south-load"></div>
-</div>
+<body onload="verify('/admin/home','GET')">
+
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/header :: header"></div>

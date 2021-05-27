@@ -15,10 +15,7 @@ import com.haui.demo.models.responses.UserRp;
 import com.haui.demo.repositories.RoleRepository;
 import com.haui.demo.repositories.UserRepository;
 import com.haui.demo.repositories.WardRepository;
-import com.haui.demo.services.IUserService;
-import com.haui.demo.services.JwtDistribute;
-import com.haui.demo.services.JwtService;
-import com.haui.demo.services.JwtUser;
+import com.haui.demo.services.*;
 import com.haui.demo.services.mappers.UserMapper;
 import com.haui.demo.services.validators.UserValidator;
 import com.haui.demo.utils.Global;
@@ -35,6 +32,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,6 +61,9 @@ public class UserService implements IUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public ResponseEntity<SystemResponse<Object>> login(HttpServletRequest request, Login login) {
@@ -228,5 +229,29 @@ public class UserService implements IUserService {
         userRepository.save(user);
         return Response.ok();
 
+    }
+
+    @Override
+    public ResponseEntity<SystemResponse<Object>> forgotPassword(EmailForgot emailForgot) {
+
+        User user = userRepository.findByUserNameAndEmail(emailForgot.getUserName(), emailForgot.getEmail());
+
+        if (user == null) return Response.badRequest(StringResponse.USER_ID_FAKE);
+        String newPassword = generateOTP(6);
+        emailService.sendEmailPassword(user.getEmail(), newPassword);
+        user.setPassword(newPassword, passwordEncoder);
+        userRepository.save(user);
+        return Response.ok();
+
+    }
+
+    public static String generateOTP(int len) {
+        if (len <= 0) len = 6;
+        StringBuilder otp = new StringBuilder();
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < len; i++) {
+            otp.append(random.nextInt(9));
+        }
+        return otp.toString();
     }
 }

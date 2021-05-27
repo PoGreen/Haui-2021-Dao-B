@@ -28,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
-<body onload="genNewsCategory(),genNewsEdit()">
+<body onload="genNewsCategory(),genNewsEdit(),verify('/news-page-edit','GET')">
 
 <!-- #### Header Area Start ##### -->
 <div th:replace="common/header :: header"></div>

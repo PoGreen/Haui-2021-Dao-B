@@ -9,4 +9,9 @@ public class SignupController {
     public String getHomePage(){
         return "/register.html";
     }
+
+    @GetMapping(value = "/edit-info")
+    public String getEditPage(){
+        return "/register-edit.html";
+    }
 }

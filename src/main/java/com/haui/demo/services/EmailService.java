@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMessage;
 public class EmailService {
 
     private static final String SUBJECT = "From: DaoGreenT - Bất động sản của bạn đã được quan tâm";
+    private static final String SUBJECT_PASSWORD = "From: DaoGreenT - Mật khẩu của bạn đã được thay đổi!!";
     private static final String EMAIL = "trandaogrey@gmail.com";
     private static final String BODY = "C%C3%B4ng%20ty%20c%E1%BB%95%20ph%E1%BA%A7n%20kinh%20doanh%20b%E1%BA%A5t%20%C4%91%E1%BB%99ng%20s%E1%BA%A3n%20DaoGreenT";
     private static final String createNew = "https://mail.google.com/mail/?view=cm&fs=1&to=******&su=";
@@ -35,6 +36,27 @@ public class EmailService {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void sendEmailPassword(String emailAddress, String password) {
+        TaskPool.executor.execute(() -> {
+            try {
+                sendForgotPassword(emailAddress, password);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void sendForgotPassword(String emailAddress, String password) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+
+        helper.setFrom(EMAIL);
+        helper.setSubject(SUBJECT_PASSWORD);
+        message.setContent("Mật khẩu của bạn đã được thay đổi!: "+password +"  Vui lòng đăng nhập trở lại hệ thống!!", "text/html; charset=UTF-8");
+        helper.setTo(emailAddress);
+        mailSender.send(message);
     }
 
     public void send(String emailAddress, String emailCustomer) throws MessagingException {

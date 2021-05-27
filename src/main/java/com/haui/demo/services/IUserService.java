@@ -28,4 +28,6 @@ public interface IUserService {
     ResponseEntity<SystemResponse<Object>> getAll(Integer status, Panigation panigation);
 
     ResponseEntity<SystemResponse<Object>> changeStatus(HttpServletRequest request, StatusRq statusRq);
+
+    ResponseEntity<SystemResponse<Object>> forgotPassword(EmailForgot emailForgot);
 }
