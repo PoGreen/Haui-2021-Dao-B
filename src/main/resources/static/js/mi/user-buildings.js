@@ -20,19 +20,20 @@ function genUserBuildingsTable(status, saleRent) {
             var leng = data.length;
             $('#user-buildings-table').html("");
 
-            var generated = "<table class=\"table\" style=\" border: 2px solid black; display:inline-block\" >" +
-                "        <thead>" +
+            var generated = "<table class=\"table table-bordered\" style=\" border: 2px solid black; display:inline-block\" >" +
+                "        <thead class=\"thead-dark\">" +
                 "        <tr>\<n></n>" +
-                "            <th scope=\"col\">#</th>" +
-                "            <th scope=\"col\">Tên</th>" +
-                "            <th scope=\"col\">Địa chỉ</th>" +
-                "            <th scope=\"col\">Số phòng ngủ</th>" +
-                "            <th scope=\"col\">Số phòng chức năng</th>" +
-                "            <th scope=\"col\">Giá</th>" +
-                "            <th scope=\"col\">Diện tích sàn</th>" +
-                "            <th scope=\"col\">Trạng thái</th>" +
-                "            <th scope=\"col\">Loại</th>" +
-                "            <th scope=\"col\">Xóa</th>" +
+                "           <th scope=\"col\" style='width: 10%'>#</th>" +
+                "            <th scope=\"col\" style='width: 30%'>Tên</th>" +
+                "            <th scope=\"col\" style='width: 7%'>Địa chỉ</th>" +
+                "            <th scope=\"col\" style='width: 9%'>Số phòng ngủ</th>" +
+                "            <th scope=\"col\" style='width: 9%'>Số phòng chức năng</th>" +
+                "            <th scope=\"col\" style='width: 7%'>Giá</th>" +
+                "            <th scope=\"col\" style='width: 10%'>Diện tích sàn</th>" +
+                "            <th scope=\"col\" style='width: 10%'>Trạng thái</th>" +
+                "            <th scope=\"col\" style='width: 3%'>Loại</th>" +
+                "            <th scope=\"col\" style='width: 5%'>Kích hoạt</th>" +
+                "            <th scope=\"col\" style='width: 5%'>Xóa</th>" +
                 "            <th scope=\"col\">Chi tiết</th>" +
                 "        </tr>" +
                 "        </thead>" +
@@ -44,6 +45,7 @@ function genUserBuildingsTable(status, saleRent) {
                 if (data[i].sale_rent === 2) loai = "Cho thuê";
                 if (data[i].status === 1) status = "Hoạt động";
                 if (data[i].status === 2) status = "Chờ duyệt";
+                if (data[i].status === 3) status = "Đã xoá";
                 generated += "  <tr>\n" +
                     "      <input class='building-id' type='hidden' value=" + data[i].id + ">\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +
@@ -91,7 +93,7 @@ function genEditBuilding(i) {
     var id = document.getElementsByClassName("building-id")[i].value;
     console.log(id);
     sessionStorage.setItem("id-building", id);
-    window.location.href = "/buildings-edit";
+    window.location.href = "/users/buildings-edits-pages";
 }
 
 

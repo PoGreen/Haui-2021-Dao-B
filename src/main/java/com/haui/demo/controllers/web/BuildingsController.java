@@ -22,5 +22,13 @@ public class BuildingsController {
         return "/user-buildings";
     }
 
+    @GetMapping(value = "/users/buildings-edits-pages")
+    public String getBuildingPage() {
+        return "user-buildings-edit.html";
+    }
 
+    @GetMapping(value = "/users/buildings-pages")
+    public String getBuildingsEdit() {
+        return "user-new-buildings.html";
+    }
 }

@@ -70,7 +70,7 @@ public class NewsCategoryService implements INewsCategoryService {
         NewsCategory newsCategory = mapper.map(newsCategoryRq);
         User user = jwt.getUser(request);
         if (!Objects.isNull(user)) {
-            newsCategory.setCreated_by(user.getId());
+            newsCategory.setCreatedBy(user.getId());
         }
         newsCategory.setStatus(Global.ACTIVE);
         newsCategoryRepository.save(newsCategory);
@@ -86,7 +86,7 @@ public class NewsCategoryService implements INewsCategoryService {
         }
         User user = jwt.getUser(request);
         if(!Objects.isNull(user)){
-            newsCategory.setUpdated_by(user.getId());
+            newsCategory.setUpdatedBy(user.getId());
         }
         if(statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE){
             return Response.badRequest(StringResponse.STATUS_IS_FAKE);

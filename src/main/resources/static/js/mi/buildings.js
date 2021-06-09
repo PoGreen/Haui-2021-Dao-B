@@ -40,8 +40,8 @@ function genBuildinDetail() {
 
             console.log(result);
             var data = result.data;
-            console.log(data);
-
+            console.log(data.image_rps[0].url);
+            document.getElementById("image-detail").src = data.image_rps[0].url;
             var gererated = "<ul class=\"listings-core-features d-flex align-items-center\" >";
             gererated += "<li id=\"category\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Thể loại: </li>\n" +
                 "                        <li id=\"car_park\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Gara ôtô: " + data.car_park + " m2 </liid>\n" +
@@ -49,7 +49,7 @@ function genBuildinDetail() {
                 "                        <li id=\"home_frontage\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Mặt tiền: " + data.home_frontage + " m2</li>\n" +
                 "                        <li id=\"number_floor\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Số tầng: " + data.number_floor + "</li>\n" +
                 "                        <li id=\"frequence\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Tầng số: " + data.frequence + "</li>\n" +
-                "                        <li id=\"altar_room\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Phòng thờ: " + data.altar_room + " m2 </li>\n" +
+                "                        <li id=\"altar_room\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Phòng thờ: " + data.altar_room + " phòng </li>\n" +
                 "                        <li id=\"campus_area\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Diện tích khuân viên: " + data.campus_area + " m2</li>\n" +
                 "                        <li id=\"direction\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Phương hướng: " + data.direction + " </li>\n" +
                 "                        <li id=\"electricity_price\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i> Giá điện: " + data.electricity_price + " VND</li>\n" +
@@ -73,6 +73,8 @@ function genBuildinDetail() {
             $('#function_room').append(data.function_room);
             $('#home_deposit').append(data.home_deposit);
             $('#price').append(data.price);
+            $('#category').append(data.building_category);
+
         },
     });
 }
@@ -85,30 +87,27 @@ function genBuildingsByStatus(status) {
         dataType: 'json', //dinh nghi kieu du lieu server gui len
         success: function (result) { // result la ket qua server tra ve
             console.log(result);
-            var data = result.data;
-            leng = data.total_record;
-            console.log(data);
-            console.log(leng);
+            var dataArray = result.data.data;
+            leng = dataArray.length;
             var generated = "";
             $('#buildings').append(generated);
             for (var i = 0; i < leng; i++) {
-                var id = data.data[i].id;
-                // console.log(id);
+                var id = dataArray[i].id;
                 generated += " <div class=\"col-12 col-md-6 col-xl-4\">\n" +
                     "                <div class=\"single-featured-property mb-50 wow fadeInUp\" data-wow-delay=\"100ms\">\n" +
                     "                    <!-- Property Thumbnail -->\n" +
                     "                    <div class=\"property-thumb\">\n" +
-                    "                        <img style='width: 400px; height: 250px' src=\"" + data.data[i].image_rp + "\" alt=\"\">\n" +
+                    "                        <img style='width: 400px; height: 250px' src=\"" + dataArray[i].image_rp.url + "\" alt=\"\">\n" +
                     "\n" +
                     "                        <div class=\"list-price\">\n" +
-                    "                            <p> $ " + data.data[i].price + "</p>\n" +
+                    "                            <p> $ " + dataArray[i].price + "</p>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
                     "                    <!-- Property Content -->\n" +
                     "                    <div class=\"property-content\">\n" +
-                    "                        <h5>" + data.data[i].name + "</h5>\n" +
-                    "                        <p class=\"location\"><img src=\"img/icons/location.png\" alt=\"\">" + data.data[i].address + "</p>\n" +
-                    "                        <p>" + data.data[i].title + "</p>\n" +
+                    "                        <h5>" + dataArray[i].name + "</h5>\n" +
+                    "                        <p class=\"location\"><img src=\"img/icons/location.png\" alt=\"\">" + dataArray[i].address + "</p>\n" +
+                    "                        <p>" + dataArray[i].title + "</p>\n" +
                     "                        <div class=\"property-meta-data d-flex align-items-end justify-content-between\">\n" +
                     "                            <div class=\"new-tag\">\n" +
                     "                            <input class='building-id' type='hidden' value=" + id + ">\n" +
@@ -116,15 +115,15 @@ function genBuildingsByStatus(status) {
                     "                            </div>\n" +
                     "                            <div class=\"bathroom\">\n" +
                     "                                <img src=\"img/icons/bathtub.png\" alt=\"\">\n" +
-                    "                                <span>" + data.data[i].bedroom + "</span>\n" +
+                    "                                <span>" + dataArray[i].bedroom + "</span>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"garage\">\n" +
                     "                                <img src=\"img/icons/garage.png\" alt=\"\">\n" +
-                    "                                <span>" + data.data[i].function_room + "</span>\n" +
+                    "                                <span>" + dataArray[i].function_room + "</span>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"space\">\n" +
                     "                                <img src=\"img/icons/space.png\" alt=\"\">\n" +
-                    "                                <span>" + data.data[i].floor_area + "</span>\n" +
+                    "                                <span>" + dataArray[i].floor_area + "</span>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
@@ -152,11 +151,9 @@ function genBuildingsTable(status, saleRent) {
         contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
         dataType: 'json', //dinh nghi kieu du lieu server gui len
         success: function (result) { // result la ket qua server tra ve
-            console.log(result);
-            var data = result.data;
-            var leng = data.total_record;
-            console.log(data);
-            console.log(leng);
+            var arrayData = result.data.data;
+            var leng = arrayData.length;
+            console.log(arrayData);
             var generated = "<table class=\"table table-bordered\" style=\" border: 2px solid black; display:inline-block\" >" +
                 "        <thead class=\"thead-dark\">" +
                 "        <tr>\<n></n>" +
@@ -178,20 +175,20 @@ function genBuildingsTable(status, saleRent) {
             for (var i = 0; i < leng; i++) {
                 var status;
                 var loai;
-                if (data.data[i].sale_rent === 1) loai = "Bán";
-                if (data.data[i].sale_rent === 2) loai = "Cho thuê";
-                if (data.data[i].status === 1) status = "Hoạt động";
-                if (data.data[i].status === 2) status = "Chờ duyệt";
-                if (data.data[i].status === 3) status = "Không hoạt động";
+                if (arrayData[i].sale_rent === 1) loai = "Bán";
+                if (arrayData[i].sale_rent === 2) loai = "Cho thuê";
+                if (arrayData[i].status === 1) status = "Hoạt động";
+                if (arrayData[i].status === 2) status = "Chờ duyệt";
+                if (arrayData[i].status === 3) status = "Không hoạt động";
                 generated += "  <tr>\n" +
-                    "      <input class='building-id' type='hidden' value=" + data.data[i].id + ">\n" +
+                    "      <input class='building-id' type='hidden' value=" + arrayData[i].id + ">\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +
-                    "      <td >" + data.data[i].name + "</td>\n" +
-                    "      <td >" + data.data[i].address + "</td>\n" +
-                    "      <td >" + data.data[i].bedroom + "</td>\n" +
-                    "      <td >" + data.data[i].function_room + "</td>\n" +
-                    "      <td >" + data.data[i].price + "</td>\n" +
-                    "      <td >" + data.data[i].floor_area + "</td>\n" +
+                    "      <td >" + arrayData[i].name + "</td>\n" +
+                    "      <td >" + arrayData[i].address + "</td>\n" +
+                    "      <td >" + arrayData[i].bedroom + "</td>\n" +
+                    "      <td >" + arrayData[i].function_room + "</td>\n" +
+                    "      <td >" + arrayData[i].price + "</td>\n" +
+                    "      <td >" + arrayData[i].floor_area + "</td>\n" +
                     "      <td >" + status + "</td>\n" +
                     "      <td >" + loai + "</td>\n" +
                     "      <td ><a onclick='activeBuildings(" + i + ")' href=\"#\" ><i class=\"fa fa-check\" aria-hidden=\"true\"></i>Kích hoạt</a></td>\n" +
@@ -285,9 +282,9 @@ function activeBuildings(i) {
 
 function sendEmail() {
     var buildingId = sessionStorage.getItem("id-building");
-    if(localStorage.getItem("token") === null){
+    if (localStorage.getItem("token") === null) {
         alert("Vui lòng đăng nhập vào hệ thống!!");
-    }else{
+    } else {
         $.ajax({
             url: '/user/buildings/send-email?building-id=' + buildingId,
             type: 'POST',

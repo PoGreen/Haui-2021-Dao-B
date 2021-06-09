@@ -60,7 +60,7 @@ function genNewsCategory() {
     });
 };
 
-function gen(status) {
+function genNewsCategory(status) {
 
     var data = {
         "page": 1,
@@ -93,8 +93,8 @@ function gen(status) {
                 "        <tbody>";
             for (var i = 0; i < leng; i++) {
 
-                if (data[i].status == 1) var status = "Active";
-                if (data[i].status == 3) var status = "NoActive";
+                if (data[i].status == 1) var status = "Hoạt động";
+                if (data[i].status == 3) var status = "Không hoạt động";
                 generated += "  <tr>\n" +
                     "      <input class='news-category-id' type='hidden' value=" + data[i].id + ">\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +

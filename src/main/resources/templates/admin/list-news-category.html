@@ -23,11 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
-<body onload="gen(2), verify('admin/news-categories','GET')">
-<!-- Preloader -->
-<div id="preloader">
-    <div class="south-load"></div>
-</div>
+<body onload="genNewsCategory(2), verify('/admin/news-categories','GET')">
 
 <!-- ##### Header Area Start ##### -->
 <div th:replace="common/header :: header"></div>
@@ -37,9 +33,9 @@
 <section style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
     <h4>Danh sách loại tin tức</h4>
     <a href="/admin/new-news-categories" class="btn south-btn btn-3 m-1">Thêm mới</a>
-    <button type="submit"><a href="#" onclick="gen(1)" class="btn south-btn btn-3 m-1">Đang hoạt động</a></button>
-    <button type="submit"><a href="#" onclick="gen(0)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
-    <button type="submit"><a href="#" onclick="gen(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
+    <button type="submit"><a href="#" onclick="genNewsCategory(1)" class="btn south-btn btn-3 m-1">Đang hoạt động</a></button>
+    <button type="submit"><a href="#" onclick="genNewsCategory(0)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
+    <button type="submit"><a href="#" onclick="genNewsCategory(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
      <div id="news-category-table" style="margin: auto"></div>
     <nav aria-label="Page navigation example" style="float: right">
         <ul class="pagination">

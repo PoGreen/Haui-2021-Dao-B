@@ -90,8 +90,8 @@ function gen(status) {
                 "        </thead>" +
                 "        <tbody>";
             for (var i = 0; i < leng; i++) {
-                if (data[i].status == 1) status = "Active";
-                if (data[i].status == 3) status = "NoActive";
+                if (data[i].status == 1) status = "Hoạt động";
+                if (data[i].status == 3) status = "Không hoạt động";
                 generated += "  <tr>\n" +
                     "  <input class='building-category-id' type='hidden' value=" + data[i].id + ">\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +

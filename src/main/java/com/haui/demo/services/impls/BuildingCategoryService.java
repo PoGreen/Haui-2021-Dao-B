@@ -73,7 +73,7 @@ public class BuildingCategoryService implements IBuildingCategoryService {
 
         User user = jwtUser.getUser(request);
         if (!Objects.isNull(user)) {
-            buildingCategory.setCreated_by(user.getId());
+            buildingCategory.setCreatedBy(user.getId());
         }
         buildingCategory.setStatus(Global.ACTIVE);
         buildingCategoryRepository.save(buildingCategory);
@@ -90,7 +90,7 @@ public class BuildingCategoryService implements IBuildingCategoryService {
         }
         User user = jwtUser.getUser(request);
         if (!Objects.isNull(user)) {
-            buildingCategory.setUpdated_by(user.getId());
+            buildingCategory.setUpdatedBy(user.getId());
         }
         if (statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE) {
             return Response.badRequest(StringResponse.STATUS_IS_FAKE);

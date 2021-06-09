@@ -29,7 +29,7 @@
 
 
 <!-- ##### Header Area Start ##### -->
-<div th:replace="common/header :: header"></div>
+<div th:replace="common/web.header :: header"></div>
 <!-- ##### Header Area End ##### -->
 
 <!-- ##### Editor Area Start ##### -->
@@ -131,7 +131,7 @@
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
                                         <span style="color: red; font-size: 12px">Số phòng thờ (*)</span>
-                                        <input type="text" class="form-control" name="altar_room" id="altar_room"
+                                        <input type="number" class="form-control" name="altar_room" id="altar_room"
                                                placeholder="Phòng thờ">
                                     </div>
                                 </div>
@@ -339,7 +339,7 @@
                             success: function (result) {
                                 // result la ket qua server tra ve
                                 alert("Đăng ký thành công!");
-                                 window.location = "/admin/buildings";
+                                window.location = "/buildings-list-page";
                             },
                             error: function (result) {
                                 alert("Đã xảy ra lỗi!! vui lòng thử lại");

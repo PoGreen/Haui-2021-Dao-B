@@ -54,6 +54,8 @@ public class BuildingDetailRp {
 
     private String buildingCategory;
 
+    private String buildingCategoryName;
+
     private Integer saleRent;
 
     public String getTitle() {
@@ -266,5 +268,11 @@ public class BuildingDetailRp {
         this.imageRps = imageRps;
     }
 
+    public String getBuildingCategoryName() {
+        return buildingCategoryName;
+    }
 
+    public void setBuildingCategoryName(String buildingCategoryName) {
+        this.buildingCategoryName = buildingCategoryName;
+    }
 }

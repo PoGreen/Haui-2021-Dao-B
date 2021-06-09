@@ -5,8 +5,10 @@ import com.haui.demo.models.entities.BuildingCategory;
 import com.haui.demo.models.requests.BuildingRq;
 import com.haui.demo.models.responses.BuildingDetailRp;
 import com.haui.demo.models.responses.BuildingRp;
+import com.haui.demo.models.responses.ImageRp;
 import com.haui.demo.repositories.BuildingCategoryRepository;
 import com.haui.demo.services.ILocationService;
+import com.haui.demo.services.impls.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,9 @@ public class BuildingMapper {
     @Autowired
     private BuildingCategoryRepository buildingCategoryRepository;
 
+    @Autowired
+    private ImageService imageService;
+
     public BuildingRp map(Building building) {
         BuildingRp rp = new BuildingRp();
         rp.setName(building.getName());
@@ -35,6 +40,7 @@ public class BuildingMapper {
         rp.setFloorArea(building.getFloorArea());
         rp.setSaleRent(building.getSaleRent());
         rp.setStatus(building.getStatus());
+        rp.setBuildingCategoryId(building.getBuildingCategory());
         return rp;
     }
 
@@ -105,12 +111,36 @@ public class BuildingMapper {
         buildingDetailRp.setServicePrice(building.getServicePrice());
 
         BuildingCategory buildingCategory = buildingCategoryRepository.findById(building.getBuildingCategory()).orElse(new BuildingCategory());
-        buildingDetailRp.setBuildingCategory(buildingCategory.getName());
+        buildingDetailRp.setBuildingCategory(buildingCategory != null ? buildingCategory.getName() : null);
         buildingDetailRp.setWard(building.getWard());
         return buildingDetailRp;
     }
 
-    public List<BuildingDetailRp> mapToBuildingDetailRps(List<Building> buildings){
+    public List<BuildingDetailRp> mapToBuildingDetailRps(List<Building> buildings) {
         return buildings.stream().map(this::maps).collect(Collectors.toList());
+    }
+
+    public List<BuildingRp> mapRps(List<BuildingRp> buildingRps) {
+        for (BuildingRp buildingRp : buildingRps) {
+            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
+            buildingRp.setImageRp(image);
+            BuildingCategory buildingCategory = buildingCategoryRepository.findById(buildingRp.getBuildingCategoryId()).orElse(null);
+            if (buildingCategory != null) {
+                buildingRp.setName(buildingCategory.getName());
+            }
+        }
+        return buildingRps;
+    }
+
+    public Page<BuildingRp> mapRps(Page<BuildingRp> buildingRps) {
+        for (BuildingRp buildingRp : buildingRps) {
+            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
+            buildingRp.setImageRp(image);
+            BuildingCategory buildingCategory = buildingCategoryRepository.findById(buildingRp.getBuildingCategoryId()).orElse(null);
+            if (buildingCategory != null) {
+                buildingRp.setName(buildingCategory.getName());
+            }
+        }
+        return buildingRps;
     }
 }

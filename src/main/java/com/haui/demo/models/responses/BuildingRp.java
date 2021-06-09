@@ -12,6 +12,8 @@ public class BuildingRp {
     private Integer floorArea;
     private Integer saleRent;
     private Integer status;
+    private String categoryName;
+    private String buildingCategoryId;
 
     private ImageRp imageRp;
 
@@ -109,5 +111,21 @@ public class BuildingRp {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getBuildingCategoryId() {
+        return buildingCategoryId;
+    }
+
+    public void setBuildingCategoryId(String buildingCategoryId) {
+        this.buildingCategoryId = buildingCategoryId;
     }
 }

@@ -23,7 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
-<body onload="gen(2),verify('/admin/list-users-page','GET')">
+<body onload="genAdmins(2),verify('/admin/list-users-page','GET')">
 
 
 <!-- ##### Header Area Start ##### -->
@@ -34,9 +34,10 @@
 <section
          style="padding-left: 5%; padding-right: 5%; padding-top: 5%">
     <a href="/admin/users-page" class="btn south-btn btn-3 m-1">Thêm mới</a>
-    <button type="button"><a href="#" onclick="gen(1)" class="btn south-btn btn-3 m-1">Đang hoạt động</a></button>
-    <button type="button"><a href="#" onclick="gen(3)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
-    <button type="button"><a href="#" onclick="gen(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
+    <button type="button"><a href="#" onclick="genAdmins(2)" class="btn south-btn btn-3 m-1">Tất cả</a></button>
+    <button type="button"><a href="#" onclick="genAdmins(1)" class="btn south-btn btn-3 m-1">Đang hoạt động</a></button>
+    <button type="button"><a href="#" onclick="genAdmins(3)" class="btn south-btn btn-3 m-1">Không hoạt động</a></button>
+
      <div id="users-table" style="margin: auto"></div>
     <nav aria-label="Page navigation example" style="float: right">
         <ul class="pagination">

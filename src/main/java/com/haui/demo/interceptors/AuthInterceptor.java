@@ -42,8 +42,8 @@ public class AuthInterceptor implements HandlerInterceptor {
             API.with("^/buildings-detail"),
             API.with("^/options$"),
             API.with("^/v2/api-docs(.*)$"),
-            API.with("^/buildings-list-page$"),
-            API.with("^/$"),
+
+            API.with("^/news/categories$"),
             API.with("^/csrf$"),
             API.with("^/signup$"),
             API.with("^/favicon\\.ico$"),
@@ -69,7 +69,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             API.with("^/locations/provinces$"),
             API.with("^/locations/(.*)$"),
             API.with("^/ckeditor/(.*)$"),
-
+            API.with("^/$"),
 
             API.with("^/buildings-detail$"),
             API.with("^/buildings-rent-page$"),
@@ -79,15 +79,16 @@ public class AuthInterceptor implements HandlerInterceptor {
             API.with("^/forgot/password"),
             API.with("^/news/status$"),
             API.with("^/news$"),
-            API.with("^/news$/(.*)$"),
-            API.with("^/news/categories$"),
-            API.with("^/buildings$"),
+
+            API.with("^/news/(.*)"),
+            API.with("^/news/"),
+            API.with("^/news(/*)$"),
             API.with("^/news-categories$"),
+//            API.with("^/buildings$"),
             API.with("^/rss-news$"),
             API.with("^/users/signup$"),
-            API.with("^/admin/new-buildings$"),
             API.with("^/users/logout$"),
-
+            API.with("^/buildings-show$"),
 
             API.with("^/admin/new-buildings-categories$"),
             API.with("^/admin/buildings-categories$"),
@@ -103,16 +104,12 @@ public class AuthInterceptor implements HandlerInterceptor {
             API.with("^/admin/list-users-page$"),
 
             API.with("^/edit-info$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$"),
-            API.with("^/users/logout$")
+            API.with("^/roles$"),
+            API.with("^/users/filter$"),
+
+            API.with("^/buildings-list-page$"),
+            API.with("^/users/buildings-edits-pages$"),
+            API.with("^/users/buildings-pages$"),
     };
 
     @Autowired

@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- The above 4 meta tags (*)must(*) come first in the head; any other head content must come (*)after(*) these tags -->
 
     <!-- Title  -->
-    <title>Tạo mới bất động sản</title>
+    <title>Chỉnh sửa bất động sản</title>
 
     <!-- Favicon  -->
     <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -22,14 +22,15 @@
     <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
     <script th:src="@{/ckeditor/ckeditor.js}"></script>
     <script th:src="@{/js/mi/base.js}"></script>
+    <script th:src="@{/js/mi/edit-building.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
-<body onload="generatedProvince();genBuildingCategory()">
+<body onload="generatedProvince();genBuildingCategory();genBuildingDetail()">
 
 
 <!-- ##### Header Area Start ##### -->
-<div th:replace="common/header :: header"></div>
+<div th:replace="common/web.header :: header"></div>
 <!-- ##### Header Area End ##### -->
 
 <!-- ##### Editor Area Start ##### -->
@@ -99,7 +100,7 @@
 
                                 <div class="col-12 col-md-4 col-lg-3">
                                     <div class="form-group">
-                                        <span style="color: red; font-size: 12px">Diện tích khuân viên (*)</span>
+                                        <span style="color: red; font-size: 12px">Diện tích bãi khuân viên (*)</span>
                                         <input type="number" class="form-control" name="campus_area" id="campus_area"
                                                placeholder="diện tích khuân viên">
                                     </div>
@@ -276,7 +277,7 @@
                                       placeholder="Mô tẩ bất động sản"></textarea>
 
 
-                            <button type="submit" id="btnSubmit" class="btn south-btn">Thêm mới</button>
+                            <button type="button" id="btnSubmit" class="btn south-btn">Chỉnh sửa</button>
                         </div>
                     </form>
                 </div>
@@ -296,6 +297,7 @@
     $(document).ready(function () {
 
         $("#btnSubmit").click(function (event) {
+
             //stop submit the form, we will post it manually.
             event.preventDefault();
 
@@ -305,9 +307,10 @@
             // Create an FormData object
             var data = new FormData(form);
 
-            // // disabled the submit button
-            // $("#btnSubmit").prop("disabled", true);
+            // disabled the submit button
+            $("#btnSubmit").prop("disabled", true);
 
+            console.log("submit form")
             $.ajax({
                 type: "POST",
                 enctype: 'multipart/form-data',
@@ -318,7 +321,7 @@
                 cache: false,
                 timeout: 600000,
                 success: function (data) {
-
+                    console.log(data);
                     if (validateBuildings()) {
                         var mota = CKEDITOR.instances.description.getData();
                         console.log(mota);
@@ -329,28 +332,24 @@
                         console.log(building);
                         $.ajax({
                             url: '/buildings',
-                            type: 'POST',
+                            type: 'PUT',
                             contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
                             dataType: 'JSON', //dinh nghi kieu du lieu server gui len
                             data: building,
                             headers: {
                                 Authorization: 'Bearer ' + localStorage.getItem("token")
                             },
-                            success: function (result) {
-                                // result la ket qua server tra ve
-                                alert("Đăng ký thành công!");
-                                 window.location = "/admin/buildings";
+                            success: function (result) { // result la ket qua server tra ve
+                                 window.location = "/users/buildings-pages";
                             },
                             error: function (result) {
-                                alert("Đã xảy ra lỗi!! vui lòng thử lại");
-                                // location.reload();
+                                alert("Sảy ra lỗi! vui lòng thử lại");
                             }
                         });
                     }
                 },
                 error: function (e) {
-                    alert("Đã xảy ra lỗi!! vui lòng thử lại");
-                    // location.reload();
+                    alert("Sảy ra lỗi! vui lòng thử lại");
                 }
             });
 

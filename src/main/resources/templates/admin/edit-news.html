@@ -22,10 +22,6 @@
     <script th:src="@{/js/mi/news-edit.js}"></script>
     <script th:src="@{/js/mi/news.js}"></script>
     <!-- ##### Editor Area End ##### -->
-    <script>
-        CKEDITOR.replace('content');
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
 <body onload="genNewsCategory(),genNewsEdit(),verify('/news-page-edit','GET')">
@@ -93,6 +89,11 @@
 </section>
 
 <script>
+    CKEDITOR.replace('content');
+</script>
+
+<script>
+
     $(document).ready(function () {
 
         $("#btnSubmit").click(function (event) {
@@ -142,7 +143,7 @@
                             },
                             success: function (result) { // result la ket qua server tra ve
                                 alert("Successful");
-                                 window.location = "/admin/news";
+                                window.location = "/admin/news";
                             },
                             error: function (result) {
                                 alert("Sảy ra lỗi! vui lòng thử lại");
@@ -159,47 +160,47 @@
 
     });
 
-function mapToJson(data) {
-    var o = {};
-    $.each(data, function () {
-        if (o[this.name]) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
+    function mapToJson(data) {
+        var o = {};
+        $.each(data, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
             }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
+        });
+        return JSON.stringify(o);
+    }
+
+    function validateNews() {
+        var name = document.getElementById("name").value;
+        var title = document.getElementById("title").value;
+        var content = CKEDITOR.instances.content.getData();
+
+        console.log("name", name);
+        console.log("title", title);
+        console.log("description", content);
+
+
+        if (name === "" || name.length > 50 || name < 0) {
+            alert("Vui lòng nhập tên bất động sản đúng định dạng dữ liệu (0-50 ký tự)");
+            return false;
         }
-    });
-    return JSON.stringify(o);
-}
 
-function validateNews(){
-    var name = document.getElementById("name").value;
-    var title = document.getElementById("title").value;
-    var content = CKEDITOR.instances.content.getData();
+        if (title === "" || title.length > 2000 || title < 0) {
+            alert("Vui lòng nhập tiêu đề bất động sản đúng định dạng tiêu đề (0-2000 ký tự)");
+            return false;
+        }
 
-    console.log("name",name);
-    console.log("title",title);
-    console.log("description",content);
-
-
-    if (name === "" || name.length > 50 || name < 0) {
-        alert("Vui lòng nhập tên bất động sản đúng định dạng dữ liệu (0-50 ký tự)");
-        return false;
+        if (content === "" || content.length > 2000 || content < 0) {
+            alert("Vui lòng nhập đúng định dạng mô tả bất động sản (0-2000 ký tự)");
+            return false;
+        }
+        return true;
     }
-
-    if (title === "" || title.length > 2000 || title < 0) {
-        alert("Vui lòng nhập tiêu đề bất động sản đúng định dạng tiêu đề (0-2000 ký tự)");
-        return false;
-    }
-
-    if (content === "" || content.length > 2000 || content < 0) {
-        alert("Vui lòng nhập đúng định dạng mô tả bất động sản (0-2000 ký tự)");
-        return false;
-    }
-    return true;
-}
 </script>
 <!-- Popper js -->
 <!-- Bootstrap js -->
@@ -208,7 +209,6 @@ function validateNews(){
 <script th:src="@{/js/plugins.js}"></script>
 <script th:src="@{/js/classy-nav.min.js}"></script>
 <script th:src="@{/js/jquery-ui.min.js}"></script>
-
 
 
 </body>

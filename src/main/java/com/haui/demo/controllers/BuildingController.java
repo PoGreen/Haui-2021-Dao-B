@@ -23,7 +23,7 @@ public class BuildingController {
     @Autowired
     private IBuildingService iBuildingService;
 
-    @GetMapping(value = "/buildings")
+    @GetMapping(value = "/buildings-show")
     public ResponseEntity<SystemResponse<Object>> getAllShow(@RequestParam(value = "page", defaultValue = "1") int page,
                                                              @RequestParam(value = "limit", defaultValue = "9") int limit) {
         Panigation panigation = new Panigation();

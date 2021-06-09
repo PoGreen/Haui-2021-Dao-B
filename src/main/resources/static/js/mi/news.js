@@ -35,10 +35,10 @@ function mapToJson(data) {
 }
 
 function genNews(category) {
-
+    console.log("category" + category)
     var url = "/news/categories";
 
-    if (category != 0) url = "/news/categories?id=" + category;
+    if (category !== 0) url = "/news/categories?id=" + category;
 
     $.ajax({
         url: url,
@@ -79,6 +79,7 @@ function genNews(category) {
                     "                        </div>\n" +
                     "                    </div>";
             }
+            console.log(gererated);
             $('#content').append(gererated);
         },
     });
@@ -92,7 +93,7 @@ function genNewsTable() {
     }
     $.ajax({
 
-        url: '/news/categories',
+        url: '/news',
         type: 'GET',
         contentType: 'application/json', //dinh nghia kieu du lieu gui ve server
         dataType: 'json', //dinh nghi kieu du lieu server gui len
@@ -116,8 +117,8 @@ function genNewsTable() {
                 "        <tbody>";
             for (var i = 0; i < leng; i++) {
                 var status;
-                if (data[i].sale_rent == 1) status = "Bán";
-                if (data[i].sale_rent == 0) status = "Cho thuê";
+                if (data[i].sale_rent == 1) status = "Hoạt động";
+                if (data[i].sale_rent == 0) status = "Không hoạt động";
                 var id = data[i].id;
                 generated += "  <tr>\n" +
                     "      <th scope=\"row\">" + i + "</th>\n" +
@@ -141,7 +142,7 @@ function genNewsTable() {
 
 
 function genNewsCategory() {
-    var view = document.getElementById("news-category");
+
     $.ajax({
         url: '/news-categories?status=2',
         type: 'GET',
@@ -158,7 +159,9 @@ function genNewsCategory() {
                 gererated += "<option value=" + data[i].id + ">" + data[i].name + "</option>\n";
             }
             gererated += "</select>";
-            view.innerHTML = gererated;
+
+
+            $('#news-category').append(gererated);
 
         },
     });
@@ -171,6 +174,7 @@ function showNewsDetail(i) {
     localStorage.setItem("id-news", id);
     window.location.href = "/news-page-detail";
 }
+
 function showNewsEdit(i) {
     var id = document.getElementsByClassName("del-news-id")[i].value;
     console.log(id);

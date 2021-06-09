@@ -215,7 +215,7 @@ public class UserService implements IUserService {
         }
         User userAdmin = jwtUser.getUser(request);
         if (!Objects.isNull(userAdmin)) {
-            user.setUpdated_by(userAdmin.getId());
+            user.setUpdatedBy(userAdmin.getId());
         }
         if (statusRq.getStatus() != Global.NOACTIVE && statusRq.getStatus() != Global.ACTIVE) {
             return Response.badRequest(StringResponse.STATUS_IS_FAKE);

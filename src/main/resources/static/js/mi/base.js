@@ -1,7 +1,6 @@
 function base() {
 
     var token = localStorage.getItem("token");
-    console.log(token);
     var generated = "";
 
     if (token === null) {
@@ -10,7 +9,6 @@ function base() {
             "                            <li><a href=\"/buildings-buy-page\">Bất động sản cho thuê</a></li>\n" +
             "                            <li><a href=\"/buildings-rent-page\">Bất động sản đang bán</a></li>\n" +
             "                            <li><a href=\"/news-page\">Tin tức</a></li>\n" +
-            "                            <li><a href=\"#\">Giới thiệu</a></li>\n" +
             "                            <li><a href=\"/login\">Bất động sản cá nhân</a></li>\n" +
             "                            <li><a href=\"/login\">Đăng nhập</a></li>\n" +
             "                        </ul>";
@@ -22,7 +20,6 @@ function base() {
             "                            <li><a href=\"/buildings-buy-page\">Bất động sản cho thuê</a></li>\n" +
             "                            <li><a href=\"/buildings-rent-page\">Bất động sản đang bán</a></li>\n" +
             "                            <li><a href=\"/news-page\">Tin tức</a></li>\n" +
-            "                            <li><a href=\"#\">Giới thiệu</a></li>\n" +
             "                            <li><a href=\"/buildings-list-page\">Bất động sản cá nhân</a></li>\n" +
             "                            <li><a href=\"/edit-info\">Thông tin cá nhân</a></li>\n" +
             "                            <li><a onclick='logout()' href=\"#\">Đăng xuất</a></li>\n" +
@@ -64,12 +61,10 @@ function verify(url, method) {
         },
         success: function (result) { // result la ket qua server tra ve
             console.log("Success");
-            console.log(result);
             if (result.data === false) window.location = "/login";
         },
         error: function (result) { // result la ket qua server tra ve
             console.log("Error");
-            console.log(result);
             if (result.data === false) window.location = "/login";
         }
     });

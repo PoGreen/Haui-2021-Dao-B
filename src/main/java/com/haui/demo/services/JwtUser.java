@@ -139,6 +139,7 @@ public class JwtUser extends JwtService {
 
         return credentialJwt.getId();
     }
+
     public User getUser(HttpServletRequest request) {
         UserJwt credentialJwt = (UserJwt) getClaims(request);
 
@@ -147,6 +148,7 @@ public class JwtUser extends JwtService {
 
         return userRepository.findById(credentialJwt.getId()).orElse(null);
     }
+
     public String generateJWT(UserJwt accountJwt) {
         String token = JWT.create()
                 .withIssuedAt(Date.from(Instant.now()))

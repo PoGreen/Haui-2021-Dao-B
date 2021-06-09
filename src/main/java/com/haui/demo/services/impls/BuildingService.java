@@ -4,6 +4,7 @@ import com.haui.demo.models.bos.Panigation;
 import com.haui.demo.models.bos.Response;
 import com.haui.demo.models.bos.SystemResponse;
 import com.haui.demo.models.entities.Building;
+import com.haui.demo.models.entities.BuildingCategory;
 import com.haui.demo.models.entities.User;
 import com.haui.demo.models.entities.Ward;
 import com.haui.demo.models.requests.BuildingFilter;
@@ -102,7 +103,10 @@ public class BuildingService implements IBuildingService {
         Paging<List<Building>> paging = this.filter(filter);
 
         List<BuildingRp> buildingRps = mapper.map(paging.getData());
-
+        for (BuildingRp buildingRp : buildingRps) {
+            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
+            buildingRp.setImageRp(image);
+        }
         Paging<List<BuildingRp>> pagingDTO = pagingService.mapPagingDTO(buildingRps, paging);
 
         return Response.ok(pagingDTO);
@@ -111,11 +115,14 @@ public class BuildingService implements IBuildingService {
     @Override
     public ResponseEntity<SystemResponse<Object>> userFilters(HttpServletRequest request, BuildingFilter filter) {
         User user = jwtUser.getUser(request);
+
+        if (user == null) return Response.ok();
+
         filter.setUser(user.getId());
         Paging<List<Building>> paging = this.filter(filter);
 
         List<BuildingRp> buildingRps = mapper.map(paging.getData());
-
+        buildingRps = mapper.mapRps(buildingRps);
         Paging<List<BuildingRp>> pagingDTO = pagingService.mapPagingDTO(buildingRps, paging);
 
         return Response.ok(pagingDTO);
@@ -126,12 +133,9 @@ public class BuildingService implements IBuildingService {
         User user = jwtUser.getUser(request);
 
         Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
-        Page<Building> buildings = buildingRepository.findByCreated_byAndStatusAndSaleRent(user.getId(), status, saleRent, pageable);
+        Page<Building> buildings = buildingRepository.findByCreatedByAndUserAndStatusAndSaleRent(user.getId(), user.getId(), status, saleRent, pageable);
         Page<BuildingRp> buildingRps = mapper.map(buildings);
-        for (BuildingRp buildingRp : buildingRps) {
-            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
-            buildingRp.setImageRp(image);
-        }
+        buildingRps = mapper.mapRps(buildingRps);
         return Response.ok(buildingRps);
     }
 
@@ -153,10 +157,7 @@ public class BuildingService implements IBuildingService {
         Pageable pageable = PageRequest.of(panigation.getPage() - 1, panigation.getLimit());
         Page<Building> buildings = buildingRepository.findByStatusAndBuildingCategoryStatus(Global.ACTIVE, Global.ACTIVE, pageable);
         Page<BuildingRp> buildingRps = mapper.map(buildings);
-        for (BuildingRp buildingRp : buildingRps) {
-            ImageRp image = imageService.loadBuildingsAvatarImages(buildingRp.getId());
-            buildingRp.setImageRp(image);
-        }
+        buildingRps = mapper.mapRps(buildingRps);
         return Response.ok(buildingRps);
     }
 
@@ -179,7 +180,7 @@ public class BuildingService implements IBuildingService {
 
         User user = jwtUser.getUser(request);
         if (user != null) {
-            building.setCreated_by(user.getId());
+            building.setCreatedBy(user.getId());
             building.setUser(user.getId());
         }
 
@@ -209,7 +210,7 @@ public class BuildingService implements IBuildingService {
             return Response.badRequest(StringResponse.USER_ID_FAKE);
         }
 
-        if (!building.getCreated_by().equals(user.getId())) {
+        if (!building.getCreatedBy().equals(user.getId())) {
             return Response.badRequest(StringResponse.USER_HAS_NOT_IT);
         }
 
@@ -224,7 +225,7 @@ public class BuildingService implements IBuildingService {
         }
         mapper.map(building, buildingRq);
         building.setStatus(Global.WAIT);
-        building.setUpdated_by(user.getId());
+        building.setUpdatedBy(user.getId());
 
         buildingRepository.save(building);
         imageRepository.deleteByBuilding(building.getId());

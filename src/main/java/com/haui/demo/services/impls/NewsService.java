@@ -110,7 +110,7 @@ public class NewsService implements INewsService {
 
         User user = jwtUser.getUser(request);
         if (!Objects.isNull(user)) {
-            news.setCreated_by(user.getId());
+            news.setCreatedBy(user.getId());
         }
         news.setStatus(Global.ACTIVE);
         newsRepository.save(news);
@@ -134,7 +134,7 @@ public class NewsService implements INewsService {
 
         User user = jwtUser.getUser(request);
         if (!Objects.isNull(user)) {
-            news.setUpdated_by(user.getId());
+            news.setUpdatedBy(user.getId());
         }
 
         news.setStatus(Global.ACTIVE);
@@ -154,7 +154,7 @@ public class NewsService implements INewsService {
         }
         User user = jwtUser.getUser(request);
         if (!Objects.isNull(user)) {
-            news.setUpdated_by(user.getId());
+            news.setUpdatedBy(user.getId());
         }
         if (statusRq.getStatus().equals(Global.ACTIVE)) {
             news.setStatus(Global.ACTIVE);
@@ -186,7 +186,7 @@ public class NewsService implements INewsService {
 
         User user = jwtUser.getUser(request);
         if (!Objects.isNull(user)) {
-            news.setUpdated_by(user.getId());
+            news.setUpdatedBy(user.getId());
         }
         news.setStatus(Global.NOACTIVE);
         newsRepository.save(news);

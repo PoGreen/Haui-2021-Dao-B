@@ -27,10 +27,10 @@ public abstract class AbsEntity {
     private Integer status;
 
     @Column
-    private String created_by;
+    private String createdBy;
 
     @Column
-    private String updated_by;
+    private String updatedBy;
 
     @PrePersist()
     public void onCreate() {
@@ -76,19 +76,19 @@ public abstract class AbsEntity {
         this.status = status;
     }
 
-    public String getCreated_by() {
-        return created_by;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreated_by(String created_by) {
-        this.created_by = created_by;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public String getUpdated_by() {
-        return updated_by;
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
-    public void setUpdated_by(String updated_by) {
-        this.updated_by = updated_by;
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }
